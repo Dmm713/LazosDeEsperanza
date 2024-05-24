@@ -1,6 +1,6 @@
 <?php 
 
-class ControladorOrganizacion{
+class ControladorOrganizaciones{
     public function ver(){
         //Creamos la conexión utilizando la clase que hemos creado
         $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
@@ -17,17 +17,28 @@ class ControladorOrganizacion{
     }
 
     public function inicio(){
+        
 
-        //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
 
-        //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-        $organizacion = $organizacionesDAO->getAll();
-        //Incluyo la vista
-        require 'app/vistas/inicio.php';
+         //Creamos la conexión utilizando la clase que hemos creado
+         $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+         $conn = $connexionDB->getConnexion();
+        
+         //Comprobamos la conexión
+         if(!$conn) {
+             echo "Error en la conexión a la base de datos";
+             die();
+         }
+    
+         //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
+         $organizacionesDAO = new OrganizacionesDAO($conn);
+        
+         //Obtenemos las organizaciones
+         $organizacion = $organizacionesDAO->getAll();
+         //Incluyo la vista
+         require 'app/vistas/inicio.php';
     }
+    
 
     public function borrar(){
         //Creamos la conexión utilizando la clase que hemos creado
@@ -50,7 +61,7 @@ class ControladorOrganizacion{
             guardarMensaje("No puedes borrar este mensaje");
         }
 
-        header('location: paginaPrincipa.php');
+        header('location: index.php');
     }
 
     public function editar(){
@@ -98,7 +109,7 @@ class ControladorOrganizacion{
                 $organizacion->setFoto($foto);
 
                 $organizacionesDAO->update($organizacion);
-                header('location: paginaPrincipal.php');
+                header('location: location: index.php');
                 die();
             }
 

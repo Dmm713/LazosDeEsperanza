@@ -8,7 +8,7 @@
 <body>
     <h1>Registro</h1>
     <?= $error ?>
-    <form action="index.php?accion=registrar" method="post" enctype="multipart/form-data">
+    <form action="index.php?accion=registrar" method="POST" enctype="multipart/form-data">
         Nombre: <input type="text" name="nombre"><br>
         Apellidos:<input type="text" name="apellidos"><br>
         Direccion: <input type="text" name="direccion"><br>

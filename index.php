@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 require_once 'app/config/config.php';
 require_once 'app/modelos/ConnexionDB.php';
 require_once 'app/modelos/Comunicacion.php';
@@ -18,19 +17,17 @@ require_once 'app/modelos/Sesion.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
 
-require_once 'app/controladores/ControladorOrganizaciones.php';
+require_once 'app/controladores/ControladorOrganicaciones.php';
 require_once 'app/controladores/ControladorUsuarios.php';
-require_once 'app/controladores/ControladorFavoritos.php';
 require_once 'app/utils/funciones.php';
 
 //Uso de variables de sesión
 session_start();
-
 //Mapa de enrutamiento
 $mapa = array(
-    // 'inicio'=>array("controlador"=>'ControladorMensajes',
-    //                 'metodo'=>'inicio',
-    //                 'privada'=>false),
+    'inicio'=>array("controlador"=>'ControladorOrganizaciones',
+                    'metodo'=>'inicio',
+                    'privada'=>false),
     'ver_mensaje'=>array("controlador"=>'ControladorMensajes',
                          'metodo'=>'ver', 
                          'privada'=>false),
@@ -50,8 +47,8 @@ $mapa = array(
                     'metodo'=>'logout', 
                     'privada'=>true),
     'registrar'=>array('controlador'=>'ControladorUsuarios', 
-                       'metodo'=>'registrar', 
-                       'privada'=>false),
+                    'metodo'=>'registrar', 
+                    'privada'=>false),
     'insertar_favorito'=>array('controlador'=>'ControladorFavoritos', 
                        'metodo'=>'insertar', 
                        'privada'=>false),                       

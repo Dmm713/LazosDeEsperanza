@@ -70,7 +70,7 @@ Class ControladorUsuarios{
                     $usuario->setSid(sha1(rand()+time()), true);
 
                     if($usuariosDAO->insert($usuario)){
-                        header("location: paginaPrincipal.php");
+                        header('location: index.php');
                         die();
                     }else{
                         $error = "No se ha podido insertar el usuario";
