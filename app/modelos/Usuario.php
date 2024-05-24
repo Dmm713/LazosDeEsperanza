@@ -11,7 +11,7 @@ class Usuario {
     private $rol;
     private $foto;
     private $sid;
-
+ 
 
     /**
      * Get the value of idUsuario

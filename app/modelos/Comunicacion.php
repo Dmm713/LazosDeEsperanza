@@ -1,6 +1,6 @@
 <?php 
 
-class Usuario {
+class Comunicacion {
     private $idComunicacion;
     private $idUsuarioEmisor;
     private $idUsuarioReceptor;

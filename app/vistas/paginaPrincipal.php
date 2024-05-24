@@ -23,7 +23,7 @@
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
                 <div class="col-auto">
-                    <img src="../../web/css/estilosPaginaPrincipal.css" alt="Lazos de Esperanza" class="logo">
+                    <img src="../../web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
                 </div>
                 
                 <!-- Texto del Header -->
@@ -34,7 +34,7 @@
                 <!-- Botones -->
                 <div class="col-auto">
                     <button class="sesion btn" style="background-color: white; color: #08929c;">Iniciar sesión</button>
-                    <button class="sesion principales btn" style="background-color: white; color: #08929c;">Registrar</button>
+                    <button class="sesion principales btn" style="background-color: white; color: #08929c;"><a href="index.php?accion=registrar">registrar</a></button>
                 </div>
             </div>
         </div>

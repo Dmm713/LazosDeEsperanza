@@ -18,7 +18,7 @@ require_once 'app/modelos/Sesion.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
 
-require_once 'app/controladores/ControladorMensajes.php';
+require_once 'app/controladores/ControladorOrganizaciones.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/controladores/ControladorFavoritos.php';
 require_once 'app/utils/funciones.php';
@@ -28,9 +28,9 @@ session_start();
 
 //Mapa de enrutamiento
 $mapa = array(
-    'inicio'=>array("controlador"=>'ControladorMensajes',
-                    'metodo'=>'inicio',
-                    'privada'=>false),
+    // 'inicio'=>array("controlador"=>'ControladorMensajes',
+    //                 'metodo'=>'inicio',
+    //                 'privada'=>false),
     'ver_mensaje'=>array("controlador"=>'ControladorMensajes',
                          'metodo'=>'ver', 
                          'privada'=>false),

@@ -1,6 +1,6 @@
 <?php 
 
-class Usuario {
+class Voluntario {
     private $idVoluntario;
     private $idProyecto;
     private $idUsuario;

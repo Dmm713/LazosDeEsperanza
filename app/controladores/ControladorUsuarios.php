@@ -10,6 +10,12 @@ Class ControladorUsuarios{
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
             $foto = '';
+            $nombre = '';
+            $apellidos = '';
+            $direccion = '';
+            $ciego = '';
+            $rol = '';
+
 
             //Validación 
 
@@ -51,15 +57,20 @@ Class ControladorUsuarios{
                     //Insertamos en la BD
 
                     $usuario = new Usuario();
+                    $usuario->setNombre($nombre);
+                    $usuario->setApellidos($apellidos);
+                    $usuario->setDireccion($direccion);
+                    $usuario->setCiego($ciego);
                     $usuario->setEmail($email);
                     //encriptamos el password
                     $passwordCifrado = password_hash($password,PASSWORD_DEFAULT);
                     $usuario->setPassword($passwordCifrado);
+                    $usuario->setRol($rol);
                     $usuario->setFoto($foto);
                     $usuario->setSid(sha1(rand()+time()), true);
 
                     if($usuariosDAO->insert($usuario)){
-                        header("location: index.php");
+                        header("location: paginaPrincipal.php");
                         die();
                     }else{
                         $error = "No se ha podido insertar el usuario";

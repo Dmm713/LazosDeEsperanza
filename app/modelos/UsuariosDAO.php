@@ -56,13 +56,13 @@ class UsuariosDAO {
         }
     } 
 
-    public function getById($id):Usuario|null {
-        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE id = ?"))
+    public function getById($idUsuario):Usuario|null {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE idUsuario = ?"))
         {
             echo "Error en la SQL: " . $this->conn->error;
         }
         //Asociar las variables a las interrogaciones(parámetros)
-        $stmt->bind_param('s',$id);
+        $stmt->bind_param('i',$idUsuario);
         //Ejecutamos la SQL
         $stmt->execute();
         //Obtener el objeto mysql_result
@@ -91,7 +91,7 @@ class UsuariosDAO {
         //Obtener el objeto mysql_result
         $result = $stmt->get_result();
 
-        $array_mensajes = array();
+        $array_usuarios = array();
         
         while($usuario = $result->fetch_object(Usuario::class)){
             $array_usuarios[] = $usuario;
@@ -105,14 +105,19 @@ class UsuariosDAO {
      * @return idUsuario Devuelve el id autonumérico que se le ha asignado al usuario o false en caso de error
      */
     function insert(Usuario $usuario): int|bool{
-        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (email, password, foto, sid) VALUES (?,?,?,?)")){
+        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, apellidos, direccion, ciego, email, password, rol, foto, sid) VALUES (?,?,?,?,?,?,?,?,?)")){
             die("Error al preparar la consulta insert: " . $this->conn->error );
         }
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $direccion = $usuario->getDireccion();
+        $ciego = $usuario->getCiego();
         $email = $usuario->getEmail();
         $password = $usuario->getPassword();
+        $rol = $usuario->getRol();
         $foto = $usuario->getFoto();
         $sid = $usuario->getSid();
-        $stmt->bind_param('ssss',$email, $password, $foto, $sid);
+        $stmt->bind_param('sssssssss',$nombre, $apellidos, $direccion, $ciego, $email, $password, $rol, $foto, $sid);
         if($stmt->execute()){
             return $stmt->insert_id;
         }

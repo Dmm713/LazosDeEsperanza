@@ -1,6 +1,6 @@
 <?php 
 
-class Usuario {
+class Organizacion {
     private $idOrganización;
     private $idUsuario;
     private $nombre;
@@ -10,6 +10,8 @@ class Usuario {
     private $email;
     private $password;
     private $direccion;
+    private $foto;
+    private $sid;
 
     /**
      * Get the value of idOrganización
@@ -143,6 +145,36 @@ class Usuario {
      */
     public function setDireccion($direccion): self {
         $this->direccion = $direccion;
+        return $this;
+    }
+
+    /**
+     * Get the value of sid
+     */
+    public function getSid() {
+        return $this->sid;
+    }
+
+    /**
+     * Set the value of sid
+     */
+    public function setSid($sid): self {
+        $this->sid = $sid;
+        return $this;
+    }
+
+    /**
+     * Get the value of foto
+     */
+    public function getFoto() {
+        return $this->foto;
+    }
+
+    /**
+     * Set the value of foto
+     */
+    public function setFoto($foto): self {
+        $this->foto = $foto;
         return $this;
     }
 }
