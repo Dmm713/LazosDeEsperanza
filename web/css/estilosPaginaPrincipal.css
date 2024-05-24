@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+}
+
+:root{
+    --color-esqueleto:#EFF3F5;
+}
+
+
+.cover{
+    width: 100%;
+    height: 500px;
+    background: var(--color-esqueleto);
+    margin-top: 20px;
+    display: flex;
+    /* justify-content: center; Mantiene los elementos hijos alineados al centro horizontalmente */
+    align-items: center; /* Mantiene los elementos hijos alineados al centro verticalmente */
+    flex-direction: column; /* Organiza los elementos hijos en una columna */
+    padding: 10px;
+}
+
+
+
+.container__article{
+    max-width: 1000px;
+    padding: 0px 20px;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container__article .box__article{
+    width: 200px;
+    height: 250px;
+    background: var(--color-esqueleto);
+    margin: 20px;
+}
+/*---------------------------------------Aquí debajo va el HEADER-----------------------------------------------------------------------*/
+header{
+    width: 100%;
+    height: 10%;
+    background-color: #00aab7;
+    
+    justify-content: space-between; /* Distribuye los elementos de manera uniforme */
+    align-items: center; /* Centra verticalmente */
+    padding: 0 20px; /* Agrega un espacio alrededor del contenido */
+}
+
+header h1{
+    text-align: center;
+    color: white;
+}
+
+.logo{
+    width: 150px;
+    height: auto; /* Para mantener la proporción de la imagen */
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+
+/*---------------------------------------ESTILOA DE BOTONES-----------------------------------------------------------------------*/
+
+
+.sesion {
+    
+    font-family: inherit;
+    display: inline-block;
+    width: 8em;
+    height: 2.6em;
+    line-height: 2.5em;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid ;
+    transition: color .5s;
+    z-index: 1;
+    font-size: 17px;
+    border-radius: 6px;
+    font-weight: 500;
+    
+   }
+   
+   .sesion:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: rgb(130, 255, 242);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+    color: white;
+   }
+   
+   .sesion:hover {
+    color: #fff;
+   }
+   
+   .sesion:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+   }
+   
+   .sesion:hover:before {
+    top: -30px;
+    left: -30px;
+   }
+   
+   .principales:hover{
+    color: white;
+   }
+   
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------Aquí debajo va el NAVBAR----------------------------------------------------------------------*/
+
+.navbar-nav > li > a {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+/* Ajustar el tamaño de la barra de navegación */
+.navbar {
+    height: 3%; 
+}
+
+ /* Estilo básico del navbar */
+ .navbar {
+    background-color: #008080; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para la profundidad */
+    font-family: 'Arial', sans-serif; 
+}
+
+/* Estilo de los ítems del navbar */
+.navbar-nav .nav-link {
+    color: aquamarine; /* Color del texto */
+    transition: color 0.3s; /* Transición suave al cambiar el color */
+}
+
+/* Cambia el color del ítem al pasar el ratón */
+.navbar-nav .nav-link:hover {
+    color: rgb(38, 211, 194); /* Color amarillo al pasar el ratón */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo ligero al pasar el ratón */
+}
+    
+
+/* Ajustar el padding de los ítems para una barra menos alta */
+.navbar-nav > li > a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+/* Ajustes responsivos para el toggler */
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1); /* Borde más sutil para el botón toggler */
+}
+
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------Aquí debajo va el FOOTER-----------------------------------------------------------------------*/
+
+footer{
+    width: 100%;
+    padding: 50px 0px;
+    background-image: url(../web/Images/fondoFooter.png);
+    background-size: cover;
+    
+    /*background-color: #d0f0f8;
+    -webkit-mask-image: url("../Images/background-footer.svg");
+    mask-image: url("../Images/background-footer.svg");
+    -webkit-mask-size: cover;
+    mask-size: cover;*/
+}
+
+.container__footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.box__footer{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.box__footer .logo img{
+    width: 180px;
+}
+
+.box__footer .terms{
+    max-width: 350px;
+    margin-top: 20px;
+    font-weight: 500;
+    color: white;
+    font-size: 18px;
+}
+
+.box__footer h2{
+    margin-bottom: 30px;
+    color: aquamarine;
+    font-weight: 700;
+}
+
+.box__footer a{
+    margin-top: 10px;
+    color: white;
+    font-weight: 600;
+}
+
+.box__footer a:hover{
+    opacity: 0.8;
+}
+
+.box__footer a .fab{
+    font-size: 20px;
+}
+
+.box__copyright{
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    padding: 0px 40px;
+}
+
+.box__copyright p{
+    margin-top: 20px;
+    color: white;
+}
+
+.box__copyright hr{
+    border: none;
+    height: 1px;
+    background-color: white;
+}
