@@ -34,7 +34,7 @@
                 <!-- Botones -->
                 <div class="col-auto">
                     <button class="sesion btn" style="background-color: white; color: #08929c;">Iniciar sesión</button>
-                    <button class="sesion principales btn" style="background-color: white; color: #08929c;"><a href="index.php?accion=registrar">registrar</a></button>
+                    <button class="sesion principales btn" style="background-color: white; color: #08929c;"><a href="../../index.php?accion=registrar">registrar</a></button>
 
                 </div>
             </div>

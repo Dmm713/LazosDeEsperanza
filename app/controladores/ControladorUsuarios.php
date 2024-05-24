@@ -8,13 +8,13 @@ Class ControladorUsuarios{
 
             //Limpiamos los datos
             $email = htmlentities($_POST['email']);
-            $password = htmlentities($_POST['password']);
+            $password = htmlentities($_POST['password']); //comprobar < si coincden contraseña si no quitar htmlentities
             $foto = '';
-            $nombre = '';
-            $apellidos = '';
-            $direccion = '';
-            $ciego = '';
-            $rol = '';
+            $nombre = htmlentities($_POST['nombre']);
+            $apellidos = htmlentities($_POST['apellidos']);
+            $direccion = htmlentities($_POST['direccion']);
+            $ciego = htmlentities($_POST['ciego']);
+            $rol = htmlentities($_POST['rol']);
 
 
             //Validación 
