@@ -177,8 +177,7 @@ vv
 footer{
     width: 100%;
     padding: 50px 0px;
-    background-image: url(../web/Images/fondoFooter.png);
-    background-size: cover;
+  
     
     /*background-color: #d0f0f8;
     -webkit-mask-image: url("../Images/background-footer.svg");

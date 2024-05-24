@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="../../web/css/estilosPaginaPrincipal.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <style>
+        footer{
+            background-image: url(../../web/Images/fondoFooter.png);
+    background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,7 +76,7 @@
                 <img src="../../web/Images/unicef.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="../../web/Images/Dia-Mundial-contra-el-Cancer (1).jpg" class="d-block w-100" alt="...">
+                <img src="../../web/Images/Dia-Mundial-contra-el-Cancer.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
                 <img src="../../web/Images/aedem.jpg" class="d-block w-100" alt="...">
