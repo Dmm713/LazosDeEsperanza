@@ -18,6 +18,7 @@ require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
 
 require_once 'app/controladores/ControladorOrganicaciones.php';
+require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/utils/funciones.php';
 
@@ -25,9 +26,12 @@ require_once 'app/utils/funciones.php';
 session_start();
 //Mapa de enrutamiento
 $mapa = array(
-    'inicio'=>array("controlador"=>'ControladorOrganizaciones',
+    'inicio'=>array("controlador"=>'ControladorGlobal',
                     'metodo'=>'inicio',
                     'privada'=>false),
+    'paginaPrincipal'=>array("controlador"=>'ControladorGlobal',
+                    'metodo'=>'paginaPrincipal',
+                    'privada'=>false),               
     'ver_mensaje'=>array("controlador"=>'ControladorMensajes',
                          'metodo'=>'ver', 
                          'privada'=>false),
@@ -62,7 +66,7 @@ $mapa = array(
 //Parseo de la ruta
 if(isset($_GET['accion'])){ //Compruebo si me han pasado una acción concreta, sino pongo la accción por defecto inicio
     if(isset($mapa[$_GET['accion']])){  //Compruebo si la accción existe en el mapa, sino muestro error 404
-        $accion = $_GET['accion']; 
+        $accion = $_GET['accion'];
     }
     else{
         //La acción no existe
@@ -107,4 +111,10 @@ $metodo = $mapa[$accion]['metodo'];
 
 //Ejecutamos el método de la clase controlador
 $objeto = new $controlador();
-$objeto->$metodo();
+
+if ($metodo === "paginaPrincipal") {
+    $controladorGlobal = new ControladorGlobal();
+    $controladorGlobal->$metodo($_POST['ciego']);
+} else {
+    $objeto->$metodo();
+}

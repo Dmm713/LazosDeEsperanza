@@ -21,12 +21,42 @@
   </header>
 
   <div class="contenedor-enlaces">
-    <a href="app/vistas/paginaPrincipal.php?accessibility=yes" id="parrafo2" class="parrafo">Sí</a>
-    <a href="app/vistas/paginaPrincipal.php?accessibility=no" id="parrafo3" class="parrafo">No</a>
+    <form action="index.php?accion=paginaPrincipal" method="POST" id="formularioCiego">
+      <div id="parrafo2" class="parrafo">
+          <h2>SI</h2>
+      </div>
+      <div id="parrafo3" class="parrafo">
+          <h2>NO</h2>
+      </div>
+    </form>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      var parrafo2 = document.getElementById('parrafo2');
+      var parrafo3 = document.getElementById('parrafo3');
+      var formulario = document.getElementById('formularioCiego');
+
+      parrafo2.addEventListener('click', function(){
+        var input = document.createElement('input');
+        input.name = 'ciego';
+        input.value = 'yes';
+        input.type = 'hidden';
+        formulario.appendChild(input);
+        formulario.submit();
+      })
+
+      parrafo3.addEventListener('click', function(){
+        var input = document.createElement('input');
+        input.name = 'ciego';
+        input.value = 'no';
+        input.type = 'hidden';
+        formulario.appendChild(input);
+        formulario.submit();
+      })
+
+
+
       var elementos = document.querySelectorAll(".parrafo");
 
       // Función para agregar eventos de mouse y teclado

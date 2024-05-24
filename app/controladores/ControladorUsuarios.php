@@ -70,7 +70,11 @@ Class ControladorUsuarios{
                     $usuario->setSid(sha1(rand()+time()), true);
 
                     if($usuariosDAO->insert($usuario)){
-                        header('location: index.php');
+                        if($ciego === "yes" ){
+                            header('location: app/vistas/paginaPrincipal.php?accessibility=yes');
+                        }else {
+                            header('location: app/vistas/paginaPrincipal.php?accessibility=no');
+                        }
                         die();
                     }else{
                         $error = "No se ha podido insertar el usuario";
