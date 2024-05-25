@@ -22,14 +22,17 @@
 
   <div class="contenedor-enlaces">
     <form action="index.php?accion=paginaPrincipal" method="POST" id="formularioCiego">
-      <div id="parrafo2" class="parrafo">
-          <h2>SI</h2>
-      </div>
-      <div id="parrafo3" class="parrafo">
-          <h2>NO</h2>
-      </div>
+        <div class="contenedor-parrafos">
+            <div id="parrafo2" class="parrafo boton" tabindex="0">
+                <h2>SI</h2>
+            </div>
+            <div id="parrafo3" class="parrafo boton" tabindex="0">
+                <h2>NO</h2>
+            </div>
+        </div>
     </form>
-  </div>
+</div>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
