@@ -34,7 +34,7 @@
                 <!-- Botones -->
                 <div class="col-auto">
                     <button class="sesion btn" style="background-color: white; color: #08929c;">Iniciar sesión</button>
-                    <button class="sesion principales btn" style="background-color: white; color: #08929c;"><a href="../../index.php?accion=registrar">registrar</a></button>
+                    <a id="linkRegistrar" href="../../index.php?accion=registrar"><button class="sesion principales btn" style="background-color: white; color: #08929c;">registrar</button></a>
 
                 </div>
             </div>
@@ -189,6 +189,18 @@
                 }
             }
         });
+
+
+   /** FUNCION PARA QUE SE PASE EL ACCESIBILITY  A REGISTRAR*/
+   document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessibility = urlParams.get('accessibility');
+        const registerLink = document.getElementById('linkRegistrar');
+        
+        if (accessibility) {
+            registerLink.href += '&accessibility=' + accessibility;
+        }
+    });     
     </script>
 </body>
 

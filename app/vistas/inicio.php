@@ -22,17 +22,16 @@
 
   <div class="contenedor-enlaces">
     <form action="index.php?accion=paginaPrincipal" method="POST" id="formularioCiego">
-        <div class="contenedor-parrafos">
-            <div id="parrafo2" class="parrafo boton" tabindex="0">
-                <h2>SI</h2>
-            </div>
-            <div id="parrafo3" class="parrafo boton" tabindex="0">
-                <h2>NO</h2>
-            </div>
+      <div class="contenedor-parrafos">
+        <div id="parrafo2" class="parrafo boton" tabindex="0">
+          <h2>SI</h2>
         </div>
+        <div id="parrafo3" class="parrafo boton" tabindex="0">
+          <h2>NO</h2>
+        </div>
+      </div>
     </form>
-</div>
-
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -43,22 +42,32 @@
       parrafo2.addEventListener('click', function(){
         var input = document.createElement('input');
         input.name = 'ciego';
-        input.value = 'yes';
+        input.value = 'SI';
         input.type = 'hidden';
         formulario.appendChild(input);
         formulario.submit();
-      })
+      });
 
       parrafo3.addEventListener('click', function(){
         var input = document.createElement('input');
         input.name = 'ciego';
-        input.value = 'no';
+        input.value = 'NO';
         input.type = 'hidden';
         formulario.appendChild(input);
         formulario.submit();
-      })
+      });
 
+      parrafo2.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          parrafo2.click();
+        }
+      });
 
+      parrafo3.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          parrafo3.click();
+        }
+      });
 
       var elementos = document.querySelectorAll(".parrafo");
 

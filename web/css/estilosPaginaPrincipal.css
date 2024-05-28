@@ -132,12 +132,12 @@ header h1{
     padding-bottom: 3px;
 }
 
-/* Ajustar el tamaño de la barra de navegación */
+
 .navbar {
     height: 3%; 
 }
 
- /* Estilo básico del navbar */
+
  .navbar {
     background-color: #008080; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para la profundidad */
@@ -152,8 +152,8 @@ header h1{
 
 /* Cambia el color del ítem al pasar el ratón */
 .navbar-nav .nav-link:hover {
-    color: rgb(38, 211, 194); /* Color amarillo al pasar el ratón */
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo ligero al pasar el ratón */
+    color: rgb(38, 211, 194); 
+    background-color: rgba(255, 255, 255, 0.1); 
 }
     
 

@@ -2,87 +2,64 @@
 
 Class ControladorUsuarios{
     public function registrar(){
-        $error='';
+        $error = '';
 
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-
-            //Limpiamos los datos
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Limpiamos los datos
             $email = htmlentities($_POST['email']);
-            $password = htmlentities($_POST['password']); //comprobar < si coincden contraseña si no quitar htmlentities
+            $password = htmlentities($_POST['password']);
             $foto = '';
             $nombre = htmlentities($_POST['nombre']);
             $apellidos = htmlentities($_POST['apellidos']);
             $direccion = htmlentities($_POST['direccion']);
             $ciego = htmlentities($_POST['ciego']);
             $rol = htmlentities($_POST['rol']);
+            $accessibility = htmlentities($_POST['accessibility']);
 
-
-            //Validación 
-
-            //Conectamos con la BD
-            $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+            // Validación y conexión con la BD
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
-            //Compruebo que no haya un usuario registrado con el mismo email
             $usuariosDAO = new UsuariosDAO($conn);
-            if($usuariosDAO->getByEmail($email) != null){
-            $error = "Ya hay un usuario con ese email";
-            }
-            else{
-
-            //Copiamos la foto al disco
-                if($_FILES['foto']['type'] != 'image/jpeg' &&
-                $_FILES['foto']['type'] != 'image/webp' &&
-                $_FILES['foto']['type'] != 'image/png')
-                {
-                    $error="la foto no tiene el formato admitido, debe ser jpg o webp";
-                }
-                else{
-                    //Calculamos un hash para el nombre del archivo
+            if ($usuariosDAO->getByEmail($email) != null) {
+                $error = "Ya hay un usuario con ese email";
+            } else {
+                if ($_FILES['foto']['type'] != 'image/jpeg' &&
+                    $_FILES['foto']['type'] != 'image/webp' &&
+                    $_FILES['foto']['type'] != 'image/png') {
+                    $error = "La foto no tiene el formato admitido, debe ser jpg o webp";
+                } else {
                     $foto = generarNombreArchivo($_FILES['foto']['name']);
-
-                    //Si existe un archivo con ese nombre volvemos a calcular el hash
-                    while(file_exists("web/fotosUsuarios/$foto")){
+                    while (file_exists("web/fotosUsuarios/$foto")) {
                         $foto = generarNombreArchivo($_FILES['foto']['name']);
                     }
-
-                    if(!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")){
+                    if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
                 }
-
-
-                if($error == '')    //Si no hay error
-                {
-                    //Insertamos en la BD
-
+                if ($error == '') {
                     $usuario = new Usuario();
                     $usuario->setNombre($nombre);
                     $usuario->setApellidos($apellidos);
                     $usuario->setDireccion($direccion);
                     $usuario->setCiego($ciego);
                     $usuario->setEmail($email);
-                    //encriptamos el password
-                    $passwordCifrado = password_hash($password,PASSWORD_DEFAULT);
+                    $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
                     $usuario->setPassword($passwordCifrado);
                     $usuario->setRol($rol);
                     $usuario->setFoto($foto);
-                    $usuario->setSid(sha1(rand()+time()), true);
+                    $usuario->setSid(sha1(rand() + time()), true);
 
-                    if($usuariosDAO->insert($usuario)){
-                        if($ciego === "yes" ){
-                            header('location: app/vistas/paginaPrincipal.php?accessibility=yes');
-                        }else {
-                            header('location: app/vistas/paginaPrincipal.php?accessibility=no');
-                        }
+                    if ($usuariosDAO->insert($usuario)) {
+                        $redirectUrl = 'app/vistas/paginaPrincipal.php?accessibility=' . ($accessibility === "SI" ? 'SI' : 'NO');
+                        header('location: ' . $redirectUrl);
                         die();
-                    }else{
+                    } else {
                         $error = "No se ha podido insertar el usuario";
                     }
                 }
             }
-    
-        }   //Acaba if($_SERVER['REQUEST_METHOD']=='POST'){...}
+        }
 
         require 'app/vistas/registrar.php';
 

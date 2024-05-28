@@ -24,6 +24,8 @@ require_once 'app/utils/funciones.php';
 
 //Uso de variables de sesión
 session_start();
+
+
 //Mapa de enrutamiento
 $mapa = array(
     'inicio'=>array("controlador"=>'ControladorGlobal',
@@ -31,6 +33,9 @@ $mapa = array(
                     'privada'=>false),
     'paginaPrincipal'=>array("controlador"=>'ControladorGlobal',
                     'metodo'=>'paginaPrincipal',
+                    'privada'=>false),    
+    'paginaPrincipalRegistrar'=>array("controlador"=>'ControladorGlobal',
+                    'metodo'=>'paginaPrincipalRegistrar',
                     'privada'=>false),               
     'ver_mensaje'=>array("controlador"=>'ControladorMensajes',
                          'metodo'=>'ver', 

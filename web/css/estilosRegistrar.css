@@ -41,14 +41,14 @@ input[type="submit"] {
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: #4caf50;
+    background-color:  rgb(38, 182, 167);
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
 
 input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #008080;
 }
 
 a {
@@ -56,11 +56,13 @@ a {
     text-align: center;
     margin-top: 10px;
     text-decoration: none;
-    color: #333;
+    color: white;
+    background-color:  rgb(38, 182, 167);
 }
 
 a:hover {
     text-decoration: underline;
+    background-color: #008080;
 }
 
 
@@ -95,7 +97,7 @@ html {
   }
   
   .content {
-    background-color:rgba(255,255,255,.8);
+    background-color:rgba(255, 255, 255, 0.8);
     border-radius:.25em;
     box-shadow:0 0 .25em rgba(0,0,0,.25);
     box-sizing:border-box;
@@ -104,6 +106,7 @@ html {
     position:fixed;
     top:50%;
     transform:translate(-50%, -50%);
+    height: 97%;
   }
   
   @keyframes slide {
