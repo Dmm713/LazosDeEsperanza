@@ -1,147 +1,111 @@
 <?php 
 
 class ControladorOrganizaciones{
-    public function ver(){
-        //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
-
-        //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-
-        //Obtener el mensaje
-        $idOrganicacion = htmlspecialchars($_GET['idOrganicacion']);
-        $organizacion = $organizacionesDAO->getById($idOrganicacion);
-
-        require 'app/vistas/ver_organizacion.php';
-    }    
-
-    public function borrar(){
-        //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
-
-        //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-
-        //Obtener el mensaje
-        $idOrganicacion = htmlspecialchars($_GET['idOrganicacion']);
-        $organizacion = $organizacionesDAO->getById($idOrganicacion);
-
-        //Comprobamos que mensaje pertenece al usuario conectado
-        if(Sesion::getUsuario()->getIdUsuario()==$organizacion->getIdUsuario()){
-            $organizacionesDAO->delete($idOrganicacion);
+    public function registrarOrganizacion() {
+        $error = '';
+        $accessibility = isset($_POST['accessibility']) ? $_POST['accessibility'] : (isset($_GET['accessibility']) ? $_GET['accessibility'] : 'NO');
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Limpiamos los datos
+            $nombre = htmlentities($_POST['nombre']);
+            $descripcion = htmlentities($_POST['descripcion']);
+            $sitioWeb = htmlentities($_POST['sitioWeb']);
+            $telefono = htmlentities($_POST['telefono']);
+            $email = htmlentities($_POST['email']);
+            $password = htmlentities($_POST['password']);
+            $direccion = htmlentities($_POST['direccion']);
+            $foto = '';            
+            $ciego = htmlentities($_POST['ciego']);
+            $rol = htmlentities($_POST['rol']);
+    
+            // Validación y conexión con la BD
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+    
+            $organizacionesDAO = new OrganizacionesDAO($conn);
+            if ($organizacionesDAO->getByEmail($email) != null) {
+                $error = "Ya hay una organización con ese email";
+            } else {
+                if ($_FILES['foto']['type'] != 'image/jpeg' &&
+                    $_FILES['foto']['type'] != 'image/webp' &&
+                    $_FILES['foto']['type'] != 'image/png') {
+                    $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                } else {
+                    $foto = generarNombreArchivo($_FILES['foto']['name']);
+                    while (file_exists("web/fotosUsuarios/$foto")) {
+                        $foto = generarNombreArchivo($_FILES['foto']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                        die("Error al copiar la foto a la carpeta fotosUsuarios");
+                    }
+                }
+                if ($error == '') {
+                    $organizacion = new Organizacion();
+                    $organizacion->setNombre($nombre);
+                    $organizacion->setDescripcion($descripcion);
+                    $organizacion->setSitioWeb($sitioWeb);
+                    $organizacion->setTelefono($telefono);
+                    $organizacion->setEmail($email);
+                    $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
+                    $organizacion->setPassword($passwordCifrado);
+                    $organizacion->setDireccion($direccion);
+                    $organizacion->setFoto($foto);
+                    $organizacion->setCiego($ciego);
+                    $organizacion->setRol($rol);
+                    $organizacion->setSid(sha1(rand() + time()), true);
+    
+                    if ($organizacionesDAO->insert($organizacion)) {
+                        $redirectUrl = 'app/vistas/paginaPrincipal.php?accessibility=' . ($accessibility === "SI" ? 'SI' : 'NO');
+                        header('location: ' . $redirectUrl);
+                        die();
+                    } else {
+                        $error = "No se ha podido insertar la organización";
+                    }
+                }
+            }
         }
-        else
-        {
-            guardarMensaje("No puedes borrar este mensaje");
-        }
+    
+        require 'app/vistas/registrar.php';
+    }
+    
+    
 
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Creamos la conexión utilizando la clase que hemos creado
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+
+            // Limpiamos los datos que vienen del usuario
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $accessibility = isset($_POST['accessibility']) ? htmlspecialchars($_POST['accessibility']) : 'NO';
+
+            // Validamos el usuario
+            $organizacionesDAO = new OrganizacionesDAO($conn);
+            if ($organizacion = $organizacionesDAO->getByEmail($email)) {
+                if (password_verify($password, $organizacion->getPassword())) {
+                    // email y password correctos. Iniciamos sesión
+                    Sesion::iniciarSesion($organizacion);
+
+                    // Creamos la cookie para que nos recuerde 1 semana
+                    setcookie('sid', $organizacion->getSid(), time() + 24 * 60 * 60, '/');
+                    
+                    // Redirigimos a paginaPrincipal.php con el parámetro de accesibilidad
+                    header('location: app/vistas/paginaPrincipal.php?accessibility=' . $accessibility);
+                    die();
+                }
+            }
+            // email o password incorrectos, redirigir a login.php con un mensaje de error
+            guardarMensaje("Email o password incorrectos");
+            header('location: app/vistas/login.php?accessibility=' . $accessibility);
+        }
+    }
+
+    public function logout(){
+        Sesion::cerrarSesion();
+        setcookie('sid','',0,'/');
         header('location: index.php');
     }
 
-    public function editar(){
-        $error ='';
-
-
-        //Conectamos con la bD
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
-
-        //Obtengo el id del mensaje que viene por GET
-        $idOrganicacion = htmlspecialchars($_GET['idOrganicacion']);
-        //Obtengo el mensaje de la BD
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-        $organizacion = $organizacionesDAO->getById($idOrganicacion);
-
-        //Obtenemos los usuarios de la BD para el desplegable
-        $usuariosDAO = new UsuariosDAO($conn);
-        $usuarios = $usuariosDAO->getAll();
-
-        //Cuando se envíe el formulario actualizo el mensaje en la BD
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-
-            //Limpiamos los datos que vienen del usuario
-            $nombre = htmlspecialchars($_POST['nombre']);
-            $descripcion = htmlspecialchars($_POST['descripcion']);
-            $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
-            $telefono = htmlspecialchars($_POST['telefono']);
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            $direccion = htmlspecialchars($_POST['direccion']);
-            $foto = htmlspecialchars($_POST['foto']);
-            //Validamos los datos
-            if(empty($titulo) || empty($texto)){
-                $error = "Los dos campos son obligatorios";
-            }
-            else{
-                $organizacion->setNombre($nombre);
-                $organizacion->setDescripcion($descripcion);
-                $organizacion->setSitioWeb($sitioWeb);
-                $organizacion->setTelefono($telefono);
-                $organizacion->setEmail($email);
-                $organizacion->setPassword($password);
-                $organizacion->setDireccion($direccion);
-                $organizacion->setFoto($foto);
-
-                $organizacionesDAO->update($organizacion);
-                header('location: location: index.php');
-                die();
-            }
-
-        } //if($_SERVER['REQUEST_METHOD']=='POST'){
-        
-            require 'app/vistas/editar_mensaje.php';
-    }
-
-    public function insertar(){
-        
-        $error ='';
-
-        //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
-
-        $usuariosDAO = new UsuariosDAO($conn);
-        $usuarios = $usuariosDAO->getAll();
-
-
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-
-            //Limpiamos los datos que vienen del usuario
-            $nombre = htmlspecialchars($_POST['nombre']);
-            $descripcion = htmlspecialchars($_POST['descripcion']);
-            $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
-            $telefono = htmlspecialchars($_POST['telefono']);
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            $direccion = htmlspecialchars($_POST['direccion']);
-            $foto = htmlspecialchars($_POST['foto']);
-            //$idUsuario = htmlspecialchars($_POST['idUsuario']);   //Solo necesario si queremos seleccionar usuario en el desplegable
-
-            //Validamos los datos
-            if(empty($titulo) || empty($texto)){
-                $error = "Los dos campos son obligatorios";
-            }
-            else{
-                //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
-                $organizacionesDAO = new OrganizacionesDAO($conn);
-                $organizacion = new Organizacion();
-                $organizacion->setNombre($nombre);
-                $organizacion->setDescripcion($descripcion);
-                $organizacion->setSitioWeb($sitioWeb);
-                $organizacion->setTelefono($telefono);
-                $organizacion->setEmail($email);
-                $organizacion->setPassword($password);
-                $organizacion->setDireccion($direccion);
-                $organizacion->setFoto($foto);
-                $organizacionesDAO->insert($organizacion);
-                header('location: index.php');
-                die();
-            }
-
-
-        }
-        require 'app/vistas/insertar_mensaje.php';
-    }
 }

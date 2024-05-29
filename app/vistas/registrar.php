@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="web/css/estilosRegistrar.css">
 </head>
 
@@ -13,44 +13,83 @@
     <div class="bg bg2"></div>
     <div class="bg bg3"></div>
     <div class="content">
-        <h1>Registro</h1>
-        <?= $error ?>
-        <form action="index.php?accion=registrar" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="accessibility" id="accessibility" value="<?= htmlentities($_GET['accessibility']) ?>">
-            <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" placeholder="Escriba su nombre" required>
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" name="apellidos" placeholder="Escriba sus apellidos" required>
-            <label for="direccion">Direccion:</label>
-            <input type="text" name="direccion" placeholder="Escriba su direccion" required>
-            <label for="ciego">Ciego:</label>
-            <select name="ciego" id="ciego">
-                <option value="SI">SI</option>
-                <option value="NO">NO</option>
-            </select>
-            <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="Escriba su email" required>
-            <label for="password">Contraseña:</label>
-            <input type="password" name="password" placeholder="Escriba su contraseña" required>
-            <label for="rol">Rol:</label>
-            <select name="rol" id="rol">
-                <option value="Usuario">Usuario</option>
-                <option value="Organizacion">Organizacion</option>
-            </select>
-            <label for="foto">Foto:</label>
-            <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png">
-            <input type="submit" value="registrar" tabindex="0">
+        <div class="form-container">
+        <div class="form-section">
+    <h1>Registro Usuario</h1>
+    <p style="color:red;"><?= htmlentities($error) ?></p>
+    <form action="index.php?accion=registrar" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="accessibility" id="accessibility" value="<?= htmlentities($accessibility) ?>">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" placeholder="Escriba su nombre" required>
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" name="apellidos" placeholder="Escriba sus apellidos" required>
+        <label for="direccion">Direccion:</label>
+        <input type="text" name="direccion" placeholder="Escriba su direccion" required>
+        <label for="ciego">Ciego:</label>
+        <select name="ciego" id="ciego">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+        </select>
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Escriba su email" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" placeholder="Escriba su contraseña" required>
+        <label for="rol">Rol:</label>
+        <select name="rol" id="rol">
+            <option value="Usuario">Usuario</option>
+            <option value="Organizacion">Organizacion</option>
+        </select>
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png">
+        <input type="submit" value="registrar" tabindex="0">
+    </form>
+</div>
+
+<div class="form-section">
+    <h1>Registro Organización</h1>
+    <p style="color:red;"><?= htmlentities($error) ?></p>
+    <form action="index.php?accion=registrarOrganizacion" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="accessibility" id="accessibility" value="<?= htmlentities($accessibility) ?>">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" placeholder="Escriba su nombre" required>
+        <label for="descripcion">Descripcion:</label>
+        <input type="text" name="descripcion" placeholder="Escriba sus descripcion" required>
+        <label for="sitioWeb">Sitio Web:</label>
+        <input type="text" name="sitioWeb" placeholder="Escriba su sitio web" required>
+        <label for="telefono">Telefono:</label>
+        <input type="text" name="telefono" placeholder="Escriba su telefono" required>
+        <label for="ciego">Ciego:</label>
+        <select name="ciego" id="ciego">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+        </select>
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Escriba su email" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" placeholder="Escriba su contraseña" required>
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" placeholder="Escriba sus direccion" required>
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png">
+        <label for="rol">Rol:</label>
+        <input type="text" name="rol" >
+        
+        <input type="submit" value="registrar" tabindex="0">
+    </form>
+</div>
+        </div>
+        <div class="volver-container">
             <a href="#" id="botonVolver">volver</a>
-        </form>
+        </div>
     </div>
 
     <script>
-         document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const accessibility = urlParams.get('accessibility');
 
         if (accessibility === 'SI') {
-            var elementos = document.querySelectorAll('h1, label, input[type="text"], input[type="email"], input[type="password"], input[type="submit"], input[type="file"] select, option, a');
+            var elementos = document.querySelectorAll('h1, label, input[type="text"], input[type="email"], input[type="password"], input[type="submit"], input[type="file"], select, option, a');
 
             function agregarEventos(elemento) {
                 elemento.addEventListener("mouseover", function (event) {
@@ -101,7 +140,7 @@
             botonVolver.href = 'index.php?accion=paginaPrincipalRegistrar';
         }
     });
-    </script>
+</script>
 </body>
 
 </html>

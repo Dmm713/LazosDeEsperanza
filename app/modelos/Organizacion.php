@@ -2,7 +2,6 @@
 
 class Organizacion {
     private $idOrganización;
-    private $idUsuario;
     private $nombre;
     private $descripcion;
     private $sitioWeb;
@@ -11,6 +10,8 @@ class Organizacion {
     private $password;
     private $direccion;
     private $foto;
+    private $ciego;
+    private $rol;
     private $sid;
 
     /**
@@ -25,21 +26,6 @@ class Organizacion {
      */
     public function setIdOrganización($idOrganización): self {
         $this->idOrganización = $idOrganización;
-        return $this;
-    }
-
-    /**
-     * Get the value of idUsuario
-     */
-    public function getIdUsuario() {
-        return $this->idUsuario;
-    }
-
-    /**
-     * Set the value of idUsuario
-     */
-    public function setIdUsuario($idUsuario): self {
-        $this->idUsuario = $idUsuario;
         return $this;
     }
 
@@ -175,6 +161,36 @@ class Organizacion {
      */
     public function setFoto($foto): self {
         $this->foto = $foto;
+        return $this;
+    }
+
+    /**
+     * Get the value of rol
+     */
+    public function getRol() {
+        return $this->rol;
+    }
+
+    /**
+     * Set the value of rol
+     */
+    public function setRol($rol): self {
+        $this->rol = $rol;
+        return $this;
+    }
+
+    /**
+     * Get the value of ciego
+     */
+    public function getCiego() {
+        return $this->ciego;
+    }
+
+    /**
+     * Set the value of ciego
+     */
+    public function setCiego($ciego): self {
+        $this->ciego = $ciego;
         return $this;
     }
 }

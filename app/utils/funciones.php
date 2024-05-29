@@ -9,8 +9,15 @@ function generarNombreArchivo(string $nombreOriginal):string {
     return $nuevoNombre.'.'.$extension;
 }
 
-function guardarMensaje($mensaje){
+function guardarMensaje2($mensaje){
     $_SESSION['error']=$mensaje;
+}
+
+function guardarMensaje($mensaje) {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $_SESSION['mensaje'] = $mensaje;
 }
 
 function imprimirMensaje(){

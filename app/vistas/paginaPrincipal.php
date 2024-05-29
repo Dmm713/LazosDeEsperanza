@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer - Design for MagtimusPro</title>
+    <title>Página Principal - Lazos de Esperanza</title>
     <link rel="stylesheet" href="../../web/css/estilosPaginaPrincipal.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <style>
-        footer{
+        footer {
             background-image: url(../../web/Images/fondoFooter.png);
-    background-size: cover;
+            background-size: cover;
         }
     </style>
 </head>
@@ -33,9 +33,8 @@
                 
                 <!-- Botones -->
                 <div class="col-auto">
-                    <button class="sesion btn" style="background-color: white; color: #08929c;">Iniciar sesión</button>
-                    <a id="linkRegistrar" href="../../index.php?accion=registrar"><button class="sesion principales btn" style="background-color: white; color: #08929c;">registrar</button></a>
-
+                    <a id="linkIniciarSesion" href="login.php?accessibility=<?php echo $accessibility; ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
+                    <a id="linkRegistrar" href="../../index.php?accion=registrar" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
                 </div>
             </div>
         </div>
@@ -190,17 +189,15 @@
             }
         });
 
-
-   /** FUNCION PARA QUE SE PASE EL ACCESIBILITY  A REGISTRAR*/
-   document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const accessibility = urlParams.get('accessibility');
-        const registerLink = document.getElementById('linkRegistrar');
-        
-        if (accessibility) {
-            registerLink.href += '&accessibility=' + accessibility;
-        }
-    });     
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const accessibility = urlParams.get('accessibility');
+            const registerLink = document.getElementById('linkRegistrar');
+            
+            if (accessibility) {
+                registerLink.href += '&accessibility=' + accessibility;
+            }
+        });
     </script>
 </body>
 

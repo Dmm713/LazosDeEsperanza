@@ -1,9 +1,10 @@
 <?php 
 
 Class ControladorUsuarios{
-    public function registrar(){
+    public function registrar() {
         $error = '';
-
+        $accessibility = isset($_POST['accessibility']) ? $_POST['accessibility'] : (isset($_GET['accessibility']) ? $_GET['accessibility'] : 'NO');
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Limpiamos los datos
             $email = htmlentities($_POST['email']);
@@ -14,12 +15,11 @@ Class ControladorUsuarios{
             $direccion = htmlentities($_POST['direccion']);
             $ciego = htmlentities($_POST['ciego']);
             $rol = htmlentities($_POST['rol']);
-            $accessibility = htmlentities($_POST['accessibility']);
-
+    
             // Validación y conexión con la BD
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-
+    
             $usuariosDAO = new UsuariosDAO($conn);
             if ($usuariosDAO->getByEmail($email) != null) {
                 $error = "Ya hay un usuario con ese email";
@@ -27,7 +27,7 @@ Class ControladorUsuarios{
                 if ($_FILES['foto']['type'] != 'image/jpeg' &&
                     $_FILES['foto']['type'] != 'image/webp' &&
                     $_FILES['foto']['type'] != 'image/png') {
-                    $error = "La foto no tiene el formato admitido, debe ser jpg o webp";
+                    $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
                 } else {
                     $foto = generarNombreArchivo($_FILES['foto']['name']);
                     while (file_exists("web/fotosUsuarios/$foto")) {
@@ -49,7 +49,7 @@ Class ControladorUsuarios{
                     $usuario->setRol($rol);
                     $usuario->setFoto($foto);
                     $usuario->setSid(sha1(rand() + time()), true);
-
+    
                     if ($usuariosDAO->insert($usuario)) {
                         $redirectUrl = 'app/vistas/paginaPrincipal.php?accessibility=' . ($accessibility === "SI" ? 'SI' : 'NO');
                         header('location: ' . $redirectUrl);
@@ -60,39 +60,42 @@ Class ControladorUsuarios{
                 }
             }
         }
-
+    
         require 'app/vistas/registrar.php';
+    }
+    
+    
 
-    }   // Acaba function registrar()
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Creamos la conexión utilizando la clase que hemos creado
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
 
-    public function login(){
-        //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
+            // Limpiamos los datos que vienen del usuario
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $accessibility = isset($_POST['accessibility']) ? htmlspecialchars($_POST['accessibility']) : 'NO';
 
-        //limpiamos los datos que vienen del usuario
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
+            // Validamos el usuario
+            $usuariosDAO = new UsuariosDAO($conn);
+            if ($usuario = $usuariosDAO->getByEmail($email)) {
+                if (password_verify($password, $usuario->getPassword())) {
+                    // email y password correctos. Iniciamos sesión
+                    Sesion::iniciarSesion($usuario);
 
-        //Validamos el usuario
-        $usuariosDAO = new UsuariosDAO($conn);
-        if($usuario = $usuariosDAO->getByEmail($email)){
-            if(password_verify($password, $usuario->getPassword()))
-            {
-                //email y password correctos. Inciamos sesión
-                Sesion::iniciarSesion($usuario);
-        
-                //Creamos la cookie para que nos recuerde 1 semana
-                setcookie('sid',$usuario->getSid(),time()+24*60*60,'/');
-                
-                //Redirigimos a index.php
-                header('location: index.php');
-                die();
+                    // Creamos la cookie para que nos recuerde 1 semana
+                    setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
+                    
+                    // Redirigimos a paginaPrincipal.php con el parámetro de accesibilidad
+                    header('location: app/vistas/paginaPrincipal.php?accessibility=' . $accessibility);
+                    die();
+                }
             }
+            // email o password incorrectos, redirigir a login.php con un mensaje de error
+            guardarMensaje("Email o password incorrectos");
+            header('location: app/vistas/login.php?accessibility=' . $accessibility);
         }
-        //email o password incorrectos, redirigir a index.php
-        guardarMensaje("Email o password incorrectos");
-        header('location: index.php');
     }
 
     public function logout(){
