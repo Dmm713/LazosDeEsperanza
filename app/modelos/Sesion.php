@@ -1,5 +1,6 @@
-<?php 
-class Sesion{
+<?php
+
+class Sesion {
     static public function getUsuario():Usuario|false{
         if(isset($_SESSION['usuario'])){
             return unserialize($_SESSION['usuario']); 
@@ -32,3 +33,4 @@ class Sesion{
  * Para obener una propiedad del usuario: Sesion::getUsuario()->getFoto()
  * Para comprobar si se ha iniciado sesión: if(Sesion::getUsuario())...
  */
+?>

@@ -25,16 +25,26 @@
                 <div class="col-auto">
                     <img src="../../web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
                 </div>
-                
+
                 <!-- Texto del Header -->
                 <div class="col text-center">
                     <h1>Enlaza Con Nosotros Tu Solidaridad</h1>
                 </div>
-                
+
                 <!-- Botones -->
                 <div class="col-auto">
-                    <a id="linkIniciarSesion" href="login.php?accessibility=<?php echo $accessibility; ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
-                    <a id="linkRegistrar" href="../../index.php?accion=registrar" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
+                    <?php if (Sesion::getUsuario()): ?>
+                        <img src="web/fotosUsuarios/<?= Sesion::getUsuario()->getFoto() ?>" class="fotoUsuario">
+                        <span class="emailUsuario"><?= Sesion::getUsuario()->getEmail() ?></span>
+                        <a href="index.php?accion=logout">cerrar sesión</a>
+                    <?php else : ?>
+                        <a id="linkIniciarSesion" href="login.php?accessibility=<?php echo $accessibility; ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
+                        <a id="linkRegistrar" href="../../index.php?accion=registrar" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
+                    <?php endif; ?>
+
+
+
+
                 </div>
             </div>
         </div>
@@ -64,7 +74,7 @@
             </div>
         </nav>
     </div>
-    
+
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -91,7 +101,7 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    
+
     <div class="">
         <div class="cover">
             <h1>ESTO ES EL PRIMER TROZO DEL BODY</h1>
@@ -108,7 +118,7 @@
             <div class="box__article"></div>
         </div>
     </div>
-    
+
     <footer>
         <div class="container__footer">
             <div class="box__footer">
@@ -150,27 +160,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const accessibility = urlParams.get('accessibility');
-            
+
             if (accessibility === 'yes') {
                 var elementos = document.querySelectorAll('h1, p, a, button');
 
                 function agregarEventos(elemento) {
-                    elemento.addEventListener("mouseover", function (event) {
+                    elemento.addEventListener("mouseover", function(event) {
                         hablarTexto(event.target.innerText);
                     });
 
-                    elemento.addEventListener("mouseout", function () {
+                    elemento.addEventListener("mouseout", function() {
                         detenerTexto();
                     });
 
-                    elemento.addEventListener("focus", function (event) {
+                    elemento.addEventListener("focus", function(event) {
                         hablarTexto(event.target.innerText);
                     });
 
-                    elemento.addEventListener("blur", function () {
+                    elemento.addEventListener("blur", function() {
                         detenerTexto();
                     });
                 }
@@ -189,11 +199,11 @@
             }
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const accessibility = urlParams.get('accessibility');
             const registerLink = document.getElementById('linkRegistrar');
-            
+
             if (accessibility) {
                 registerLink.href += '&accessibility=' + accessibility;
             }

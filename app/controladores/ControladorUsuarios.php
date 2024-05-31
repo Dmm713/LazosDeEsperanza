@@ -83,7 +83,6 @@ Class ControladorUsuarios{
                 if (password_verify($password, $usuario->getPassword())) {
                     // email y password correctos. Iniciamos sesión
                     Sesion::iniciarSesion($usuario);
-
                     // Creamos la cookie para que nos recuerde 1 semana
                     setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
                     

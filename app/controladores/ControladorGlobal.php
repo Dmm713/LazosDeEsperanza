@@ -10,6 +10,8 @@ class ControladorGlobal{
 
 
     public function paginaPrincipal($ciego){
+        include '../modelos/Sesion.php';
+
         if($ciego === "SI"){
             header('location: app/vistas/paginaPrincipal.php?accessibility=SI');
         }else {

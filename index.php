@@ -16,16 +16,12 @@ require_once 'app/modelos/ProyectosDAO.php';
 require_once 'app/modelos/Sesion.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
-
 require_once 'app/controladores/ControladorOrganicaciones.php';
 require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/utils/funciones.php';
-
 //Uso de variables de sesión
 session_start();
-
-
 //Mapa de enrutamiento
 $mapa = array(
     'inicio'=>array("controlador"=>'ControladorGlobal',
