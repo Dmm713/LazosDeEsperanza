@@ -18,7 +18,7 @@
     <h1>Registro Usuario</h1>
     <p style="color:red;"><?= htmlentities($error) ?></p>
     <form action="index.php?accion=registrar" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="accessibility" id="accessibility" value="<?= htmlentities($accessibility) ?>">
+        <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" placeholder="Escriba su nombre" required>
         <label for="apellidos">Apellidos:</label>
@@ -49,7 +49,7 @@
     <h1>Registro Organización</h1>
     <p style="color:red;"><?= htmlentities($error) ?></p>
     <form action="index.php?accion=registrarOrganizacion" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="accessibility" id="accessibility" value="<?= htmlentities($accessibility) ?>">
+        <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" placeholder="Escriba su nombre" required>
         <label for="descripcion">Descripcion:</label>
@@ -88,7 +88,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const accessibility = urlParams.get('accessibility');
 
-        if (accessibility === 'SI') {
+        if (accessibility === 'yes') {
             var elementos = document.querySelectorAll('h1, label, input[type="text"], input[type="email"], input[type="password"], input[type="submit"], input[type="file"], select, option, a');
 
             function agregarEventos(elemento) {

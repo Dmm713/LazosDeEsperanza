@@ -41,8 +41,8 @@
 
       parrafo2.addEventListener('click', function(){
         var input = document.createElement('input');
-        input.name = 'ciego';
-        input.value = 'SI';
+        input.name = 'accessibility';
+        input.value = 'yes';
         input.type = 'hidden';
         formulario.appendChild(input);
         formulario.submit();
@@ -50,8 +50,8 @@
 
       parrafo3.addEventListener('click', function(){
         var input = document.createElement('input');
-        input.name = 'ciego';
-        input.value = 'NO';
+        input.name = 'accessibility';
+        input.value = 'no';
         input.type = 'hidden';
         formulario.appendChild(input);
         formulario.submit();

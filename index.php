@@ -13,7 +13,6 @@ require_once 'app/modelos/Organizacion.php';
 require_once 'app/modelos/OrganizacionesDAO.php';
 require_once 'app/modelos/Proyecto.php';
 require_once 'app/modelos/ProyectosDAO.php';
-require_once 'app/modelos/Sesion.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
 require_once 'app/controladores/ControladorOrganicaciones.php';
@@ -48,6 +47,9 @@ $mapa = array(
     'login'=>array('controlador'=>'ControladorUsuarios', 
                    'metodo'=>'login', 
                    'privada'=>false),
+    'loginOrganizacion'=>array('controlador'=>'ControladorOrganizaciones', 
+                   'metodo'=>'loginOrganizacion', 
+                   'privada'=>false),
     'logout'=>array('controlador'=>'ControladorUsuarios', 
                     'metodo'=>'logout', 
                     'privada'=>true),
@@ -65,14 +67,34 @@ $mapa = array(
                        'privada'=>false),                                              
 );
 
-
+foreach ($mapa as $i => $valor) {
+    $mapa[$i . '&accessibility=yes'] = $valor;
+    $mapa[$i . '&accessibility=no'] = $valor;
+}
 
 //Parseo de la ruta
 if(isset($_GET['accion'])){ //Compruebo si me han pasado una acción concreta, sino pongo la accción por defecto inicio
     if(isset($mapa[$_GET['accion']])){  //Compruebo si la accción existe en el mapa, sino muestro error 404
+        if (isset($_POST['accessibility'])) {
+            $_SESSION['accessibility'] = $_POST['accessibility'];
+        }
+
         $accion = $_GET['accion'];
-    }
-    else{
+
+        if (str_contains($accion, '&accesibilty')) {
+            $partes = explode("&accessibility=", $accion);
+
+            if ($partes[1] === "yes") {
+                $_SESSION['accessibility'] = "yes";
+            } else {
+                $_SESSION['accessibility'] = "no";
+            }
+
+            $accion = $partes[0];
+        }
+
+        error_log("Acción: " . $accion);
+    } else {
         //La acción no existe
         header('Status: 404 Not found');
         echo 'Página no encontrada';
@@ -83,26 +105,35 @@ if(isset($_GET['accion'])){ //Compruebo si me han pasado una acción concreta, s
 }
 
 //Si existe la cookie y no ha iniciado sesión, le iniciamos sesión de forma automática
-//if( !isset($_SESSION['email']) && isset($_COOKIE['sid'])){
-if( !Sesion::existeSesion() && isset($_COOKIE['sid'])){
+if( !isset($_SESSION['email']) && isset($_COOKIE['sid'])){
+// if(!Sesion::existeSesion() && isset($_COOKIE['sid'])){
     //Conectamos con la bD
     $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
     $conn = $connexionDB->getConnexion();
     
     //Nos conectamos para obtener el id y la foto del usuario
     $usuariosDAO = new UsuariosDAO($conn);
+    $organizacionesDAO = new OrganizacionesDAO($conn);
     if($usuario = $usuariosDAO->getBySid($_COOKIE['sid'])){
-        //$_SESSION['email']=$usuario->getEmail();
-        //$_SESSION['id']=$usuario->getId();
-        //$_SESSION['foto']=$usuario->getFoto();
-        Sesion::iniciarSesion($usuario);
+        $_SESSION['email']=$usuario->getEmail();
+        $_SESSION['idUsuario']=$usuario->getIdUsuario();
+        $_SESSION['foto']=$usuario->getFoto();
+        $_SESSION['rol']=$usuario->getRol();
+        // Sesion::iniciarSesion($usuario);
     }
     
+    if($organizacion = $organizacionesDAO->getBySid($_COOKIE['sid'])){
+        $_SESSION['email']=$organizacion->getEmail();
+        $_SESSION['idOrganizacion']=$organizacion->getIdOrganización();
+        $_SESSION['foto']=$organizacion->getFoto();
+        $_SESSION['rol']=$organizacion->getRol();
+        // Sesion::iniciarSesion($usuario);
+    }
 }
 
 //Si la acción es privada compruebo que ha iniciado sesión, sino, lo echamos a index
-// if(!isset($_SESSION['email']) && $mapa[$accion]['privada']){
-if(!Sesion::existeSesion() && $mapa[$accion]['privada']){
+if(!isset($_SESSION['email']) && $mapa[$accion]['privada']){
+// if(!Sesion::existeSesion() && $mapa[$accion]['privada']){
     header('location: index.php');
     guardarMensaje("Debes iniciar sesión para acceder a $accion");
     die();
@@ -115,10 +146,5 @@ $metodo = $mapa[$accion]['metodo'];
 
 //Ejecutamos el método de la clase controlador
 $objeto = new $controlador();
-
-if ($metodo === "paginaPrincipal") {
-    $controladorGlobal = new ControladorGlobal();
-    $controladorGlobal->$metodo($_POST['ciego']);
-} else {
-    $objeto->$metodo();
-}
+$objeto->$metodo();
+?>

@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -33,18 +34,14 @@
 
                 <!-- Botones -->
                 <div class="col-auto">
-                    <?php if (Sesion::getUsuario()): ?>
-                        <img src="web/fotosUsuarios/<?= Sesion::getUsuario()->getFoto() ?>" class="fotoUsuario">
-                        <span class="emailUsuario"><?= Sesion::getUsuario()->getEmail() ?></span>
-                        <a href="index.php?accion=logout">cerrar sesión</a>
+                    <?php if (isset($_SESSION['email'])): ?>
+                        <img class="fotoUsuario" src="../../web/fotosUsuarios/<?= $_SESSION['foto'] ?>" class="fotoUsuario"><br>
+                        <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
+                        <a href="../../index.php?accion=logout">cerrar sesión</a>
                     <?php else : ?>
-                        <a id="linkIniciarSesion" href="login.php?accessibility=<?php echo $accessibility; ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
-                        <a id="linkRegistrar" href="../../index.php?accion=registrar" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
+                        <a id="linkIniciarSesion" href="../../index.php?accion=login&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
+                        <a id="linkRegistrar" href="../../index.php?accion=registrar&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
                     <?php endif; ?>
-
-
-
-
                 </div>
             </div>
         </div>
@@ -73,6 +70,16 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    <div>
+        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Usuario'):?>
+            <p>SOY UN USUARIO</p>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Organizacion') :?>
+                <p>SOY UNA ORGANIZACION</p>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') :?>
+            <p>SOY UN ADMIN</p>
+        <?php endif; ?>
     </div>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

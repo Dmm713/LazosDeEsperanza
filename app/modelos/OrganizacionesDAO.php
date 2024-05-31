@@ -105,7 +105,7 @@ class OrganizacionesDAO {
      * @return idOrganizacion Devuelve el id autonumérico que se le ha asignado al usuario o false en caso de error
      */
     function insert(Organizacion $organizacion): int|bool{
-        if(!$stmt = $this->conn->prepare("INSERT INTO organizaciones (nombre, descripcion, sitioWeb, telefono, email, password, direccion, foto, ciego, rol, sid) VALUES (?,?,?,?)")){
+        if(!$stmt = $this->conn->prepare("INSERT INTO organizaciones (nombre, descripcion, sitioWeb, telefono, email, password, direccion, foto, ciego, rol, sid) VALUES (?,?,?,?,?,?,?,?,?,?,?)")){
             die("Error al preparar la consulta insert: " . $this->conn->error );
         }
         $nombre = $organizacion->getNombre();

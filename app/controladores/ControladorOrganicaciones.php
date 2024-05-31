@@ -2,9 +2,7 @@
 
 class ControladorOrganizaciones{
     public function registrarOrganizacion() {
-        $error = '';
-        $accessibility = isset($_POST['accessibility']) ? $_POST['accessibility'] : (isset($_GET['accessibility']) ? $_GET['accessibility'] : 'NO');
-    
+        $error = '';   
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Limpiamos los datos
             $nombre = htmlentities($_POST['nombre']);
@@ -55,8 +53,7 @@ class ControladorOrganizaciones{
                     $organizacion->setSid(sha1(rand() + time()), true);
     
                     if ($organizacionesDAO->insert($organizacion)) {
-                        $redirectUrl = 'app/vistas/paginaPrincipal.php?accessibility=' . ($accessibility === "SI" ? 'SI' : 'NO');
-                        header('location: ' . $redirectUrl);
+                        header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();
                     } else {
                         $error = "No se ha podido insertar la organización";
@@ -70,7 +67,7 @@ class ControladorOrganizaciones{
     
     
 
-    public function login() {
+    public function loginOrganizacion() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Creamos la conexión utilizando la clase que hemos creado
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
@@ -79,33 +76,32 @@ class ControladorOrganizaciones{
             // Limpiamos los datos que vienen del usuario
             $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
-            $accessibility = isset($_POST['accessibility']) ? htmlspecialchars($_POST['accessibility']) : 'NO';
-
             // Validamos el usuario
             $organizacionesDAO = new OrganizacionesDAO($conn);
             if ($organizacion = $organizacionesDAO->getByEmail($email)) {
                 if (password_verify($password, $organizacion->getPassword())) {
-                    // email y password correctos. Iniciamos sesión
-                    Sesion::iniciarSesion($organizacion);
 
                     // Creamos la cookie para que nos recuerde 1 semana
                     setcookie('sid', $organizacion->getSid(), time() + 24 * 60 * 60, '/');
                     
                     // Redirigimos a paginaPrincipal.php con el parámetro de accesibilidad
-                    header('location: app/vistas/paginaPrincipal.php?accessibility=' . $accessibility);
+                    header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                     die();
                 }
             }
             // email o password incorrectos, redirigir a login.php con un mensaje de error
             guardarMensaje("Email o password incorrectos");
-            header('location: app/vistas/login.php?accessibility=' . $accessibility);
+            header('location: index.php?accion=loginOrganizacion&accessibility=' . $_SESSION['accessibility']);
         }
     }
 
     public function logout(){
-        Sesion::cerrarSesion();
+        unset($_SESSION['email']);
+        unset($_SESSION['idOrganizacion']);
+        unset($_SESSION['foto']);
+        unset($_SESSION['rol']);
         setcookie('sid','',0,'/');
-        header('location: index.php');
+        header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
     }
 
 }

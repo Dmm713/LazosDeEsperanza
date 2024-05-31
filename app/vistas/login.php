@@ -59,12 +59,11 @@
     </style>
 </head>
 <body>
-    <?php session_start(); ?>
-    <form class="login-form" method="POST" action="../../index.php?accion=login">
-        <h2>Inicio de Sesión</h2>
-        <?php if(isset($_SESSION['mensaje'])): ?>
+    <form class="login-form" method="POST" action="index.php?accion=login">
+        <h2>Iniciar Sesión Como Usuario</h2>
+        <?php if(isset($_SESSION['error'])): ?>
             <div class="error">
-                <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+                <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
             </div>
         <?php endif; ?>
         <div class="input-group">
@@ -75,9 +74,25 @@
             <label for="password">Contraseña</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <?php if(isset($_GET['accessibility'])): ?>
-            <input type="hidden" name="accessibility" value="<?php echo htmlspecialchars($_GET['accessibility']); ?>">
+        <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <form class="login-form" method="POST" action="index.php?accion=loginOrganizacion">
+        <h2>Iniciar Sesión Como Organizacion</h2>
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="error">
+                <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+            </div>
         <?php endif; ?>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
         <button type="submit">Iniciar Sesión</button>
     </form>
 </body>
