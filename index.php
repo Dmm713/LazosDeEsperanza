@@ -15,7 +15,7 @@ require_once 'app/modelos/Proyecto.php';
 require_once 'app/modelos/ProyectosDAO.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
-require_once 'app/controladores/ControladorOrganicaciones.php';
+require_once 'app/controladores/ControladorOrganizaciones.php';
 require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/utils/funciones.php';

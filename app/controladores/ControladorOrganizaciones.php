@@ -90,9 +90,9 @@ class ControladorOrganizaciones{
                 }
             }
             // email o password incorrectos, redirigir a login.php con un mensaje de error
-            guardarMensaje("Email o password incorrectos");
-            header('location: index.php?accion=loginOrganizacion&accessibility=' . $_SESSION['accessibility']);
+            guardarMensaje("Email o password incorrectos"); 
         }
+        require 'app/vistas/login.php';
     }
 
     public function logout(){

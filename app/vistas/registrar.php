@@ -24,7 +24,7 @@
         <label for="apellidos">Apellidos:</label>
         <input type="text" name="apellidos" placeholder="Escriba sus apellidos" required>
         <label for="direccion">Direccion:</label>
-        <input type="text" name="direccion" placeholder="Escriba su direccion" required>
+        <input type="text" name="direccion" placeholder="Escriba su dirección" required>
         <label for="ciego">Ciego:</label>
         <select name="ciego" id="ciego">
             <option value="SI">SI</option>
@@ -35,12 +35,9 @@
         <label for="password">Contraseña:</label>
         <input type="password" name="password" placeholder="Escriba su contraseña" required>
         <label for="rol">Rol:</label>
-        <select name="rol" id="rol">
-            <option value="Usuario">Usuario</option>
-            <option value="Organizacion">Organizacion</option>
-        </select>
+        <input type="text" name="rol"  value="Usuario" readonly>
         <label for="foto">Foto:</label>
-        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png">
+        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png" placeholder="inserte su foto de perfil">
         <input type="submit" value="registrar" tabindex="0">
     </form>
 </div>
@@ -53,7 +50,7 @@
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" placeholder="Escriba su nombre" required>
         <label for="descripcion">Descripcion:</label>
-        <input type="text" name="descripcion" placeholder="Escriba sus descripcion" required>
+        <input type="text" name="descripcion" placeholder="Escriba su descripción" required>
         <label for="sitioWeb">Sitio Web:</label>
         <input type="text" name="sitioWeb" placeholder="Escriba su sitio web" required>
         <label for="telefono">Telefono:</label>
@@ -68,11 +65,11 @@
         <label for="password">Contraseña:</label>
         <input type="password" name="password" placeholder="Escriba su contraseña" required>
         <label for="direccion">Dirección:</label>
-        <input type="text" name="direccion" placeholder="Escriba sus direccion" required>
+        <input type="text" name="direccion" placeholder="Escriba su dirección" required>
         <label for="foto">Foto:</label>
-        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png">
+        <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png" placeholder="inserte su foto de perfil">
         <label for="rol">Rol:</label>
-        <input type="text" name="rol" >
+        <input type="text" name="rol"  value="Organizacion" readonly>
         
         <input type="submit" value="registrar" tabindex="0">
     </form>

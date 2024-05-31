@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,6 +15,8 @@
             background-image: url(../../web/Images/fondoFooter.png);
             background-size: cover;
         }
+
+      
     </style>
 </head>
 
@@ -34,10 +36,14 @@
 
                 <!-- Botones -->
                 <div class="col-auto">
-                    <?php if (isset($_SESSION['email'])): ?>
-                        <img class="fotoUsuario" src="../../web/fotosUsuarios/<?= $_SESSION['foto'] ?>" class="fotoUsuario"><br>
-                        <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
-                        <a href="../../index.php?accion=logout">cerrar sesión</a>
+                    <?php if (isset($_SESSION['email'])) : ?>
+                        <div class="user-container">
+                            <div class="user-info">
+                                <img class="fotoUsuario" src="../../web/fotosUsuarios/<?= $_SESSION['foto'] ?>" alt="Foto de usuario"><br>
+                                <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
+                            </div>
+                            <a id="linkRegistrar" href="../../index.php?accion=logout" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Cerrar Sesión</a>
+                        </div>
                     <?php else : ?>
                         <a id="linkIniciarSesion" href="../../index.php?accion=login&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
                         <a id="linkRegistrar" href="../../index.php?accion=registrar&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
@@ -73,12 +79,72 @@
     </div>
 
     <div>
-        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Usuario'):?>
-            <p>SOY UN USUARIO</p>
-        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Organizacion') :?>
-                <p>SOY UNA ORGANIZACION</p>
-        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') :?>
-            <p>SOY UN ADMIN</p>
+        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Usuario') : ?>
+            <nav class="navbar navbar-expand-lg navbarAbajo">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav w-100 justify-content-around">
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Eventos</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mi Perfil</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'Organizacion') : ?>
+            <nav class="navbar navbar-expand-lg navbarAbajo">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav w-100 justify-content-around">
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Mi Perfil</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mis Eventos</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mis Proyectos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') : ?>
+            <nav class="navbar navbar-expand-lg navbarAbajo">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav w-100 justify-content-around">
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Usuarios</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Organizaciones</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Eventos</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         <?php endif; ?>
     </div>
 
@@ -101,11 +167,11 @@
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">Imagen Anterior</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">Siguiente Imagen</span>
         </button>
     </div>
 

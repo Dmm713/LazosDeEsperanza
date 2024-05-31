@@ -74,6 +74,22 @@ header h1{
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    margin-top: 10px;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sesion {
+    background-color: white;
+    color: #08929c;
 }
 
 /*---------------------------------------ESTILOs DE BOTONES-----------------------------------------------------------------------*/
@@ -157,7 +173,7 @@ header h1{
 
 /* Cambia el color del ítem al pasar el ratón */
 .navbar-nav .nav-link:hover {
-    color: rgb(38, 211, 194); 
+    color: white;
     background-color: rgba(255, 255, 255, 0.1); 
 }
     
@@ -167,14 +183,28 @@ header h1{
     padding-top: 8px;
     padding-bottom: 8px;
 }
-vv
+
 /* Ajustes responsivos para el toggler */
 .navbar-toggler {
     border-color: rgba(255, 255, 255, 0.1); /* Borde más sutil para el botón toggler */
 }
 
+.navbarAbajo{
+    height: 40px; 
+    background-color: rgb(1, 73, 73); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para la profundidad */
+    font-family: 'Arial', sans-serif; 
+}
 
+.navbarLink{
+    color: #008080; /* Color del texto */
+    transition: color 0.3s; /* Transición suave al cambiar el color */
+}
 
+.navbarLink:hover{
+    color: rgb(38, 211, 194); 
+    background-color: rgba(255, 255, 255, 0.1); 
+}
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------Aquí debajo va el FOOTER-----------------------------------------------------------------------*/

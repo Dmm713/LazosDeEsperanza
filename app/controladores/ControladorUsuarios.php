@@ -91,7 +91,7 @@ Class ControladorUsuarios{
             }
             // email o password incorrectos, redirigir a login.php con un mensaje de error
             guardarMensaje("Email o password incorrectos");
-            header('location: index.php?accion=login&accessibility=' . $_SESSION['accessibility']);
+            
         }
 
         require 'app/vistas/login.php';
