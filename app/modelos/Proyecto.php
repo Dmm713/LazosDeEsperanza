@@ -2,7 +2,7 @@
 
 class Proyecto {
     private $idProyecto;
-    private $idOrganización;
+    private $idOrganizacion;
     private $titulo;
     private $descripcion;
     private $fechaInicio;
@@ -27,15 +27,15 @@ class Proyecto {
     /**
      * Get the value of idOrganización
      */
-    public function getIdOrganización() {
-        return $this->idOrganización;
+    public function getIdOrganizacion() {
+        return $this->idOrganizacion;
     }
 
     /**
      * Set the value of idOrganización
      */
-    public function setIdOrganización($idOrganización): self {
-        $this->idOrganización = $idOrganización;
+    public function setIdOrganizacion($idOrganizacion): self {
+        $this->idOrganizacion = $idOrganizacion;
         return $this;
     }
 

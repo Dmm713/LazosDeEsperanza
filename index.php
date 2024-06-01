@@ -124,7 +124,7 @@ if( !isset($_SESSION['email']) && isset($_COOKIE['sid'])){
     
     if($organizacion = $organizacionesDAO->getBySid($_COOKIE['sid'])){
         $_SESSION['email']=$organizacion->getEmail();
-        $_SESSION['idOrganizacion']=$organizacion->getIdOrganización();
+        $_SESSION['idOrganizacion']=$organizacion->getIdOrganizacion();
         $_SESSION['foto']=$organizacion->getFoto();
         $_SESSION['rol']=$organizacion->getRol();
         // Sesion::iniciarSesion($usuario);

@@ -85,8 +85,7 @@ class ControladorOrganizaciones{
                     setcookie('sid', $organizacion->getSid(), time() + 24 * 60 * 60, '/');
                     
                     // Redirigimos a paginaPrincipal.php con el parámetro de accesibilidad
-                    header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
-                    die();
+                    require 'app/vistas/paginaPrincipal.php';
                 }
             }
             // email o password incorrectos, redirigir a login.php con un mensaje de error
@@ -101,7 +100,7 @@ class ControladorOrganizaciones{
         unset($_SESSION['foto']);
         unset($_SESSION['rol']);
         setcookie('sid','',0,'/');
-        header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
+        require 'app/vistas/paginaPrincipal.php';
     }
 
 }

@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal - Lazos de Esperanza</title>
-    <link rel="stylesheet" href="../../web/css/estilosPaginaPrincipal.css">
+    <link rel="stylesheet" href="web/css/estilosPaginaPrincipal.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <style>
         footer {
-            background-image: url(../../web/Images/fondoFooter.png);
+            background-image: url(web/Images/fondoFooter.png);
             background-size: cover;
         }
     </style>
@@ -24,7 +23,7 @@
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
                 <div class="col-auto">
-                    <img src="../../web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
+                    <img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
                 </div>
 
                 <!-- Texto del Header -->
@@ -37,14 +36,14 @@
                     <?php if (isset($_SESSION['email'])) : ?>
                         <div class="user-container">
                             <div class="user-info">
-                                <img class="fotoUsuario" src="../../web/fotosUsuarios/<?= $_SESSION['foto'] ?>" alt="Foto de usuario"><br>
+                                <img class="fotoUsuario" src="web/fotosUsuarios/<?= $_SESSION['foto'] ?>" alt="Foto de usuario"><br>
                                 <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
                             </div>
-                            <a id="linkRegistrar" href="../../index.php?accion=logout" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Cerrar Sesión</a>
+                            <a id="linkRegistrar" href="index.php?accion=logout" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Cerrar Sesión</a>
                         </div>
                     <?php else : ?>
-                        <a id="linkIniciarSesion" href="../../index.php?accion=login&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
-                        <a id="linkRegistrar" href="../../index.php?accion=registrar&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
+                        <a id="linkIniciarSesion" href="index.php?accion=login&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
+                        <a id="linkRegistrar" href="index.php?accion=registrar&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -154,13 +153,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="3000">
-                <img src="../../web/Images/unicef.jpg" class="d-block w-100" alt="...">
+                <img src="web/Images/unicef.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="../../web/Images/Dia-Mundial-contra-el-Cancer.png" class="d-block w-100" alt="...">
+                <img src="web/Images/Dia-Mundial-contra-el-Cancer.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="../../web/Images/aedem.jpg" class="d-block w-100" alt="...">
+                <img src="web/Images/aedem.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -176,30 +175,37 @@
     <div class="">
 
 
-    <div class="container">
-        <h2>Organizaciones</h2>
-        <div class="row">
-                <?php foreach ($organizaciones as $organizacion): ?>
+        <div class="container">
+            <h2>Organizaciones</h2>
+            <div class="row">
+                <?php foreach ($organizaciones as $organizacion) : ?>
                     <div class="col-md-4">
-                        <h3><?= htmlspecialchars($organizacion->getNombre()) ?></h3>
-                        <p><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
+                        <div class="card" style="width: 18rem;">
+                            <img src="web/fotosUsuarios/<?= htmlspecialchars($organizacion->getFoto()) ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= htmlspecialchars($organizacion->getNombre()) ?></h5>
+                                <p class="card-text"><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
+                                <a href="<?= htmlspecialchars($organizacion->getSitioWeb())?>"><?= htmlspecialchars($organizacion->getSitioWeb())?></a>
+                                <a href="inicio.php?<?= htmlspecialchars($organizacion->getIdOrganizacion())?> " class="btn btn-primary">Ver Mas</a>
+                            </div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
         </div>
-    </div>
 
 
-    <div class="container">
-        <h2>Usuarios</h2>
-        <div class="row">
-                <?php foreach ($usuarios as $usuario): ?>
+        <div class="container">
+            <h2>Usuarios</h2>
+            <div class="row">
+                <?php foreach ($usuarios as $usuario) : ?>
                     <div class="col-md-4">
                         <h3><?= htmlspecialchars($usuario->getNombre()) ?></h3>
                         <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
                     </div>
                 <?php endforeach; ?>
+            </div>
         </div>
-    </div>
 
         <div class="cover">
             <h1>ESTO ES EL PRIMER TROZO DEL BODY</h1>
@@ -221,7 +227,7 @@
         <div class="container__footer">
             <div class="box__footer">
                 <div class="logo">
-                    <img src="../../web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza">
+                    <img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza">
                 </div>
                 <div class="terms">
                     <p>Únete a "Lazos de Esperanza", una plataforma innovadora que transforma cómo interactúan las ONGs, voluntarios y beneficiarios. Con herramientas avanzadas y un fuerte enfoque en la accesibilidad, facilitamos que todos, sin importar sus habilidades, contribuyan a un cambio social significativo. ¡Tu lazo comienza aquí!</p>
@@ -260,8 +266,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const accessibility = urlParams.get('accessibility');
-
+            const accessibility = "<?php echo $_SESSION['accessibility'] ?>"
+            console.log(accessibility)
             if (accessibility === 'yes') {
                 var elementos = document.querySelectorAll('h1, p, a, button');
 

@@ -1,7 +1,7 @@
 <?php 
 
 class Organizacion {
-    private $idOrganización;
+    private $idOrganizacion;
     private $nombre;
     private $descripcion;
     private $sitioWeb;
@@ -17,15 +17,15 @@ class Organizacion {
     /**
      * Get the value of idOrganización
      */
-    public function getIdOrganización() {
-        return $this->idOrganización;
+    public function getIdOrganizacion() {
+        return $this->idOrganizacion;
     }
 
     /**
      * Set the value of idOrganización
      */
-    public function setIdOrganización($idOrganización): self {
-        $this->idOrganización = $idOrganización;
+    public function setIdOrganizacion($idOrganizacion): self {
+        $this->idOrganizacion = $idOrganizacion;
         return $this;
     }
 

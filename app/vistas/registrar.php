@@ -51,7 +51,7 @@
         <input type="text" name="nombre" placeholder="Escriba su nombre" required>
         <label for="descripcion">Descripcion:</label>
         <input type="text" name="descripcion" placeholder="Escriba su descripción" required>
-        <label for="sitioWeb">Sitio Web:</label>
+        <label for="sitioWeb">Sitio Web: (https://www.ejemplo.com)</label>
         <input type="text" name="sitioWeb" placeholder="Escriba su sitio web" required>
         <label for="telefono">Telefono:</label>
         <input type="text" name="telefono" placeholder="Escriba su telefono" required>
