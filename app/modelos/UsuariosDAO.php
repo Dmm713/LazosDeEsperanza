@@ -81,7 +81,7 @@ class UsuariosDAO {
     /**
      * Obtiene todos los usuarios de la tabla mensajes
      */
-    public function getAll():array {
+    public function getAllUsuarios():array {
         if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios"))
         {
             echo "Error en la SQL: " . $this->conn->error;

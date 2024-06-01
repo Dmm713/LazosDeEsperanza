@@ -15,8 +15,6 @@
             background-image: url(../../web/Images/fondoFooter.png);
             background-size: cover;
         }
-
-      
     </style>
 </head>
 
@@ -176,6 +174,33 @@
     </div>
 
     <div class="">
+
+
+    <div class="container">
+        <h2>Organizaciones</h2>
+        <div class="row">
+                <?php foreach ($organizaciones as $organizacion): ?>
+                    <div class="col-md-4">
+                        <h3><?= htmlspecialchars($organizacion->getNombre()) ?></h3>
+                        <p><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
+                    </div>
+                <?php endforeach; ?>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>Usuarios</h2>
+        <div class="row">
+                <?php foreach ($usuarios as $usuario): ?>
+                    <div class="col-md-4">
+                        <h3><?= htmlspecialchars($usuario->getNombre()) ?></h3>
+                        <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
+                    </div>
+                <?php endforeach; ?>
+        </div>
+    </div>
+
         <div class="cover">
             <h1>ESTO ES EL PRIMER TROZO DEL BODY</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, rem. Ex sed nulla quidem non id excepturi molestias libero, officiis suscipit! Quisquam porro harum magni laborum quibusdam dolores minima possimus?</p>
