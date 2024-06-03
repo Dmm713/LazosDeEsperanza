@@ -135,5 +135,49 @@ Class ControladorUsuarios{
         header('location: index.php?accion=verTodosLosUsuarios');     
     }
 
+    public function editarUsuario(){
+        $error ='';
 
+
+        //Conectamos con la bD
+        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        //Obtengo el id del mensaje que viene por GET
+        $idUsuario = htmlspecialchars($_GET['idUsuario']);
+        //Obtengo el mensaje de la BD
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuario = $usuariosDAO->getById($idUsuario);
+
+        //Cuando se envíe el formulario actualizo el mensaje en la BD
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+
+            //Limpiamos los datos que vienen del usuario
+            $nombre = htmlspecialchars($_POST['titulo']);
+            $apellidos = htmlspecialchars($_POST['texto']);
+            $direccion = htmlspecialchars($_POST['idUsuario']);
+            $ciego = htmlspecialchars($_POST['ciego']);
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $rol = htmlspecialchars($_POST['rol']);
+            $foto = htmlspecialchars($_POST['foto']);
+
+            //Validamos los datos
+            if(empty($titulo) || empty($texto)){
+                $error = "Los dos campos son obligatorios";
+            }
+            else{
+                $mensaje->setTitulo($titulo);
+                $mensaje->setTexto($texto);
+                $mensaje->setIdUsuario($idUsuario);
+
+                $mensajeDAO->update($mensaje);
+                header('location: index.php');
+                die();
+            }
+
+        } //if($_SERVER['REQUEST_METHOD']=='POST'){
+        
+            require 'app/vistas/editar_mensaje.php';
+    }
 }
