@@ -9,15 +9,50 @@ body {
     background-color: #f8f9fa;
 }
 
+/*-------------------------------------ESTILOS HEADER------------------------------------------------------------------------------------------------*/
+header {
+    width: 100%;
+    background-color: #00aab7;
+    padding: 10px 20px; /* Agrega un espacio alrededor del contenido */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* Para posicionar el logo correctamente */
+}
+
+.logo-container {
+    position: absolute;
+    left: 20px; /* Ajusta la posición del logo según sea necesario */
+}
+
+.title-container {
+    flex-grow: 1;
+    text-align: center;
+    color: white;
+}
+
+.new-user-container {
+    position: absolute;
+    right: 20px; /* Ajusta la posición del botón según sea necesario */
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+.logo {
+    width: 150px;
+    height: auto; /* Para mantener la proporción de la imagen */
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------*/
 .container {
     margin-top: 20px;
     padding: 20px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
 }
 
 .row {
@@ -86,6 +121,26 @@ p {
     transform: scale(1.05);
 }
 
+.return-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.return-container .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.return-container .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
 @media (max-width: 768px) {
     .col-md-4 {
         width: 100%;
@@ -101,5 +156,14 @@ p {
         width: 100%;
         text-align: center;
         margin: 5px 0;
+    }
+
+    .return-container {
+        text-align: center;
+    }
+
+    .new-user-container {
+        position: static;
+        margin-top: 10px;
     }
 }

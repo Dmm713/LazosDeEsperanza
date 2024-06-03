@@ -127,37 +127,43 @@ class UsuariosDAO {
     }
 
 
-    function borrarUsuario($idUsuario):bool{
+    function borrarUsuario($idUsuario):string|null {
+        // Obtener el nombre del archivo de la foto
+        $foto = null;
+        if ($usuario = $this->getById($idUsuario)) {
+            $foto = $usuario->getFoto();
+        }
 
-        if(!$stmt = $this->conn->prepare("DELETE FROM usuarios WHERE idUsuario = ?"))
-        {
+        if(!$stmt = $this->conn->prepare("DELETE FROM usuarios WHERE idUsuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
         }
         //Asociar las variables a las interrogaciones(parámetros)
-        $stmt->bind_param('i',$idUsuario);
+        $stmt->bind_param('i', $idUsuario);
         //Ejecutamos la SQL
         $stmt->execute();
         //Comprobamos si ha borrado algún registro o no
-        if($stmt->affected_rows==1){
-            return true;
+        if($stmt->affected_rows == 1) {
+            return $foto;
+        } else {
+            return null;
         }
-        else{
-            return false;
-        }
-        
     }
 
-    function update($mensaje){
-        if(!$stmt = $this->conn->prepare("UPDATE usuarios SET titulo=?, texto=?, idUsuario=? WHERE idUsuario=?")){
+    public function update($usuario, $fotoAntigua = null){
+        if(!$stmt = $this->conn->prepare("UPDATE usuarios SET nombre=?, apellidos=?, direccion=?, ciego=?, rol=?, foto=? WHERE idUsuario=?")){
             die("Error al preparar la consulta update: " . $this->conn->error );
         }
-        $titulo = $mensaje->getTitulo();
-        $texto = $mensaje->getTexto();
-        $idUsuario = $mensaje->getIdUsuario();
-        $id = $mensaje->getId();
-        $stmt->bind_param('ssii',$titulo, $texto, $idUsuario,$id);
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $direccion = $usuario->getDireccion();
+        $ciego = $usuario->getCiego();
+        $rol = $usuario->getRol();
+        $foto = $usuario->getFoto();
+        $idUsuario = $usuario->getIdUsuario();
+        $stmt->bind_param('ssssssi', $nombre, $apellidos, $direccion, $ciego, $rol, $foto, $idUsuario);
         return $stmt->execute();
     }
+    
 
 }
 ?>
