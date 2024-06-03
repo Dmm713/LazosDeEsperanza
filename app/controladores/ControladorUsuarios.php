@@ -106,4 +106,15 @@ Class ControladorUsuarios{
         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
     }
 
+    public function verTodosLosUsuarios(){
+          // Conectar a la base de datos
+          $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+          $conn = $connexionDB->getConnexion();
+
+          $usuariosDAO = new UsuariosDAO($conn);
+          $usuarios = $usuariosDAO->getAllUsuarios();
+         
+     //Incluyo la vista
+     require 'app/vistas/todosLosUsuarios.php';
+    }
 }

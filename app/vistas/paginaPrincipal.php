@@ -127,7 +127,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Usuarios</a>
+                                <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=verTodosLosUsuarios" style="text-align: center;">Usuarios</a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;">Organizaciones</a>
@@ -177,22 +177,23 @@
 
         <div class="container">
             <h2>Organizaciones</h2>
-            <div class="row">
+            <div class="row card-container">
                 <?php foreach ($organizaciones as $organizacion) : ?>
-                    <div class="col-md-4">
+                    <div class="col-md-4 d-flex">
                         <div class="card" style="width: 18rem;">
                             <img src="web/fotosUsuarios/<?= htmlspecialchars($organizacion->getFoto()) ?>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($organizacion->getNombre()) ?></h5>
                                 <p class="card-text"><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
-                                <a href="<?= htmlspecialchars($organizacion->getSitioWeb())?>"><?= htmlspecialchars($organizacion->getSitioWeb())?></a>
-                                <a href="inicio.php?<?= htmlspecialchars($organizacion->getIdOrganizacion())?> " class="btn btn-primary">Ver Mas</a>
+                                <a href="<?= htmlspecialchars($organizacion->getSitioWeb()) ?>" style="color: #3280d3; text-decoration: underline; text-align: center;" ><?= htmlspecialchars($organizacion->getSitioWeb()) ?></a>
+                                <a href="inicio.php?<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?> " class="btn btn-primary">Ver Mas</a>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
+
 
 
         <div class="container">
