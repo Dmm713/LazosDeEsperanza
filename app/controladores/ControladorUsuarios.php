@@ -163,15 +163,20 @@ Class ControladorUsuarios{
             $foto = htmlspecialchars($_POST['foto']);
 
             //Validamos los datos
-            if(empty($titulo) || empty($texto)){
+            if(empty($nombre) || empty($apellidos) || empty($direccion) || empty($ciego) || empty($email) || empty($password) || empty($rol) || empty($foto)){
                 $error = "Los dos campos son obligatorios";
             }
             else{
-                $mensaje->setTitulo($titulo);
-                $mensaje->setTexto($texto);
-                $mensaje->setIdUsuario($idUsuario);
+                $usuario->setNombre($nombre);
+                $usuario->setApellidos($apellidos);
+                $usuario->setDireccion($direccion);
+                $usuario->setCiego($ciego);
+                $usuario->setEmail($email);
+                $usuario->setPassword($password);
+                $usuario->setRol($rol);
+                $usuario->setFoto($foto);
 
-                $mensajeDAO->update($mensaje);
+                $usuariosDAO->update($usuario);
                 header('location: index.php');
                 die();
             }

@@ -147,7 +147,17 @@ class UsuariosDAO {
         
     }
 
-
+    function update($mensaje){
+        if(!$stmt = $this->conn->prepare("UPDATE usuarios SET titulo=?, texto=?, idUsuario=? WHERE idUsuario=?")){
+            die("Error al preparar la consulta update: " . $this->conn->error );
+        }
+        $titulo = $mensaje->getTitulo();
+        $texto = $mensaje->getTexto();
+        $idUsuario = $mensaje->getIdUsuario();
+        $id = $mensaje->getId();
+        $stmt->bind_param('ssii',$titulo, $texto, $idUsuario,$id);
+        return $stmt->execute();
+    }
 
 }
 ?>
