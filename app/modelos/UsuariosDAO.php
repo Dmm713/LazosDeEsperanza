@@ -125,5 +125,29 @@ class UsuariosDAO {
             return false;
         }
     }
+
+
+    function borrarUsuario($idUsuario):bool{
+
+        if(!$stmt = $this->conn->prepare("DELETE FROM usuarios WHERE idUsuario = ?"))
+        {
+            echo "Error en la SQL: " . $this->conn->error;
+        }
+        //Asociar las variables a las interrogaciones(parámetros)
+        $stmt->bind_param('i',$idUsuario);
+        //Ejecutamos la SQL
+        $stmt->execute();
+        //Comprobamos si ha borrado algún registro o no
+        if($stmt->affected_rows==1){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+
+
+
 }
 ?>

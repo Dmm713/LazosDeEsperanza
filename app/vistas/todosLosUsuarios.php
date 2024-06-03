@@ -20,7 +20,7 @@
                         <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
                         <div class="btn-group">
                             <a href="inicio.php?<?= htmlspecialchars($usuario->getIdUsuario()) ?> " class="btn btn-primary">Editar</a>
-                            <a href="inicio.php? " class="btn btn-primary">Borrar</a>
+                            <a href="index.php?accion=borrarUsuario&idUsuario=<?=$usuario->getIdUsuario()?>" class="btn btn-primary">Borrar</a>
                         </div>
                     </div>
                 </div>

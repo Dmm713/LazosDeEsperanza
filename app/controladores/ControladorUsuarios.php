@@ -117,4 +117,23 @@ Class ControladorUsuarios{
      //Incluyo la vista
      require 'app/vistas/todosLosUsuarios.php';
     }
+    
+    public function borrarUsuario(){
+        //Creamos la conexión utilizando la clase que hemos creado
+        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        //Creamos el objeto MensajesDAO para acceder a BBDD a través de este objeto
+        $usuariosDAO = new UsuariosDAO($conn);
+
+        //Obtener el mensaje
+        $idUsuario = htmlspecialchars($_GET['idUsuario']);
+        $usuario = $usuariosDAO->getById($idUsuario);
+
+        $usuariosDAO->borrarUsuario($idUsuario);
+      
+        header('location: index.php?accion=verTodosLosUsuarios');     
+    }
+
+
 }
