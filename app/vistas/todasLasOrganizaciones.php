@@ -17,27 +17,27 @@
             </div>
             <!-- Texto del Header -->
             <div class="title-container">
-                <h1>TODOS LOS USUARIOS</h1>
+                <h1>TODAS LAS ORGANIZACIONES</h1>
             </div>
             <!-- Botón para insertar un nuevo usuario -->
             <div class="new-user-container">
-                <a href="index.php?accion=insertarUsuario" class="btn btn-primary">Insertar Nuevo Usuario</a>
+                <a href="index.php?accion=insertarUsuario" class="btn btn-primary">Insertar Nueva Organización</a>
             </div>
         </div>
     </div>
 </header>
 <div class="container">
     <div class="row">
-        <?php foreach ($usuarios as $usuario) : ?>
+        <?php foreach ($organizaciones as $organizacion) : ?>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="web/fotosUsuarios/<?= htmlspecialchars($usuario->getFoto()) ?>" class="card-img-top" alt="...">
+                    <img src="web/fotosUsuarios/<?= htmlspecialchars($organizacion->getFoto()) ?>" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h3><?= htmlspecialchars($usuario->getNombre()) ?></h3>
-                        <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
+                        <h3><?= htmlspecialchars($organizacion->getNombre()) ?></h3>
+                        <p><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                         <div class="btn-group">
-                            <a href="index.php?accion=editarUsuario&idUsuario=<?=$usuario->getIdUsuario()?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="index.php?accion=borrarUsuario&idUsuario=<?=$usuario->getIdUsuario()?>" class="btn btn-primary"><i class="fa-solid fa-trash-can" style="color: red;;"></i></a>
+                            <a href="index.php?accion=editarOrganizacion&idOranizacion=<?=$organizacion->getIdUsuario()?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="index.php?accion=borrarOrganizacion&idOrganizacion=<?=$organizacion->getIdUsuario()?>" class="btn btn-primary"><i class="fa-solid fa-trash-can" style="color: red;;"></i></a>
                         </div>
                     </div>
                 </div>
