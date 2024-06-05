@@ -81,7 +81,7 @@ class OrganizacionesDAO {
     /**
      * Obtiene todos los usuarios de la tabla mensajes
      */
-    public function getAll():array {
+    public function getAllOrganizaciones():array {
         if(!$stmt = $this->conn->prepare("SELECT * FROM organizaciones"))
         {
             echo "Error en la SQL: " . $this->conn->error;
@@ -129,22 +129,26 @@ class OrganizacionesDAO {
     }
 
 
-    function update($mensaje){
-        if(!$stmt = $this->conn->prepare("UPDATE organizaciones SET titulo=?, texto=?, idUsuario=? WHERE id=?")){
+    public function update($usuario, $fotoAntigua = null){
+        if(!$stmt = $this->conn->prepare("UPDATE organizaciones SET nombre=?, descripcion=?, sitioWeb=?, ciego=?, rol=?, foto=? WHERE idUsuario=?")){
             die("Error al preparar la consulta update: " . $this->conn->error );
         }
-        $titulo = $mensaje->getTitulo();
-        $texto = $mensaje->getTexto();
-        $idUsuario = $mensaje->getIdUsuario();
-        $id = $mensaje->getId();
-        $stmt->bind_param('ssii',$titulo, $texto, $idUsuario,$id);
+        $nombre = $usuario->getNombre();
+        $apellidos = $usuario->getApellidos();
+        $direccion = $usuario->getDireccion();
+        $ciego = $usuario->getCiego();
+        $rol = $usuario->getRol();
+        $foto = $usuario->getFoto();
+        $idUsuario = $usuario->getIdUsuario();
+        $stmt->bind_param('ssssssi', $nombre, $apellidos, $direccion, $ciego, $rol, $foto, $idUsuario);
         return $stmt->execute();
     }
+    
 
 
-    function delete($id):bool{
+    function borrarOrganizacion($id):bool{
 
-        if(!$stmt = $this->conn->prepare("DELETE FROM mensajes WHERE id = ?"))
+        if(!$stmt = $this->conn->prepare("DELETE FROM organizaciones WHERE idOrganizacion = ?"))
         {
             echo "Error en la SQL: " . $this->conn->error;
         }
@@ -161,6 +165,6 @@ class OrganizacionesDAO {
         }
         
     }
-
+ 
 }
 ?>

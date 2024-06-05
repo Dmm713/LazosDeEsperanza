@@ -216,7 +216,7 @@ Class ControladorUsuarios{
         require 'app/vistas/editarUsuario.php';
     }
     
-    
+     
     
 
     public function subirFotoAjax() {

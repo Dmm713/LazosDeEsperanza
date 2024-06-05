@@ -130,7 +130,7 @@
                                 <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=verTodosLosUsuarios" style="text-align: center;">Usuarios</a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Organizaciones</a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verTodasLasOrganizaciones" style="text-align: center;">Organizaciones</a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;">Eventos</a>

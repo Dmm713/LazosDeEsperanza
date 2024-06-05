@@ -9,7 +9,7 @@ class ControladorGlobal{
               
               // Obtener todas las organizaciones
               $organizacionesDAO = new OrganizacionesDAO($conn);
-              $organizaciones = $organizacionesDAO->getAll();
+              $organizaciones = $organizacionesDAO->getAllOrganizaciones();
 
               $usuariosDAO = new UsuariosDAO($conn);
               $usuarios = $usuariosDAO->getAllUsuarios();
@@ -27,7 +27,7 @@ class ControladorGlobal{
          // Obtener todas las organizaciones
          $organizacionesDAO = new OrganizacionesDAO($conn);
 
-         $organizaciones = $organizacionesDAO->getAll();
+         $organizaciones = $organizacionesDAO->getAllOrganizaciones();
 
          $usuariosDAO = new UsuariosDAO($conn);
          $usuarios = $usuariosDAO->getAllUsuarios();
@@ -42,7 +42,7 @@ class ControladorGlobal{
          
          // Obtener todas las organizaciones
          $organizacionesDAO = new OrganizacionesDAO($conn);
-         $organizaciones = $organizacionesDAO->getAll();
+         $organizaciones = $organizacionesDAO->getAllOrganizaciones();
 
         $usuariosDAO = new UsuariosDAO($conn);
         $usuarios = $usuariosDAO->getAllUsuarios();
