@@ -129,18 +129,20 @@ class OrganizacionesDAO {
     }
 
 
-    public function update($usuario, $fotoAntigua = null){
-        if(!$stmt = $this->conn->prepare("UPDATE organizaciones SET nombre=?, descripcion=?, sitioWeb=?, ciego=?, rol=?, foto=? WHERE idUsuario=?")){
+    public function update($organizacion, $fotoAntigua = null){
+        if(!$stmt = $this->conn->prepare("UPDATE organizaciones SET nombre=?, descripcion=?, sitioWeb=?, telefono=?, direccion=?, foto=?, ciego=?, rol=? WHERE idOrganizacion=?")){
             die("Error al preparar la consulta update: " . $this->conn->error );
         }
-        $nombre = $usuario->getNombre();
-        $apellidos = $usuario->getApellidos();
-        $direccion = $usuario->getDireccion();
-        $ciego = $usuario->getCiego();
-        $rol = $usuario->getRol();
-        $foto = $usuario->getFoto();
-        $idUsuario = $usuario->getIdUsuario();
-        $stmt->bind_param('ssssssi', $nombre, $apellidos, $direccion, $ciego, $rol, $foto, $idUsuario);
+        $nombre = $organizacion->getNombre();
+        $descripcion = $organizacion->getDescripcion();
+        $sitioWeb = $organizacion->getSitioWeb();
+        $telefono = $organizacion->getTelefono();
+        $direccion = $organizacion->getDireccion();
+        $foto = $organizacion->getFoto();
+        $ciego = $organizacion->getCiego();
+        $rol = $organizacion->getRol();
+        $idOrganizacion = $organizacion->getIdOrganizacion();
+        $stmt->bind_param('ssssssssi', $nombre, $descripcion, $sitioWeb, $telefono, $direccion, $foto, $ciego, $rol, $idOrganizacion);
         return $stmt->execute();
     }
     

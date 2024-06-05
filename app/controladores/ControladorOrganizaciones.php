@@ -146,111 +146,126 @@ class ControladorOrganizaciones{
   }
   
   public function editarOrganizacion(){
-      $error = '';
-  
-      //Conectamos con la BD
-      $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-      $conn = $connexionDB->getConnexion();
-  
-      //Obtengo el id del usuario que viene por GET
-      $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
-      //Obtengo el usuario de la BD
-      $organizacionesDAO = new OrganizacionesDAO($conn);
-      $organizacion = $organizacionesDAO->getById($idOrganizacion);
-  
-      // Guardar el nombre de la foto antigua
-      $fotoAntigua = $organizacion->getFoto();
-  
-      //Cuando se envíe el formulario actualizo el usuario en la BD
-      if($_SERVER['REQUEST_METHOD']=='POST'){
-          //Limpiamos los datos que vienen del usuario
-          $nombre = htmlspecialchars($_POST['nombre']);
-          $descripcion = htmlspecialchars($_POST['descripcion']);
-          $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
-          $telefono = htmlspecialchars($_POST['telefono']);
-          $direccion = htmlspecialchars($_POST['direccion']);
-          $ciego = htmlspecialchars($_POST['ciego']);
-          $rol = htmlspecialchars($_POST['rol']);
-  
-          //Validamos los datos
-          if(empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol)){
-              $error = "Todos los campos son obligatorios";
-          } else {
-              $organizacion->setNombre($nombre);
-              $organizacion->setDescripcion($descripcion);
-              $organizacion->setSitioWeb($sitioWeb);
-              $organizacion->setTelefono($telefono);
-              $organizacion->setDireccion($direccion);
-              $organizacion->setCiego($ciego);
-              $organizacion->setRol($rol);
-  
-              // Manejar la subida de la nueva foto
-              if (!empty($_FILES['foto']['name'])) {
-                  if ($_FILES['foto']['type'] != 'image/jpeg' &&
-                      $_FILES['foto']['type'] != 'image/webp' &&
-                      $_FILES['foto']['type'] != 'image/png') {
-                      $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
-                  } else {
-                      $foto = generarNombreArchivo($_FILES['foto']['name']);
-                      while (file_exists("web/fotosUsuarios/$foto")) {
-                          $foto = generarNombreArchivo($_FILES['foto']['name']);
-                      }
-                      if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
-                          die("Error al copiar la foto a la carpeta fotosUsuarios");
-                      }
-                      // Actualizar la foto solo si se ha subido una nueva
-                      $organizacion->setFoto($foto);
-                  }
-              }
-  
-              if ($error == '') {
-                  if ($organizacionesDAO->update($organizacion)) {
-                      // Borrar la foto antigua si se subió una nueva
-                      if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
-                          unlink("web/fotosUsuarios/$fotoAntigua");
-                      }
-                      header('location: index.php?accion=verTodasLasOrganizaciones');
-                      die();
-                  } else {
-                      $error = "No se ha podido actualizar la organización";
-                  }
-              }
-          }
-      }
-      require 'app/vistas/editarOrganizacion.php';
-  }
+    $error = '';
+
+    //Conectamos con la BD
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
+
+    //Obtengo el id del usuario que viene por GET
+    $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
+    //Obtengo el usuario de la BD
+    $organizacionesDAO = new OrganizacionesDAO($conn);
+    $organizacion = $organizacionesDAO->getById($idOrganizacion);
+
+    // Guardar el nombre de la foto antigua
+    $fotoAntigua = $organizacion->getFoto();
+
+    //Cuando se envíe el formulario actualizo el usuario en la BD
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        //Limpiamos los datos que vienen del usuario
+        $nombre = htmlspecialchars($_POST['nombre']);
+        $descripcion = htmlspecialchars($_POST['descripcion']);
+        $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
+        $telefono = htmlspecialchars($_POST['telefono']);
+        $direccion = htmlspecialchars($_POST['direccion']);
+        $ciego = htmlspecialchars($_POST['ciego']);
+        $rol = htmlspecialchars($_POST['rol']);
+        $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
+
+        //Validamos los datos
+        if(empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol)){
+            $error = "Todos los campos son obligatorios";
+        } else {
+            $organizacion->setNombre($nombre);
+            $organizacion->setDescripcion($descripcion);
+            $organizacion->setSitioWeb($sitioWeb);
+            $organizacion->setTelefono($telefono);
+            $organizacion->setDireccion($direccion);
+            $organizacion->setCiego($ciego);
+            $organizacion->setRol($rol);
+
+            // Manejar la subida de la nueva foto
+            if (!empty($_FILES['foto']['name'])) {
+                if ($_FILES['foto']['type'] != 'image/jpeg' &&
+                    $_FILES['foto']['type'] != 'image/webp' &&
+                    $_FILES['foto']['type'] != 'image/png') {
+                    $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                } else {
+                    $foto = generarNombreArchivo($_FILES['foto']['name']);
+                    while (file_exists("web/fotosUsuarios/$foto")) {
+                        $foto = generarNombreArchivo($_FILES['foto']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                        die("Error al copiar la foto a la carpeta fotosUsuarios");
+                    }
+                    // Actualizar la foto solo si se ha subido una nueva
+                    $organizacion->setFoto($foto);
+                }
+            } elseif (!empty($fotoTemporal)) {
+                // Si no se subió una nueva foto pero hay una foto temporal
+                $foto = str_replace("temp_", "", $fotoTemporal); // Renombrar foto temporal a definitiva
+                rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
+                $organizacion->setFoto($foto);
+            }
+
+            if ($error == '') {
+                if ($organizacionesDAO->update($organizacion)) {
+                    // Borrar la foto antigua si se subió una nueva
+                    if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
+                        unlink("web/fotosUsuarios/$fotoAntigua");
+                    }
+
+                    // Borrar cualquier foto temporal remanente
+                    if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
+                        unlink("web/fotosUsuarios/$fotoTemporal");
+                    }
+
+                    header('location: index.php?accion=verTodasLasOrganizaciones');
+                    die();
+                } else {
+                    $error = "No se ha podido actualizar la organización";
+                }
+            }
+        }
+    }
+    require 'app/vistas/editarOrganizacion.php';
+}
+
+
   
    
   
 
-  public function subirFotoAjax() {
-      $response = ['error' => '', 'foto' => ''];
-  
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          if (isset($_FILES['foto'])) {
-              if ($_FILES['foto']['type'] != 'image/jpeg' &&
-                  $_FILES['foto']['type'] != 'image/webp' &&
-                  $_FILES['foto']['type'] != 'image/png') {
-                  $response['error'] = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
-              } else {
-                  $foto = generarNombreArchivo($_FILES['foto']['name']);
-                  while (file_exists("web/fotosUsuarios/$foto")) {
-                      $foto = generarNombreArchivo($_FILES['foto']['name']);
-                  }
-                  if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
-                      $response['error'] = "Error al copiar la foto a la carpeta fotosUsuarios";
-                  } else {
-                      $response['foto'] = $foto;
-                  }
-              }
-          } else {
-              $response['error'] = "No se ha recibido ninguna foto";
-          }
-      }
-  
-      echo json_encode($response);
-      die();
-  }
+public function subirFotoAjax() {
+    $response = ['error' => '', 'foto' => ''];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_FILES['foto'])) {
+            if ($_FILES['foto']['type'] != 'image/jpeg' &&
+                $_FILES['foto']['type'] != 'image/webp' &&
+                $_FILES['foto']['type'] != 'image/png') {
+                $response['error'] = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+            } else {
+                $foto = "temp_" . generarNombreArchivo($_FILES['foto']['name']);
+                while (file_exists("web/fotosUsuarios/$foto")) {
+                    $foto = "temp_" . generarNombreArchivo($_FILES['foto']['name']);
+                }
+                if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                    $response['error'] = "Error al copiar la foto a la carpeta fotosUsuarios";
+                } else {
+                    $response['foto'] = $foto;
+                }
+            }
+        } else {
+            $response['error'] = "No se ha recibido ninguna foto";
+        }
+    }
+
+    echo json_encode($response);
+    die();
+}
+
   
 
 

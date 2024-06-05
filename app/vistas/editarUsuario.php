@@ -19,6 +19,7 @@
                 <div class="error-message"><?= $error ?></div>
                 <form id="editarUsuarioForm" action="index.php?accion=editarUsuario&idUsuario=<?= $idUsuario ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
+                    <input type="hidden" name="fotoTemporal" id="fotoTemporal" value="">
                     <div class="image-container">
                         <img id="preview" src="web/fotosUsuarios/<?= htmlspecialchars($usuario->getFoto()) ?>" alt="Foto de <?= htmlspecialchars($usuario->getNombre()) ?>">
                     </div>
@@ -60,6 +61,7 @@
                 .then(data => {
                     if (data.error === '') {
                         document.getElementById('preview').src = 'web/fotosUsuarios/' + data.foto;
+                        document.getElementById('fotoTemporal').value = data.foto;
                     } else {
                         alert(data.error);
                     }

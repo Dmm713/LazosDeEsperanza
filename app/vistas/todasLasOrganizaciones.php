@@ -36,7 +36,7 @@
                         <h3><?= htmlspecialchars($organizacion->getNombre()) ?></h3>
                         <p><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                         <div class="btn-group">
-                            <a href="index.php?accion=editarOrganizacion&idOranizacion=<?=$organizacion->getIdOrganizacion()?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="index.php?accion=editarOrganizacion&idOrganizacion=<?=$organizacion->getIdOrganizacion()?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="index.php?accion=borrarOrganizacion&idOrganizacion=<?=$organizacion->getIdOrganizacion()?>" class="btn btn-primary"><i class="fa-solid fa-trash-can" style="color: red;;"></i></a>
                         </div>
                     </div>
