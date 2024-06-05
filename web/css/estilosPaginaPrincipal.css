@@ -279,6 +279,126 @@ header h1{
     background-color: #0056b3;
     border-color: #0056b3;
 }
+
+/*----------------------------------------SOBRE NOSOTROS ------------------------------------------------------------------------------*/
+.sobreNosotros {
+    background-color: #f8f9fa; /* Fondo claro para un contraste suave */
+    padding: 40px 20px; /* Espaciado interno */
+    color: #333; /* Color del texto */
+}
+
+.sobreNosotros h2 {
+    text-align: center; /* Centra el título */
+    color: #00aab7; /* Color del título */
+    font-size: 2.5rem; /* Tamaño del título */
+    margin-bottom: 20px; /* Espaciado inferior del título */
+}
+
+.sobreNosotros p {
+    font-size: 1.1rem; /* Tamaño de fuente */
+    line-height: 1.6; /* Altura de línea para mejor legibilidad */
+    margin-bottom: 20px; /* Espaciado inferior de los párrafos */
+    text-align: justify; /* Justificar el texto */
+}
+
+.sobreNosotros .intro {
+    display: flex; /* Contenedor flexible */
+    flex-direction: column; /* Dirección de columna */
+    gap: 20px; /* Espaciado entre elementos */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+}
+
+.sobreNosotros .intro img {
+    width: 100%; /* Ancho completo */
+    max-width: 400px; /* Ancho máximo */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+    margin-left: 20px; /* Margen izquierdo para separación */
+}
+
+.sobreNosotros .intro-content {
+    flex: 1; /* Flexibilidad para distribuir espacio */
+}
+
+.sobreNosotros .sobreNosotros-img {
+    height: 90%; /* Altura completa */
+    max-height: 90%; /* Asegura que la imagen no exceda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
+    padding: 10px;
+    
+}
+
+.sobreNosotros .mission-vision-values {
+    display: flex; /* Contenedor flexible */
+    flex-direction: column; /* Dirección de columna */
+    gap: 20px; /* Espaciado entre secciones */
+    margin-top: 40px; /* Espaciado superior */
+}
+
+.sobreNosotros .vision, 
+.sobreNosotros .history {
+    padding: 20px; /* Espaciado interno */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+    border-radius: 8px; /* Bordes redondeados */
+    display: flex; /* Contenedor flexible */
+    flex-direction: column; /* Dirección de columna */
+    justify-content: center; /* Alineación vertical */
+}
+
+.sobreNosotros .vision h3, 
+.sobreNosotros .history h3 {
+    color: #00aab7; /* Color del título */
+    font-size: 2rem; /* Tamaño del título */
+    margin-bottom: 15px; /* Espaciado inferior del título */
+    text-align: center; /* Centrado del título */
+}
+
+.sobreNosotros .vision p, 
+.sobreNosotros .history p {
+    font-size: 1.1rem; /* Tamaño de fuente */
+    line-height: 1.6; /* Altura de línea para mejor legibilidad */
+    margin-bottom: 20px; /* Espaciado inferior de los párrafos */
+}
+
+@media (min-width: 768px) {
+    .sobreNosotros .intro {
+        flex-direction: row; /* Dirección de fila en pantallas grandes */
+        align-items: center; /* Alinear elementos verticalmente */
+    }
+
+    .sobreNosotros .intro-content {
+        flex: 2; /* Flexibilidad para distribuir espacio */
+    }
+
+    .sobreNosotros .vision img {
+        flex: 1; /* Flexibilidad para distribuir espacio */
+        margin-left: 20px; /* Margen izquierdo para separación */
+    }
+
+    .sobreNosotros .mission-vision-values {
+        flex-direction: row; /* Dirección de fila en pantallas grandes */
+        align-items: stretch; /* Alinear elementos verticalmente */
+    }
+
+    .sobreNosotros .vision, 
+    .sobreNosotros .history {
+        flex: 1; /* Flexibilidad para distribuir espacio */
+        margin: 10px; /* Margen para separación */
+    }
+
+    .sobreNosotros .sobreNosotros-img {
+        height: auto; /* Permitir que la altura sea automática */
+        flex: 1; /* Hacer que la imagen tome el mismo espacio que el contenedor de texto */
+        object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
+    }
+}
+
+
+
 /*---------------------------------------Aquí debajo va el FOOTER-----------------------------------------------------------------------*/
 
 footer{
