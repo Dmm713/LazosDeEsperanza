@@ -234,31 +234,50 @@
             </section>
 
             <div class="containerDos">
-        <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
-        <section class="history">
-            <div>
-                <h3>Nuestra Historia</h3>
-                <p>
-                    Lazos de Esperanza nació del sueño de un niño pequeño al que le encantaba ayudar a las personas. Desde nuestros humildes comienzos, hemos crecido y expandido nuestras iniciativas, siempre con el mismo objetivo en mente: tender la mano a quienes más lo necesitan.
-                    <br><br>
-                    <strong>Los Inicios:</strong><br>
-                    Todo comenzó con la visión inocente y generosa de David, un niño que, desde temprana edad, mostró un profundo deseo de ayudar a los demás.
-                    <br><br>
-                    <strong>Crecimiento y Expansión:</strong><br>
-                    Con la fundación oficial de Lazos de Esperanza, se abrió un nuevo capítulo en nuestra historia. Lo que comenzó como el sueño de un niño se transformó en una organización comprometida con el bienestar de las comunidades vulnerables. Gracias al apoyo de donantes y colaboradores, pudimos expandir nuestros programas y recursos, estableciendo alianzas con instituciones educativas, centros de salud y empresas locales.
-                    <br><br>
-                    <strong>El Futuro:</strong><br>
-                    Miramos hacia el futuro con optimismo y determinación. Nuestro compromiso sigue siendo el mismo: crear un mundo más justo y equitativo, donde todas las personas tengan la oportunidad de prosperar. Con la colaboración continua de voluntarios, donantes y aliados, estamos seguros de que podemos alcanzar nuevas metas y llevar esperanza a más comunidades alrededor del mundo.
-                    <br><br>
-                    Lazos de Esperanza es más que una organización; es un movimiento de solidaridad y cambio. A través de nuestras acciones, seguimos tejiendo una red de apoyo que fortalece y transforma vidas, manteniendo vivo el sueño que nos vio nacer.
-                </p>
+                <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
+                <section class="history">
+                    <div>
+                        <h3>Nuestra Historia</h3>
+                        <p>
+                            Lazos de Esperanza nació del sueño de un niño pequeño al que le encantaba ayudar a las personas. Desde nuestros humildes comienzos, hemos crecido y expandido nuestras iniciativas, siempre con el mismo objetivo en mente: tender la mano a quienes más lo necesitan.
+                            <br><br>
+                            <strong>Los Inicios:</strong><br>
+                            Todo comenzó con la visión inocente y generosa de David, un niño que, desde temprana edad, mostró un profundo deseo de ayudar a los demás.
+                            <br><br>
+                            <strong>Crecimiento y Expansión:</strong><br>
+                            Con la fundación oficial de Lazos de Esperanza, se abrió un nuevo capítulo en nuestra historia. Lo que comenzó como el sueño de un niño se transformó en una organización comprometida con el bienestar de las comunidades vulnerables. Gracias al apoyo de donantes y colaboradores, pudimos expandir nuestros programas y recursos, estableciendo alianzas con instituciones educativas, centros de salud y empresas locales.
+                            <br><br>
+                            <strong>El Futuro:</strong><br>
+                            Miramos hacia el futuro con optimismo y determinación. Nuestro compromiso sigue siendo el mismo: crear un mundo más justo y equitativo, donde todas las personas tengan la oportunidad de prosperar. Con la colaboración continua de voluntarios, donantes y aliados, estamos seguros de que podemos alcanzar nuevas metas y llevar esperanza a más comunidades alrededor del mundo.
+                            <br><br>
+                            Lazos de Esperanza es más que una organización; es un movimiento de solidaridad y cambio. A través de nuestras acciones, seguimos tejiendo una red de apoyo que fortalece y transforma vidas, manteniendo vivo el sueño que nos vio nacer.
+                        </p>
+                    </div>
+                </section>
             </div>
-        </section>
-    </div>
 
         </div>
 
-
+          <!-- Nuevo apartado de Noticias -->
+          <div class="noticias">
+                <section class="news">
+                    <h2>Noticias</h2>
+                    <div class="row">
+                        <!-- Ejemplo de tarjeta de noticia -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="web/Images/noticia1.jpg" class="card-img-top" alt="Noticia 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Título de la Noticia 1</h5>
+                                    <p class="card-text">Resumen breve de la noticia 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <a href="#" class="btn btn-primary">Leer más</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repite el bloque anterior para más noticias -->
+                    </div>
+                </section>
+          </div>
 
         <footer>
             <div class="container__footer">
