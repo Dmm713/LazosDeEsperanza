@@ -285,149 +285,243 @@ header h1{
 
 /*----------------------------------------SOBRE NOSOTROS ------------------------------------------------------------------------------*/
 .sobreNosotros {
-    background-color: #f8f9fa; /* Fondo claro para un contraste suave */
-    padding: 40px 20px; /* Espaciado interno */
-    color: #333; /* Color del texto */
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    color: #333;
 }
 
 .sobreNosotros h2 {
-    text-align: center; /* Centra el título */
-    color: #00aab7; /* Color del título */
-    font-size: 2.5rem; /* Tamaño del título */
-    margin-bottom: 20px; /* Espaciado inferior del título */
+    text-align: center;
+    color: #00aab7;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .sobreNosotros p {
-    font-size: 1.1rem; /* Tamaño de fuente */
-    line-height: 1.6; /* Altura de línea para mejor legibilidad */
-    margin-bottom: 20px; /* Espaciado inferior de los párrafos */
-    text-align: justify; /* Justificar el texto */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
 }
 
 .sobreNosotros .intro {
-    display: flex; /* Contenedor flexible */
-    flex-direction: column; /* Dirección de columna */
-    gap: 20px; /* Espaciado entre elementos */
-    background-color: white; /* Fondo blanco */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 20px; /* Espaciado interno */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .sobreNosotros .intro img {
-    width: 100%; /* Ancho completo */
-    max-width: 400px; /* Ancho máximo */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-    margin-left: 20px; /* Margen izquierdo para separación */
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
 }
 
 .sobreNosotros .intro-content {
-    flex: 1; /* Flexibilidad para distribuir espacio */
-}
-
-.sobreNosotros .sobreNosotros-img {
-    height: 90%; /* Altura completa */
-    max-height: 90%; /* Asegura que la imagen no exceda la altura del contenedor */
-    object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
-    padding: 10px;
-    
+    flex: 1;
 }
 
 .sobreNosotros .mission-vision-values {
-    display: flex; /* Contenedor flexible */
-    flex-direction: column; /* Dirección de columna */
-    gap: 20px; /* Espaciado entre secciones */
-    margin-top: 40px; /* Espaciado superior */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
 }
 
 .sobreNosotros .vision, 
 .sobreNosotros .history {
-    padding: 20px; /* Espaciado interno */
-    background-color: white; /* Fondo blanco */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-    border-radius: 8px; /* Bordes redondeados */
-    display: flex; /* Contenedor flexible */
-    flex-direction: column; /* Dirección de columna */
-    justify-content: center; /* Alineación vertical */
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.sobreNosotros .vision h3, 
+.sobreNosotros .vision h2, 
 .sobreNosotros .history h3 {
-    color: #00aab7; /* Color del título */
-    font-size: 2rem; /* Tamaño del título */
-    margin-bottom: 15px; /* Espaciado inferior del título */
-    text-align: center; /* Centrado del título */
+    color: #00aab7;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .sobreNosotros .vision p, 
 .sobreNosotros .history p {
-    font-size: 1.1rem; /* Tamaño de fuente */
-    line-height: 1.6; /* Altura de línea para mejor legibilidad */
-    margin-bottom: 20px; /* Espaciado inferior de los párrafos */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-@media (min-width: 768px) {
-    .sobreNosotros .intro {
-        flex-direction: row; /* Dirección de fila en pantallas grandes */
-        align-items: center; /* Alinear elementos verticalmente */
-    }
-
-    .sobreNosotros .intro-content {
-        flex: 2; /* Flexibilidad para distribuir espacio */
-    }
-
-    .sobreNosotros .vision img {
-        flex: 1; /* Flexibilidad para distribuir espacio */
-        margin-left: 20px; /* Margen izquierdo para separación */
-    }
-
-    .sobreNosotros .mission-vision-values {
-        flex-direction: row; /* Dirección de fila en pantallas grandes */
-        align-items: stretch; /* Alinear elementos verticalmente */
-    }
-
-    .sobreNosotros .vision, 
-    .sobreNosotros .history {
-        flex: 1; /* Flexibilidad para distribuir espacio */
-        margin: 10px; /* Margen para separación */
-    }
-
-    .sobreNosotros .sobreNosotros-img {
-        height: auto; /* Permitir que la altura sea automática */
-        flex: 1; /* Hacer que la imagen tome el mismo espacio que el contenedor de texto */
-        object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
-    }
+.vision-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-
-
-
 
 .containerDos {
     display: flex;
     align-items: flex-start;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    flex-wrap: wrap;
+    gap: 20px;
 }
+
 .containerDos img {
-    margin-top: 9%;
-    margin-right: 20px;
-    max-width: 100%; /* Hace que la imagen sea responsive */
+    max-width: 100%;
     height: auto;
+    margin-top: 9%;
 }
+
 .history {
-    flex: 1; /* Permite que la sección de historia tome el espacio disponible */
+    flex: 1;
 }
+
+@media (min-width: 768px) {
+    .sobreNosotros .intro {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sobreNosotros .intro-content {
+        flex: 2;
+    }
+
+    .sobreNosotros .intro img {
+        margin-left: 20px;
+        max-width: 400px;
+    }
+
+    .sobreNosotros .mission-vision-values {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .sobreNosotros .vision {
+        flex: 1;
+    }
+
+    .vision-img {
+        flex: 1;
+        max-width: 50%;
+        margin-left: 20px;
+    }
+
+    .sobreNosotros .vision, 
+    .sobreNosotros .history {
+        flex: 1;
+        margin: 10px;
+    }
+}
+
 @media (max-width: 768px) {
-    .containerDos {
+    .sobreNosotros .mission-vision-values {
         flex-direction: column;
-        align-items: center; /* Centra los elementos en pantallas pequeñas */
+        align-items: center;
     }
-    .containerDos img {
-        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
-        margin-bottom: 20px; /* Añade margen inferior en pantallas pequeñas */
+
+    .vision-img {
+        margin-left: 0;
+        max-width: 100%;
+        height: auto;
+        margin-top: 20px;
     }
 }
+
+
+/*----------------------------------------Cartas Noticias-------------------------------------------------------------------------------*/
+.containerNoticias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+.noticia {
+    flex: 1 1 calc(33.333% - 20px);
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    max-width: 33.333%;
+    box-sizing: border-box;
+}
+
+.imageNoticia img {
+    width: 170px;
+    height: auto;
+    border-right: 1px solid #ccc;
+}
+
+.contentNoticia {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.contentNoticia h1 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.contentNoticia p {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+}
+
+.contentNoticia button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contentNoticia button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .noticia {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .imageNoticia img {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .noticia {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1200px) {
+    .noticia {
+        flex: 1 1 calc(50% - 20px);
+        max-width: 50%;
+    }
+}
+
 
 
 /*---------------------------------------Aquí debajo va el FOOTER-----------------------------------------------------------------------*/
@@ -460,7 +554,7 @@ footer{
 }
 
 .box__footer .logo img{
-    width: 180px;
+    width: 240px;
 }
 
 .box__footer .terms{

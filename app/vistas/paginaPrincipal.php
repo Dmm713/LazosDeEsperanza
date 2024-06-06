@@ -218,7 +218,7 @@
 
             <section class="mission-vision-values">
                 <div class="vision">
-                    <h3>Visión</h3>
+                    <h2>Visión</h2>
                     <p>
                         En Lazos de Esperanza, nuestra visión se centra en construir un mundo más justo y equitativo, donde cada individuo, sin importar su origen o situación, tenga la oportunidad de alcanzar su máximo potencial.
                         Aspiramos a ser un referente en la lucha por la justicia social y el desarrollo comunitario, estableciendo estándares elevados en la forma en que se abordan y resuelven los problemas sociales.
@@ -230,14 +230,16 @@
                         Nuestra visión nos guía y nos motiva a seguir trabajando con pasión y dedicación para transformar vidas y construir un mundo mejor para todos.
                     </p>
                 </div>
-                <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="sobreNosotros-img">
+                <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="vision-img">
             </section>
+
+
 
             <div class="containerDos">
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
                 <section class="history">
                     <div>
-                        <h3>Nuestra Historia</h3>
+                        <h2>Nuestra Historia</h2>
                         <p>
                             Lazos de Esperanza nació del sueño de un niño pequeño al que le encantaba ayudar a las personas. Desde nuestros humildes comienzos, hemos crecido y expandido nuestras iniciativas, siempre con el mismo objetivo en mente: tender la mano a quienes más lo necesitan.
                             <br><br>
@@ -258,26 +260,65 @@
 
         </div>
 
-          <!-- Nuevo apartado de Noticias -->
-          <div class="noticias">
-                <section class="news">
-                    <h2>Noticias</h2>
-                    <div class="row">
-                        <!-- Ejemplo de tarjeta de noticia -->
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="web/Images/noticia1.jpg" class="card-img-top" alt="Noticia 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Título de la Noticia 1</h5>
-                                    <p class="card-text">Resumen breve de la noticia 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <a href="#" class="btn btn-primary">Leer más</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Repite el bloque anterior para más noticias -->
-                    </div>
-                </section>
-          </div>
+        <div>
+            <h1>Noticias</h1>
+        </div>
+        <div class="containerNoticias">
+            <div class="noticia">
+                <div class="imageNoticia">
+                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                </div>
+                <div class="contentNoticia">
+                    <h1>Título del Contenido</h1>
+                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <button>Haz Clic Aquí</button>
+                </div>
+            </div>
+            <div class="noticia">
+                <div class="imageNoticia">
+                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                </div>
+                <div class="contentNoticia">
+                    <h1>Título del Contenido</h1>
+                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <button>Haz Clic Aquí</button>
+                </div>
+            </div>
+            <div class="noticia">
+                <div class="imageNoticia">
+                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                </div>
+                <div class="contentNoticia">
+                    <h1>Título del Contenido</h1>
+                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <button>Haz Clic Aquí</button>
+                </div>
+            </div>
+            <div class="noticia">
+                <div class="imageNoticia">
+                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                </div>
+                <div class="contentNoticia">
+                    <h1>Título del Contenido</h1>
+                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <button>Haz Clic Aquí</button>
+                </div>
+            </div>
+            <div class="noticia">
+                <div class="imageNoticia">
+                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                </div>
+                <div class="contentNoticia">
+                    <h1>Título del Contenido</h1>
+                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <button>Haz Clic Aquí</button>
+                </div>
+            </div>
+
+            <!-- Puedes añadir más tarjetas de noticias aquí -->
+        </div>
+
+
 
         <footer>
             <div class="container__footer">
@@ -291,18 +332,12 @@
                 </div>
                 <div class="box__footer">
                     <h2>Soluciones</h2>
-                    <a href="https://www.google.com">App Desarrollo</a>
-                    <a href="#">App Marketing</a>
-                    <a href="#">IOS Desarrollo</a>
-                    <a href="#">Android Desarrollo</a>
-                </div>
-                <div class="box__footer">
-                    <h2>Compañia</h2>
                     <a href="#">Acerca de</a>
                     <a href="#">Trabajos</a>
                     <a href="#">Procesos</a>
                     <a href="#">Servicios</a>
                 </div>
+                
                 <div class="box__footer">
                     <h2>Redes Sociales</h2>
                     <a href="#"><i class="fab fa-facebook-square">&nbsp</i> Facebook</a>
@@ -325,7 +360,7 @@
                 const accessibility = "<?php echo $_SESSION['accessibility'] ?>"
                 console.log(accessibility)
                 if (accessibility === 'yes') {
-                    var elementos = document.querySelectorAll('h1, p, a, button');
+                    var elementos = document.querySelectorAll('h1, h5, h2, p, a, button');
 
                     function agregarEventos(elemento) {
                         elemento.addEventListener("mouseover", function(event) {
