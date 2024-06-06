@@ -58,16 +58,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav w-100 justify-content-around">
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" aria-current="page" href="#" style="text-align: center;">Inicio</a>
+                            <a class="nav-link" aria-current="page" href="#" style="text-align: center;"><strong>Inicio</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;">Sobre Nosotros</a>
+                            <a class="nav-link" href="#" style="text-align: center;"><strong>Sobre Nosotros</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;">Servicios</a>
+                            <a class="nav-link" href="#" style="text-align: center;"><strong>Servicios</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;">Contacto</a>
+                            <a class="nav-link" href="#" style="text-align: center;"><strong>Contacto</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -85,13 +85,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Eventos</a>
+                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;"><strong>Eventos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Proyectos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mi Perfil</a>
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                         </ul>
                     </div>
@@ -106,13 +106,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;">Mi Perfil</a>
+                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mis Eventos</a>
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Eventos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Mis Proyectos</a>
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Proyectos</strong></a>
                             </li>
                         </ul>
                     </div>
@@ -176,7 +176,7 @@
 
 
         <div class="container">
-            <h2>Organizaciones</h2>
+            <h2>Organizaciones Colaboradoras</h2>
             <div class="row card-container">
                 <?php foreach ($organizaciones as $organizacion) : ?>
                     <div class="col-md-4 d-flex">
@@ -213,7 +213,7 @@
                         Con Lazos de Esperanza, cada pequeño paso cuenta, y cada acción tiene el potencial de transformar vidas. Juntos, podemos tejer un futuro más brillante para todos.
                     </p>
                 </div>
-                
+
             </section>
 
             <section class="mission-vision-values">
@@ -233,29 +233,29 @@
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="sobreNosotros-img">
             </section>
 
-            <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
-            <section class="history">
-            
-                <div>
+            <div class="containerDos">
+        <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
+        <section class="history">
+            <div>
                 <h3>Nuestra Historia</h3>
-                <p>Lazos de Esperanza nació del sueño de un niño pequeño al que le encantaba ayudar a las personas. Desde nuestros humildes comienzos, hemos crecido y expandido nuestras iniciativas, siempre con el mismo objetivo en mente: tender la mano a quienes más lo necesitan.
-
-                    Los Inicios:
-                    Todo comenzó con la visión inocente y generosa de [Nombre del Niño], un niño que, desde temprana edad, mostró un profundo deseo de ayudar a los demás. A los [edad del niño] años, [Nombre del Niño] dedicaba su tiempo libre a recolectar alimentos y ropa para las personas sin hogar de su comunidad. Sus primeros esfuerzos, aunque pequeños, impactaron significativamente a quienes recibieron su ayuda, y rápidamente comenzaron a inspirar a otros en su comunidad.
-
-                    Crecimiento y Expansión:
-                    A medida que [Nombre del Niño] crecía, también lo hacía su visión. En la adolescencia, logró movilizar a más personas y organizar campañas más grandes y efectivas. Con el apoyo de su familia, amigos y vecinos, las pequeñas iniciativas de ayuda comenzaron a formalizarse, y nació la idea de establecer una organización que pudiera abordar las necesidades de manera más estructurada y sostenible.
-
+                <p>
+                    Lazos de Esperanza nació del sueño de un niño pequeño al que le encantaba ayudar a las personas. Desde nuestros humildes comienzos, hemos crecido y expandido nuestras iniciativas, siempre con el mismo objetivo en mente: tender la mano a quienes más lo necesitan.
+                    <br><br>
+                    <strong>Los Inicios:</strong><br>
+                    Todo comenzó con la visión inocente y generosa de David, un niño que, desde temprana edad, mostró un profundo deseo de ayudar a los demás.
+                    <br><br>
+                    <strong>Crecimiento y Expansión:</strong><br>
                     Con la fundación oficial de Lazos de Esperanza, se abrió un nuevo capítulo en nuestra historia. Lo que comenzó como el sueño de un niño se transformó en una organización comprometida con el bienestar de las comunidades vulnerables. Gracias al apoyo de donantes y colaboradores, pudimos expandir nuestros programas y recursos, estableciendo alianzas con instituciones educativas, centros de salud y empresas locales.
-
-                    El Futuro:
+                    <br><br>
+                    <strong>El Futuro:</strong><br>
                     Miramos hacia el futuro con optimismo y determinación. Nuestro compromiso sigue siendo el mismo: crear un mundo más justo y equitativo, donde todas las personas tengan la oportunidad de prosperar. Con la colaboración continua de voluntarios, donantes y aliados, estamos seguros de que podemos alcanzar nuevas metas y llevar esperanza a más comunidades alrededor del mundo.
-
+                    <br><br>
                     Lazos de Esperanza es más que una organización; es un movimiento de solidaridad y cambio. A través de nuestras acciones, seguimos tejiendo una red de apoyo que fortalece y transforma vidas, manteniendo vivo el sueño que nos vio nacer.
                 </p>
-                </div>
-               
-            </section>
+            </div>
+        </section>
+    </div>
+
         </div>
 
 
