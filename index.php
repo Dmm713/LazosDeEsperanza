@@ -160,12 +160,21 @@ if(!isset($_SESSION['email']) && $mapa[$accion]['privada']){
     die();
 }
 
-
 //$acción ya tiene la acción a ejecutar, cogemos el controlador y metodo a ejecutar del mapa
 $controlador = $mapa[$accion]['controlador'];
 $metodo = $mapa[$accion]['metodo'];
 
 //Ejecutamos el método de la clase controlador
 $objeto = new $controlador();
-$objeto->$metodo();
+
+// Verificar si la acción es paginaOrganizacion y pasar el idOrganizacion como parámetro
+if ($accion == 'paginaOrganizacion' && isset($_GET['idOrganizacion'])) {
+    $idOrganizacion = $_GET['idOrganizacion'];
+    $objeto->$metodo($idOrganizacion);
+} else if ($accion == 'paginaOrganizacion') {
+    // Si la acción es paginaOrganizacion pero no hay idOrganizacion, mostramos un error
+    echo "ID de organización no proporcionado.";
+} else {
+    $objeto->$metodo();
+}
 ?>

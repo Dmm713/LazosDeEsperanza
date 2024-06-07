@@ -34,6 +34,23 @@ class ControladorGlobal{
          require 'app/vistas/paginaPrincipal.php';
           
     }
+    public function paginaOrganizacion($idOrganizacion) {
+     // Conectar a la base de datos
+     $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+     $conn = $connexionDB->getConnexion();
+     
+     // Obtener la organización seleccionada por el ID
+     $organizacionesDAO = new OrganizacionesDAO($conn);
+     $organizacion = $organizacionesDAO->getById($idOrganizacion);
+     
+     // Obtener todos los usuarios
+     $usuariosDAO = new UsuariosDAO($conn);
+     $usuarios = $usuariosDAO->getAllUsuarios();
+ 
+     // Incluir la vista
+     require 'app/vistas/paginaOrganizacion.php';
+ }
+ 
 
     public function paginaPrincipalRegistrar() {
          // Conectar a la base de datos

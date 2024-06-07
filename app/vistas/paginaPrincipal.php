@@ -186,7 +186,7 @@
                                 <h5 class="card-title"><?= htmlspecialchars($organizacion->getNombre()) ?></h5>
                                 <p class="card-text"><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                                 <a href="<?= htmlspecialchars($organizacion->getSitioWeb()) ?>" style="color: #3280d3; text-decoration: underline; text-align: center;"><?= htmlspecialchars($organizacion->getSitioWeb()) ?></a>
-                                <a href="inicio.php?<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?> " class="btn btn-primary">Ver Mas</a>
+                                <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?> " class="btn btn-primary">Ver Mas</a>
                             </div>
                         </div>
                     </div>
