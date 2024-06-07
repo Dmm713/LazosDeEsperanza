@@ -8,11 +8,12 @@ class EventosDAO {
     }
 
     public function getEventosByOrganizacion($idOrganizacion) {
-        $query = "SELECT * FROM eventos WHERE idOrganizacion = :idOrganizacion";
+        $query = "SELECT * FROM eventos WHERE idOrganizacion = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':idOrganizacion', $idOrganizacion, PDO::PARAM_INT);
+        $stmt->bind_param('i', $idOrganizacion);
         $stmt->execute();
-        $eventosData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->get_result();
+        $eventosData = $result->fetch_all(MYSQLI_ASSOC);
 
         $eventos = [];
         foreach ($eventosData as $eventoData) {
@@ -28,5 +29,19 @@ class EventosDAO {
         }
 
         return $eventos;
+    }
+
+    public function insert(Evento $evento) {
+        $query = "INSERT INTO eventos (idOrganizacion, titulo, descripcion, fechaEvento, ubicacion, fotoEvento) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('isssss', 
+            $evento->getIdOrganizacion(),
+            $evento->getTitulo(),
+            $evento->getDescripcion(),
+            $evento->getFechaEvento(),
+            $evento->getUbicacion(),
+            $evento->getFotoEvento()
+        );
+        return $stmt->execute();
     }
 }

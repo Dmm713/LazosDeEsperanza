@@ -4,7 +4,7 @@
     <title>Página de Organización</title>
 </head>
 <body>
-    <h1><?php echo htmlspecialchars($organizacion['nombre']); ?></h1>
+    <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
     <h2>Eventos</h2>
     <ul>
         <?php foreach ($eventos as $evento): ?>
@@ -16,5 +16,7 @@
             </li>
         <?php endforeach; ?>
     </ul>
+    <br>
+    <a href="index.php?accion=crearEvento" class="btn btn-primary">Crear Nuevo Evento</a>
 </body>
 </html>
