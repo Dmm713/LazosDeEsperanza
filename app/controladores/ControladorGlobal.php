@@ -66,4 +66,9 @@ class ControladorGlobal{
         require 'app/vistas/paginaPrincipal.php';
     }
     
+
+ 
+
+
+
 }

@@ -109,7 +109,7 @@
                                 <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Eventos</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=misEventosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Eventos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Proyectos</strong></a>

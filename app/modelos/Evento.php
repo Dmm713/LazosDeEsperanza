@@ -7,6 +7,7 @@ class Evento {
     private $descripcion;
     private $fechaEvento;
     private $ubicacion;
+    private $fotoEvento;
 
     /**
      * Get the value of idEvento
@@ -95,6 +96,21 @@ class Evento {
      */
     public function setUbicacion($ubicacion): self {
         $this->ubicacion = $ubicacion;
+        return $this;
+    }
+
+    /**
+     * Get the value of fotoEvento
+     */
+    public function getFotoEvento() {
+        return $this->fotoEvento;
+    }
+
+    /**
+     * Set the value of fotoEvento
+     */
+    public function setFotoEvento($fotoEvento): self {
+        $this->fotoEvento = $fotoEvento;
         return $this;
     }
 }

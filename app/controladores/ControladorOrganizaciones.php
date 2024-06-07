@@ -335,4 +335,43 @@ public function subirFotoAjax() {
     
   }
 
+
+
+  public function misEventosOrganizacion() {
+    // Verificar si el idOrganizacion está en la sesión
+    if (!isset($_SESSION['idOrganizacion'])) {
+        echo "ID de organización no encontrado en la sesión.";
+        return;
+    }
+
+    // Obtener el idOrganizacion de la sesión
+    $idOrganizacion = $_SESSION['idOrganizacion'];
+
+    // Conectar a la base de datos
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
+    
+    // Obtener la organización seleccionada por el ID
+    $organizacionesDAO = new OrganizacionesDAO($conn);
+    $organizacion = $organizacionesDAO->getById($idOrganizacion);
+    
+    // Verificar si la organización existe
+    if (!$organizacion) {
+        // Manejar el caso donde la organización no existe
+        echo "Organización no encontrada.";
+        return;
+    }
+
+    // Obtener todos los usuarios
+    $usuariosDAO = new UsuariosDAO($conn);
+    $usuarios = $usuariosDAO->getAllUsuarios();
+    
+    // Obtener todos los eventos de la organización
+    $eventosDAO = new EventosDAO($conn);
+    $eventos = $eventosDAO->getEventosByOrganizacion($idOrganizacion);
+
+    // Incluir la vista y pasar los datos necesarios
+    require 'app/vistas/misEventos.php';
+}
+
 }
