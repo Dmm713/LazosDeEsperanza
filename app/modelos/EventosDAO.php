@@ -44,4 +44,49 @@ class EventosDAO {
         );
         return $stmt->execute();
     }
+
+    public function update(Evento $evento) {
+        $query = "UPDATE eventos SET titulo = ?, descripcion = ?, fechaEvento = ?, ubicacion = ?, fotoEvento = ? WHERE idEvento = ? AND idOrganizacion = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('sssssii',
+            $evento->getTitulo(),
+            $evento->getDescripcion(),
+            $evento->getFechaEvento(),
+            $evento->getUbicacion(),
+            $evento->getFotoEvento(),
+            $evento->getIdEvento(),
+            $evento->getIdOrganizacion()
+        );
+        return $stmt->execute();
+    }
+
+    public function delete($idEvento) {
+        $query = "DELETE FROM eventos WHERE idEvento = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $idEvento);
+        return $stmt->execute();
+    }
+
+    public function getById($idEvento) {
+        $query = "SELECT * FROM eventos WHERE idEvento = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $idEvento);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $eventoData = $result->fetch_assoc();
+
+        if ($eventoData) {
+            $evento = new Evento();
+            $evento->setIdEvento($eventoData['idEvento']);
+            $evento->setIdOrganizacion($eventoData['idOrganizacion']);
+            $evento->setTitulo($eventoData['titulo']);
+            $evento->setDescripcion($eventoData['descripcion']);
+            $evento->setFechaEvento($eventoData['fechaEvento']);
+            $evento->setUbicacion($eventoData['ubicacion']);
+            $evento->setFotoEvento($eventoData['fotoEvento']);
+            return $evento;
+        }
+
+        return null;
+    }
 }
