@@ -80,6 +80,54 @@
         .btn:hover {
             background-color: #067a83;
         }
+
+        /* Custom Confirm Dialog */
+        .custom-confirm {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .confirm-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirm-box p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .confirm-box .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .confirm-box .btn {
+            background-color: #014949;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin: 5px;
+        }
+
+        .confirm-box .btn:hover {
+            background-color: #008080;
+        }
     </style>
 </head>
 <body>
@@ -97,14 +145,53 @@
                     Fecha: <?php echo htmlspecialchars($evento->getFechaEvento()); ?><br>
                     Ubicación: <?php echo htmlspecialchars($evento->getUbicacion()); ?>
                 </div>
-                <div class="event-actions">
+                <div class="event-actions btn-group">
                     <a href="index.php?accion=editarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>">Editar</a>
-                    <a href="index.php?accion=eliminarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?');">Eliminar</a>
+                    <a href="index.php?accion=eliminarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>" class="btn-delete">Eliminar</a>
                 </div>
             </li>
         <?php endforeach; ?>
     </ul>
     <a href="index.php?accion=crearEvento" class="btn">Crear Nuevo Evento</a>
-    <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?php echo $organizacion->getIdOrganizacion(); ?>" class="btn">Volver</a>
+    <a href="index.php?accion=paginaPrincipal" class="btn">Volver</a>
+
+    <div id="custom-confirm" class="custom-confirm">
+        <div class="confirm-box">
+            <p>¿Está seguro que desea borrar el evento?</p>
+            <div class="btn-container">
+                <button id="confirm-yes" class="btn">Sí</button>
+                <button id="confirm-no" class="btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+            const confirmBox = document.getElementById('custom-confirm');
+            const confirmYes = document.getElementById('confirm-yes');
+            const confirmNo = document.getElementById('confirm-no');
+            let currentLink = null;
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    currentLink = this.href;
+                    confirmBox.style.display = 'flex';
+                });
+            });
+
+            confirmYes.addEventListener('click', function() {
+                if (currentLink) {
+                    window.location.href = currentLink;
+                }
+            });
+
+            confirmNo.addEventListener('click', function() {
+                confirmBox.style.display = 'none';
+                currentLink = null;
+            });
+        });
+    </script>
 </body>
 </html>
