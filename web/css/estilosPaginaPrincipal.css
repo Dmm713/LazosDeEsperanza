@@ -378,6 +378,7 @@ header h1{
     max-width: 100%;
     height: auto;
     margin-top: 9%;
+    border-radius: 8px;
 }
 
 .history {

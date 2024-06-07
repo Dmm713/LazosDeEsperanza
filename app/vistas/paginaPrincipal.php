@@ -37,7 +37,7 @@
                         <div class="user-container">
                             <div class="user-info">
                                 <img class="fotoUsuario" src="web/fotosUsuarios/<?= $_SESSION['foto'] ?>" alt="Foto de usuario"><br>
-                                <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
+                                <span class="emailUsuario" style="color: white;"><strong><?= $_SESSION['email'] ?></strong></span>
                             </div>
                             <a id="linkRegistrar" href="index.php?accion=logout" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Cerrar Sesión</a>
                         </div>
@@ -269,18 +269,18 @@
                     <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1>Título del Contenido</h1>
-                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
-                    <button>Haz Clic Aquí</button>
+                    <h1><strong>¿Una cura contra el cáncer?</strong></h1>
+                    <p>Descubren una terapia que ha funcionado en todos los modelos que se ha probado</p>
+                    <a href="https://www.lasexta.com/tecnologia-tecnoxplora/ciencia/cura-cancer-descubren-terapia-que-funcionado-todos-modelos-que-probado_2024020865c4fc41344c980001b201dd.html"><button>Ver Noticia</button></a>
                 </div>
             </div>
             <div class="noticia">
                 <div class="imageNoticia">
-                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                    <img src="web/Images/cartaAlvaro.webp" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1>Título del Contenido</h1>
-                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
+                    <h1><strong>la carta de toda una clase de Sevilla a su compañero con autismo</strong></h1>
+                    <p>Álvaro tiene cinco años y le han diagnosticado autismo de alto funcionamiento, los niños de una clase de su colegio han querido dedicarle una carta y una canción después de conocerle</p>
                     <button>Haz Clic Aquí</button>
                 </div>
             </div>
@@ -337,7 +337,7 @@
                     <a href="#">Procesos</a>
                     <a href="#">Servicios</a>
                 </div>
-                
+
                 <div class="box__footer">
                     <h2>Redes Sociales</h2>
                     <a href="#"><i class="fab fa-facebook-square">&nbsp</i> Facebook</a>
