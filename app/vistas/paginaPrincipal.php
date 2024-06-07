@@ -279,39 +279,39 @@
                     <img src="web/Images/cartaAlvaro.webp" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1><strong>la carta de toda una clase de Sevilla a su compañero con autismo</strong></h1>
+                    <h1><strong>La carta de toda una clase de Sevilla a su compañero con autismo</strong></h1>
                     <p>Álvaro tiene cinco años y le han diagnosticado autismo de alto funcionamiento, los niños de una clase de su colegio han querido dedicarle una carta y una canción después de conocerle</p>
-                    <button>Haz Clic Aquí</button>
+                    <a href="https://www.telecinco.es/noticias/andalucia/20240606/hola-alvaro-ninos-carta-clase-companero-autismo-sevilla_18_012671006.html#:~:text=Cuando%20lleg%C3%B3%20a%20casa%20abri%C3%B3,a%20llorar%20de%20la%20emoci%C3%B3n."><button>Ver Noticia</button></a>
                 </div>
             </div>
             <div class="noticia">
                 <div class="imageNoticia">
-                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                    <img src="web/Images/iaEsclerosis.jpg" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1>Título del Contenido</h1>
-                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
-                    <button>Haz Clic Aquí</button>
+                    <h1><strong>La IA detecta diferencias de sexo en la Esclerosis Múltiple</strong></h1>
+                    <p>Una herramienta de Inteligencia Artificial (IA) ha detectado que las conexiones microscópicas entre las células cerebrales varían en función del sexo en la Esclerosis Múltiple.</p>
+                    <a href="https://esclerosismultiple.com/ia-diferencias-de-sexo-en-la-esclerosis-multiple/"><button>Ver Noticia</button></a>
                 </div>
             </div>
             <div class="noticia">
                 <div class="imageNoticia">
-                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                    <img src="web/Images/alzheimer.jpg" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1>Título del Contenido</h1>
-                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
-                    <button>Haz Clic Aquí</button>
+                    <h1><strong>Cómo el trasplante de médula ósea joven podría revertir el Alzheimer, según un estudio</strong></h1>
+                    <p>En una investigación reciente publicada en la revista Science, los investigadores han descubierto una manera de rejuvenecer las células inmunitarias envejecidas en ratones.</p>
+                    <a href="https://www.infobae.com/america/ciencia-america/2024/06/04/como-el-trasplante-de-medula-osea-joven-podria-revertir-el-alzheimer-segun-un-estudio/"><button>Ver Noticia</button></a>
                 </div>
             </div>
             <div class="noticia">
                 <div class="imageNoticia">
-                    <img src="web/Images/curaCancer.jpg" alt="Imagen de la noticia">
+                    <img src="web/Images/cancerUtero.png" alt="Imagen de la noticia">
                 </div>
                 <div class="contentNoticia">
-                    <h1>Título del Contenido</h1>
-                    <p>Esta es una descripción debajo del título. Puedes poner el texto que desees aquí.</p>
-                    <button>Haz Clic Aquí</button>
+                    <h1><strong>La aprobación de Elahere amplía las opciones de tratamiento para algunos cánceres de ovario avanzados</strong></h1>
+                    <p>Aunque al comienzo es posible tratar a las personas con cáncer de ovario avanzado con medicamentos quimioterapéuticos derivados del platino, el cáncer suele volver.</p>
+                    <a href="https://www.cancer.gov/espanol/noticias/temas-y-relatos-blog/2024/fda-elahere-cancer-ovario-resistente-platino"><button>Ver Noticia</button></a>
                 </div>
             </div>
 

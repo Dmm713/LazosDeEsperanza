@@ -462,9 +462,11 @@ header h1{
 }
 
 .imageNoticia img {
-    width: 170px;
+    width: 240px;
     height: auto;
     border-right: 1px solid #ccc;
+    border-radius: 10px;
+    margin-left: 15px;
 }
 
 .contentNoticia {
