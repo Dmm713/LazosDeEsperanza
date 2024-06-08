@@ -25,7 +25,7 @@
                 </div>
                 <!-- Botón para insertar un nuevo usuario -->
                 <div class="new-user-container">
-                    <a href="index.php?accion=paginaPrincipal" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
+                    <a href="index.php?accion=misEventosOrganizacion" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
                 </div>
             </div>
         </div>

@@ -66,7 +66,7 @@ $mapa = array(
                                'metodo'=>'subirFotoAjaxOrganizaciones', 
                                'privada'=>true),
     'misEventosOrganizacion'=>array('controlador'=>'ControladorOrganizaciones',
-                               'metodo'=>'misEventosOrganizacion', 
+                               'metodo'=>'misEventosOrganizacion',
                                'privada'=>true),
     'crearEvento'=>array('controlador'=>'ControladorOrganizaciones',
                                'metodo'=>'crearEvento', 

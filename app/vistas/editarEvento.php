@@ -4,164 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nuevo Evento</title>
-    <link rel="stylesheet" href="web/css/estilosNuevoEvento.css">
+    <title>Editar Evento</title>
+    <link rel="stylesheet" href="web/css/estilosEditarEvento.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
     </style>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #08929c;
-        }
-
-        /*-------------------------------------ESTILOS HEADER------------------------------------------------------------------------------------------------*/
-        header {
-            width: 100%;
-            background-color: #00aab7;
-            padding: 10px 20px;
-            font-family: Changa;
-            font-size: 20px;
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            /* Permite que los elementos se envuelvan en pantallas pequeñas */
-        }
-
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-        }
-
-        .title-container {
-            flex: 2;
-            text-align: center;
-            color: white;
-        }
-
-        .new-user-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            flex: 1;
-        }
-
-        header h1 {
-            margin: 0;
-            color: white;
-            font-size: 1.5em;
-        }
-
-        .logo {
-            width: 150px;
-            height: auto;
-        }
-
-        .btn {
-            display: block;
-            padding: 10px 20px;
-            background-color: #014949;
-            color: #7FF9B9;
-            text-align: center;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #067a83;
-        }
-
-        /*--------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
-        }
-
-        .form-container img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto 10px;
-            border-radius: 8px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .btn-container .btn {
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        .btn-container .btn:last-child {
-            margin-right: 0;
-        }
-
-        .btn {
-            display: block;
-            padding: 10px 20px;
-            background-color: #014949;
-            color: #7FF9B9;
-            text-align: center;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #067a83;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -178,7 +26,7 @@
                 </div>
                 <!-- Botón para insertar un nuevo usuario -->
                 <div class="new-user-container">
-                    <a href="index.php?accion=paginaPrincipal" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
+                    <a href="index.php?accion=misEventosOrganizacion" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
                 </div>
             </div>
         </div>
@@ -207,11 +55,12 @@
 
             <label for="fotoEvento">Foto del Evento:</label>
             <input type="file" id="fotoEvento" name="fotoEvento" accept="image/*" onchange="previewImage(event)">
+
+            <div class="btn-container">
+                <button type="submit" form="editarEventoForm" class="btn">Guardar Cambios</button>
+                <a href="index.php?accion=misEventosOrganizacion" class="btn">Cancelar</a>
+            </div>
         </form>
-    </div>
-    <div class="btn-container">
-        <button type="submit" form="editarEventoForm" class="btn">Guardar Cambios</button>
-        <a href="index.php?accion=misEventosOrganizacion" class="btn">Cancelar</a>
     </div>
     <script>
         function previewImage(event) {

@@ -353,42 +353,47 @@ class ControladorOrganizaciones
 
 
 
-    public function misEventosOrganizacion()
-    {
-        // Verificar si el idOrganizacion está en la sesión
-        if (!isset($_SESSION['idOrganizacion'])) {
-            echo "ID de organización no encontrado en la sesión.";
-            return;
-        }
+    public function misEventosOrganizacion(){
+         // Verificar si el idOrganizacion está en la sesión
+    if (!isset($_SESSION['idOrganizacion'])) {
+        echo "ID de organización no encontrado en la sesión.";
+        return;
+    }
 
-        // Obtener el idOrganizacion de la sesión
-        $idOrganizacion = $_SESSION['idOrganizacion'];
+    // Verificar si el rol del usuario es 'Organizacion'
+    if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'Organizacion') {
+        echo "Acceso denegado. Rol insuficiente.";
+        return;
+    }
 
-        // Conectar a la base de datos
-        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
+    // Obtener el idOrganizacion de la sesión
+    $idOrganizacion = $_SESSION['idOrganizacion'];
 
-        // Obtener la organización seleccionada por el ID
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-        $organizacion = $organizacionesDAO->getById($idOrganizacion);
+    // Conectar a la base de datos
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
 
-        // Verificar si la organización existe
-        if (!$organizacion) {
-            // Manejar el caso donde la organización no existe
-            echo "Organización no encontrada.";
-            return;
-        }
+    // Obtener la organización seleccionada por el ID
+    $organizacionesDAO = new OrganizacionesDAO($conn);
+    $organizacion = $organizacionesDAO->getById($idOrganizacion);
 
-        // Obtener todos los usuarios
-        $usuariosDAO = new UsuariosDAO($conn);
-        $usuarios = $usuariosDAO->getAllUsuarios();
+    // Verificar si la organización existe
+    if (!$organizacion) {
+        // Manejar el caso donde la organización no existe
+        echo "Organización no encontrada.";
+        return;
+    }
 
-        // Obtener todos los eventos de la organización
-        $eventosDAO = new EventosDAO($conn);
-        $eventos = $eventosDAO->getEventosByOrganizacion($idOrganizacion);
+    // Obtener todos los usuarios
+    $usuariosDAO = new UsuariosDAO($conn);
+    $usuarios = $usuariosDAO->getAllUsuarios();
 
-        // Incluir la vista y pasar los datos necesarios
-        require 'app/vistas/misEventos.php';
+    // Obtener todos los eventos de la organización
+    $eventosDAO = new EventosDAO($conn);
+    $eventos = $eventosDAO->getEventosByOrganizacion($idOrganizacion);
+
+    // Incluir la vista y pasar los datos necesarios
+    require 'app/vistas/misEventos.php';
     }
 
     public function crearEvento(){
