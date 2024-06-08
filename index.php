@@ -16,6 +16,7 @@ require_once 'app/modelos/ProyectosDAO.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
 require_once 'app/controladores/ControladorOrganizaciones.php';
+require_once 'app/controladores/ControladorProyectos.php';
 require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/utils/funciones.php';
@@ -76,6 +77,18 @@ $mapa = array(
                                'privada'=>true),
     'borrarEvento'=>array('controlador'=>'ControladorOrganizaciones',
                                'metodo'=>'borrarEvento', 
+                               'privada'=>true),
+    'misProyectosOrganizacion'=>array('controlador'=>'ControladorProyectos',
+                               'metodo'=>'misProyectosOrganizacion',
+                               'privada'=>true),
+    'crearProyecto'=>array('controlador'=>'ControladorProyectos',
+                               'metodo'=>'crearProyecto', 
+                               'privada'=>true),
+    'editarProyecto'=>array('controlador'=>'ControladorProyectos',
+                               'metodo'=>'editarProyecto', 
+                               'privada'=>true),
+    'borrarProyecto'=>array('controlador'=>'ControladorProyectos',
+                               'metodo'=>'borrarProyecto', 
                                'privada'=>true),
     'login'=>array('controlador'=>'ControladorUsuarios', 
                    'metodo'=>'login', 

@@ -8,6 +8,7 @@ class Proyecto {
     private $fechaInicio;
     private $fechaFin;
     private $objetivoFinanciero;
+    private $fotoProyecto;
 
     /**
      * Get the value of idProyecto
@@ -111,6 +112,21 @@ class Proyecto {
      */
     public function setObjetivoFinanciero($objetivoFinanciero): self {
         $this->objetivoFinanciero = $objetivoFinanciero;
+        return $this;
+    }
+
+    /**
+     * Get the value of fotoProyecto
+     */
+    public function getFotoProyecto() {
+        return $this->fotoProyecto;
+    }
+
+    /**
+     * Set the value of fotoProyecto
+     */
+    public function setFotoProyecto($fotoProyecto): self {
+        $this->fotoProyecto = $fotoProyecto;
         return $this;
     }
 }

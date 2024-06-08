@@ -9,8 +9,7 @@ class EventosDAO
         $this->conn = $conn;
     }
 
-    public function getEventosByOrganizacion($idOrganizacion)
-    {
+    public function getEventosByOrganizacion($idOrganizacion){
         $query = "SELECT * FROM eventos WHERE idOrganizacion = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $idOrganizacion);
