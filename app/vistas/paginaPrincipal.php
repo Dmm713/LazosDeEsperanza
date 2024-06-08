@@ -114,6 +114,9 @@
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Proyectos</strong></a>
                             </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Testimonios</strong></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

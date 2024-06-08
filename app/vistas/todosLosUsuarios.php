@@ -54,7 +54,7 @@
             <a href="index.php?accion=paginaPrincipal" class="btn btn-secondary hover-door"><i class="fa-solid fa-left-long"></i></a>
         </div>
     </div>
-
+ 
     <div id="custom-confirm" class="custom-confirm">
         <div class="confirm-box">
             <p>¿Está seguro que desea borrar el usuario?</p>

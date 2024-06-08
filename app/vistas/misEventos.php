@@ -1,142 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Página de Organización</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Eventos</title>
+    <link rel="stylesheet" href="web/css/estilosMisEventos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #08929c;
-        }
-        .event-list {
-            list-style-type: none;
-            padding: 0;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .event-item {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .event-image {
-            max-width: 150px;
-            height: auto;
-            margin-right: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .event-details {
-            flex: 1;
-        }
-        .event-details strong {
-            font-size: 1.2em;
-            color: #08929c;
-        }
-        .event-actions {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
-        }
-        .event-actions a {
-            margin: 5px 0;
-            padding: 5px 10px;
-            background-color: #08929c;
-            color: #fff;
-            text-align: center;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9em;
-            cursor: pointer;
-        }
-        .event-actions a:hover {
-            background-color: #067a83;
-        }
-        .btn {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #08929c;
-            color: #fff;
-            text-align: center;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #067a83;
-        }
-
-        /* Custom Confirm Dialog */
-        .custom-confirm {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .confirm-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .confirm-box p {
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
-
-        .confirm-box .btn-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .confirm-box .btn {
-            background-color: #014949;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            margin: 5px;
-        }
-
-        .confirm-box .btn:hover {
-            background-color: #008080;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
     </style>
 </head>
+
 <body>
-    <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
-    <h2>Eventos</h2>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
+                </div>
+                <!-- Texto del Header -->
+                <div class="title-container">
+                    <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
+                </div>
+                <!-- Botón para insertar un nuevo usuario -->
+                <div class="new-user-container">
+                    <a href="index.php?accion=crearEvento" class="btn btn-primary">Crear Nuevo Evento</a>
+                    <a href="index.php?accion=paginaPrincipal" class="btn btn-primary"><i class="fa-solid fa-left-long"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <h1 style="margin-top: 3%;">Mis Eventos</h1>
     <ul class="event-list">
-        <?php foreach ($eventos as $evento): ?>
+        <?php foreach ($eventos as $evento) : ?>
             <li class="event-item">
-                <?php if (!empty($evento->getFotoEvento())): ?>
+                <?php if (!empty($evento->getFotoEvento())) : ?>
                     <img src="web/fotosEventos/<?php echo htmlspecialchars($evento->getFotoEvento()); ?>" alt="Foto del evento" class="event-image">
                 <?php endif; ?>
                 <div class="event-details">
@@ -147,13 +48,11 @@
                 </div>
                 <div class="event-actions btn-group">
                     <a href="index.php?accion=editarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>">Editar</a>
-                    <a href="index.php?accion=eliminarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>" class="btn-delete">Eliminar</a>
+                    <a href="index.php?accion=borrarEvento&idEvento=<?php echo $evento->getIdEvento(); ?>" class="btn-delete">Eliminar</a>
                 </div>
             </li>
         <?php endforeach; ?>
     </ul>
-    <a href="index.php?accion=crearEvento" class="btn">Crear Nuevo Evento</a>
-    <a href="index.php?accion=paginaPrincipal" class="btn">Volver</a>
 
     <div id="custom-confirm" class="custom-confirm">
         <div class="confirm-box">
@@ -194,4 +93,5 @@
         });
     </script>
 </body>
+
 </html>

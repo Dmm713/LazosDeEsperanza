@@ -1,13 +1,16 @@
 <?php
 
-class EventosDAO {
+class EventosDAO
+{
     private $conn;
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function getEventosByOrganizacion($idOrganizacion) {
+    public function getEventosByOrganizacion($idOrganizacion)
+    {
         $query = "SELECT * FROM eventos WHERE idOrganizacion = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $idOrganizacion);
@@ -31,10 +34,12 @@ class EventosDAO {
         return $eventos;
     }
 
-    public function insert(Evento $evento) {
+    public function insert(Evento $evento)
+    {
         $query = "INSERT INTO eventos (idOrganizacion, titulo, descripcion, fechaEvento, ubicacion, fotoEvento) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('isssss', 
+        $stmt->bind_param(
+            'isssss',
             $evento->getIdOrganizacion(),
             $evento->getTitulo(),
             $evento->getDescripcion(),
@@ -45,10 +50,12 @@ class EventosDAO {
         return $stmt->execute();
     }
 
-    public function update(Evento $evento) {
+    public function update(Evento $evento)
+    {
         $query = "UPDATE eventos SET titulo = ?, descripcion = ?, fechaEvento = ?, ubicacion = ?, fotoEvento = ? WHERE idEvento = ? AND idOrganizacion = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('sssssii',
+        $stmt->bind_param(
+            'sssssii',
             $evento->getTitulo(),
             $evento->getDescripcion(),
             $evento->getFechaEvento(),
@@ -60,14 +67,28 @@ class EventosDAO {
         return $stmt->execute();
     }
 
-    public function delete($idEvento) {
+    public function delete($idEvento)
+    {
+        
+        $query = "SELECT fotoEvento FROM eventos WHERE idEvento = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $idEvento);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $eventoData = $result->fetch_assoc();
+        $fotoEvento = $eventoData['fotoEvento'];
+
+        // Ahora, eliminar el evento
         $query = "DELETE FROM eventos WHERE idEvento = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $idEvento);
-        return $stmt->execute();
+        $success = $stmt->execute();
+
+        return $success ? $fotoEvento : null;
     }
 
-    public function getById($idEvento) {
+    public function getById($idEvento)
+    {
         $query = "SELECT * FROM eventos WHERE idEvento = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $idEvento);
