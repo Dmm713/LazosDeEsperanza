@@ -109,7 +109,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
+                                <a class="nav-link navbarLink" aria-current="page"  href="index.php?accion=miPerfilOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="index.php?accion=misEventosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Eventos</strong></a>

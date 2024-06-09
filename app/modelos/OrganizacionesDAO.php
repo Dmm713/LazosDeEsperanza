@@ -56,7 +56,7 @@ class OrganizacionesDAO {
         }
     } 
 
-    public function getById($idOrganizacion):Organizacion|null {
+    public function getOrganizacionById($idOrganizacion):Organizacion|null {
         if(!$stmt = $this->conn->prepare("SELECT * FROM organizaciones WHERE idOrganizacion = ?"))
         {
             echo "Error en la SQL: " . $this->conn->error;

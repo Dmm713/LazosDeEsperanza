@@ -110,7 +110,18 @@ class ControladorOrganizaciones
         require 'app/vistas/paginaPrincipal.php';
     }
 
+  public function miPerfilOrganizacion($idOrganizacion) {
+    // Conectar a la base de datos
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
 
+    $organizacionesDAO = new OrganizacionesDAO($conn);
+    $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+
+    // Incluir la vista y pasar la organización
+    require 'app/vistas/miPerfilOrganizacion.php';
+
+    }
 
     public function verTodasLasOrganizaciones()
     {
@@ -165,7 +176,7 @@ class ControladorOrganizaciones
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
         //Obtengo el usuario de la BD
         $organizacionesDAO = new OrganizacionesDAO($conn);
-        $organizacion = $organizacionesDAO->getById($idOrganizacion);
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
 
         // Guardar el nombre de la foto antigua
         $fotoAntigua = $organizacion->getFoto();
@@ -375,7 +386,7 @@ class ControladorOrganizaciones
 
     // Obtener la organización seleccionada por el ID
     $organizacionesDAO = new OrganizacionesDAO($conn);
-    $organizacion = $organizacionesDAO->getById($idOrganizacion);
+    $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
 
     // Verificar si la organización existe
     if (!$organizacion) {
@@ -576,4 +587,6 @@ class ControladorOrganizaciones
     header('location: index.php?accion=misEventosOrganizacion');
     die();
     }
+
+
 }

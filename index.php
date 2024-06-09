@@ -105,6 +105,9 @@ $mapa = array(
     'borrarTestimonio'=>array('controlador'=>'ControladorTestimonios',
                                'metodo'=>'borrarTestimonio', 
                                'privada'=>true),
+    'miPerfilOrganizacion'=>array('controlador'=>'ControladorOrganizaciones',
+                               'metodo'=>'miPerfilOrganizacion', 
+                               'privada'=>true),
     'login'=>array('controlador'=>'ControladorUsuarios', 
                    'metodo'=>'login', 
                    'privada'=>false),
@@ -211,9 +214,9 @@ $objeto = new $controlador();
 if ($accion == 'paginaOrganizacion' && isset($_GET['idOrganizacion'])) {
     $idOrganizacion = $_GET['idOrganizacion'];
     $objeto->$metodo($idOrganizacion);
-} else if ($accion == 'paginaOrganizacion') {
-    // Si la acción es paginaOrganizacion pero no hay idOrganizacion, mostramos un error
-    echo "ID de organización no proporcionado.";
+} else if ($accion == 'miPerfilOrganizacion' && isset($_SESSION['idOrganizacion'])) {
+    $idOrganizacion = $_SESSION['idOrganizacion'];
+    $objeto->$metodo($idOrganizacion);
 } else {
     $objeto->$metodo();
 }
