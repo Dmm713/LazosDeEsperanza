@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <header>
+<header>
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
@@ -42,8 +42,8 @@
                             <a id="linkRegistrar" href="index.php?accion=logout" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Cerrar Sesión</a>
                         </div>
                     <?php else : ?>
-                        <a id="linkIniciarSesion" href="index.php?accion=login&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
-                        <a id="linkRegistrar" href="index.php?accion=registrar&accessibility=<?php echo $_SESSION['accessibility'] ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
+                        <a id="linkIniciarSesion" href="index.php?accion=login&accessibility=<?= isset($_SESSION['accessibility']) ? $_SESSION['accessibility'] : '' ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Iniciar Sesión</a>
+                        <a id="linkRegistrar" href="index.php?accion=registrar&accessibility=<?= isset($_SESSION['accessibility']) ? $_SESSION['accessibility'] : '' ?>" class="sesion btn" style="background-color: white; color: #08929c;" tabindex="0">Registrar</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                                 <a class="nav-link navbarLink" href="index.php?accion=misProyectosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>"style="text-align: center;"><strong>Mis Proyectos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Testimonios</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=misTestimoniosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Testimonios</strong></a>
                             </li>
                         </ul>
                     </div>

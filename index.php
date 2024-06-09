@@ -15,8 +15,11 @@ require_once 'app/modelos/Proyecto.php';
 require_once 'app/modelos/ProyectosDAO.php';
 require_once 'app/modelos/Voluntario.php';
 require_once 'app/modelos/VoluntariosDAO.php';
+require_once 'app/modelos/Testimonio.php';
+require_once 'app/modelos/TestimoniosDAO.php';
 require_once 'app/controladores/ControladorOrganizaciones.php';
 require_once 'app/controladores/ControladorProyectos.php';
+require_once 'app/controladores/ControladorTestimonios.php';
 require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/utils/funciones.php';
@@ -89,6 +92,18 @@ $mapa = array(
                                'privada'=>true),
     'borrarProyecto'=>array('controlador'=>'ControladorProyectos',
                                'metodo'=>'borrarProyecto', 
+                               'privada'=>true),
+    'misTestimoniosOrganizacion'=>array('controlador'=>'ControladorTestimonios',
+                               'metodo'=>'misTestimoniosOrganizacion',
+                               'privada'=>true),
+    'crearTestimonio'=>array('controlador'=>'ControladorTestimonios',
+                               'metodo'=>'crearTestimonio', 
+                               'privada'=>true),
+    'editarTestimonio'=>array('controlador'=>'ControladorTestimonios',
+                               'metodo'=>'editarTestimonio', 
+                               'privada'=>true),
+    'borrarTestimonio'=>array('controlador'=>'ControladorTestimonios',
+                               'metodo'=>'borrarTestimonio', 
                                'privada'=>true),
     'login'=>array('controlador'=>'ControladorUsuarios', 
                    'metodo'=>'login', 
