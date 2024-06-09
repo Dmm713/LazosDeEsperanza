@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nuevo Proyecto</title>
-    <link rel="stylesheet" href="web/css/estilosNuevoEvento.css">
+    <link rel="stylesheet" href="web/css/estilosNuevoProyecto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
@@ -52,7 +52,10 @@
             <label for="fotoProyecto">Foto del Proyecto:</label>
             <input type="file" id="fotoProyecto" name="fotoProyecto" accept="image/*"><br><br>
 
-            <button type="submit">Crear Proyecto</button>
+            <div class="btn-container">
+                <button type="submit">Crear Proyecto</button>
+                <a href="index.php?accion=misProyectosOrganizacion" class="btn">Cancelar</a>
+            </div>
         </form>
     </div>
 

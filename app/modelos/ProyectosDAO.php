@@ -50,23 +50,27 @@ class ProyectosDAO {
     return $stmt->execute();
 }
 
-public function update(Proyecto $proyecto)
-{
-    $query = "UPDATE proyectos SET titulo = ?, descripcion = ?, fechaInicio = ?, fechaFin = ?, objetivoFinanciero = ?, fotoProyecto = ? WHERE idProyecto = ? AND idOrganizacion = ?";
-    $stmt = $this->conn->prepare($query);
-    $stmt->bind_param(
-        'sssdsiii',
-        $proyecto->getTitulo(),
-        $proyecto->getDescripcion(),
-        $proyecto->getFechaInicio(),
-        $proyecto->getFechaFin(),
-        $proyecto->getObjetivoFinanciero(),
-        $proyecto->getFotoProyecto(),
-        $proyecto->getIdProyecto(),
-        $proyecto->getIdOrganizacion()
-    );
-    return $stmt->execute();
+public function update($proyecto) {
+    $sql = "UPDATE proyectos SET titulo = ?, descripcion = ?, fechaInicio = ?, fechaFin = ?, objetivoFinanciero = ?, fotoProyecto = ? WHERE idProyecto = ?";
+    $stmt = $this->conn->prepare($sql);
+    
+    $titulo = $proyecto->getTitulo();
+    $descripcion = $proyecto->getDescripcion();
+    $fechaInicio = $proyecto->getFechaInicio();
+    $fechaFin = $proyecto->getFechaFin();
+    $objetivoFinanciero = $proyecto->getObjetivoFinanciero();
+    $fotoProyecto = $proyecto->getFotoProyecto();
+    $idProyecto = $proyecto->getIdProyecto();
+    
+    $stmt->bind_param("ssssssi", $titulo, $descripcion, $fechaInicio, $fechaFin, $objetivoFinanciero, $fotoProyecto, $idProyecto);
+    
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
 
 public function delete($idProyecto)
 {

@@ -12,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
     </style>
 </head>
- 
+
 <body>
     <header>
         <div class="container">
@@ -40,15 +40,15 @@
                     </div>
                 <?php endif; ?>
                 <div class="event-details">
-                    <strong><?php echo htmlspecialchars($proyecto->getTitulo()); ?></strong><br>
+                    <strong style="font-size: 20px; color: #067a83;"><?php echo htmlspecialchars($proyecto->getTitulo()); ?></strong><br>
                     <?php echo htmlspecialchars($proyecto->getDescripcion()); ?><br>
                     <strong>Fecha Inicio:</strong> <?php echo htmlspecialchars($proyecto->getFechaInicio()); ?><br>
                     <strong>Fecha Fin:</strong> <?php echo htmlspecialchars($proyecto->getFechaFin()); ?><br>
                     <strong>Objetivo Financiero:</strong> <?php echo htmlspecialchars($proyecto->getObjetivoFinanciero()); ?>€
                 </div>
                 <div class="event-actions btn-group">
-                    <a href="index.php?accion=editarEvento&idEvento=<?php echo $proyecto->getIdProyecto(); ?>">Editar</a>
-                    <a href="index.php?accion=borrarEvento&idEvento=<?php echo $proyecto->getIdProyecto(); ?>" class="btn-delete">Eliminar</a>
+                    <a href="index.php?accion=editarProyecto&idProyecto=<?php echo $proyecto->getIdProyecto(); ?>">Editar</a>
+                    <a href="index.php?accion=borrarProyecto&idProyecto=<?php echo $proyecto->getIdProyecto(); ?>" class="btn-delete">Eliminar</a>
                 </div>
             </li>
         <?php endforeach; ?>
@@ -92,6 +92,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>

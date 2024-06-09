@@ -10,6 +10,7 @@ h1 {
     text-align: center;
     color: #08929c;
     margin-top: 20px;
+    font-size: 2em; /* Make the title bigger */
 }
 
 /* Header Styles */
@@ -46,12 +47,13 @@ header {
     justify-content: flex-end;
     align-items: center;
     flex: 1;
+    margin-right: 50px;
 }
 
 header h1 {
     margin: 0;
     color: white;
-    font-size: 1.5em;
+    font-size: 1.8em; /* Increase the font size of the header title */
 }
 
 .logo {
@@ -99,32 +101,36 @@ header h1 {
     width: 300px;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
-    position: relative; /* Añadir */
+    position: relative;
+    height: 200px; /* Set a fixed height initially */
+}
+
+.event-item:hover {
+    height: 400px; /* Change to desired height on hover */
 }
 
 .image-container {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
     width: 100%;
-    position: absolute; /* Añadir */
-    top: 0; /* Añadir */
-    left: 0; /* Añadir */
-    z-index: 1; /* Añadir */
+    height: 0; /* Initially set height to 0 */
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
 }
 
 .event-item:hover .image-container {
-    max-height: 200px;
-    position: relative; /* Añadir */
+    height: 200px; /* Set to desired image height on hover */
 }
 
 .image-container img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: contain; /* Ensure the whole image fits within the container */
     object-position: center center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    display: block;
+}
+
+.event-item:hover .image-container img {
+    transform: scale(1.1);
 }
 
 .event-details {
@@ -138,13 +144,13 @@ header h1 {
     gap: 10px;
     border-top: 1px solid #ddd;
     background-color: #f9f9f9;
-    position: relative; /* Añadir */
-    z-index: 0; /* Añadir */
+    position: relative;
+    z-index: 0;
 }
 
 .event-actions a {
-    color: white;
-    background-color: #08929c;
+    background-color: #014949;
+    color: #7FF9B9;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
@@ -197,12 +203,27 @@ header h1 {
 }
 
 @media (max-width: 768px) {
+    .event-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .event-item {
-        width: 100%;
+        width: 90%; /* Adjust width for smaller screens */
+        height: auto; /* Allow height to be auto */
+        margin-bottom: 20px;
+    }
+
+    .event-item:hover {
+        height: auto; /* Allow height to expand naturally */
     }
 
     .image-container {
-        max-height: 150px;
+        height: auto; /* Allow height to expand naturally */
+    }
+
+    .event-item:hover .image-container {
+        height: auto; /* Allow height to expand naturally */
     }
 
     .event-details,
