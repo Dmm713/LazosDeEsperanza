@@ -1,0 +1,164 @@
+/* estilosEditarTestimonio.css */
+body {
+    font-family: 'Changa', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #08929c;
+    padding: 20px 0;
+    color: white;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo-container {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.title-container {
+    flex: 2;
+    text-align: center;
+}
+
+.title-container h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.new-user-container {
+    flex: 1;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.new-user-container .btn {
+    background-color: #014949;
+    color: #7FF9B9;
+    margin-left: 10px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container input[type="number"],
+.form-container textarea,
+.form-container input[type="file"] {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.form-container .btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.form-container .btn-container .btn {
+    background-color: #08929c;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    margin: 5px;
+    box-sizing: border-box;
+    max-width: 150px; /* Ajuste para hacer los botones más cortos */
+    height: 40px; /* Asegura que ambos botones tengan la misma altura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container .btn-container .btn:hover {
+    background-color: #066d73;
+}
+
+#outputImage {
+    max-width: 50%;  /* Cambiado el tamaño máximo para hacerla aún más pequeña */
+    height: auto;
+    margin: 20px auto;  /* Agregado auto para centrar la imagen */
+    border-radius: 10px;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+        width: 90%;
+    }
+
+    #outputImage {
+        max-width: 70%;  /* Ajuste de tamaño para pantallas pequeñas */
+    }
+
+    .form-container .btn-container {
+        flex-direction: column;
+    }
+
+    .form-container .btn-container .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .form-container .btn-container .btn:last-child {
+        margin-bottom: 0;
+    }
+}

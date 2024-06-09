@@ -21,7 +21,7 @@
                     <img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
                 </div>
                 <div class="title-container">
-                    <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
+                    <h1 style="color: white;"><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
                 </div>
                 <div class="new-user-container">
                     <a href="index.php?accion=crearTestimonio" class="btn btn-primary">Crear Nuevo Testimonio</a>
@@ -31,24 +31,26 @@
         </div>
     </header>
     <h1 style="margin-top: 3%;">Mis Testimonios</h1>
-    <ul class="testimonio-list">
+    <div class="testimonio-grid">
         <?php foreach ($testimonios as $testimonio) : ?>
-            <li class="testimonio-item">
+            <div class="testimonio-card">
                 <?php if (!empty($testimonio->getFoto())) : ?>
-                    <img src="web/fotosTestimonios/<?php echo htmlspecialchars($testimonio->getFoto()); ?>" alt="Foto del testimonio" class="testimonio-image">
+                    <div class="testimonio-image-container">
+                        <img src="web/fotosTestimonios/<?php echo htmlspecialchars($testimonio->getFoto()); ?>" alt="Foto del testimonio" class="testimonio-image">
+                    </div>
                 <?php endif; ?>
-                <div class="testimonio-details">
-                    <strong><?php echo htmlspecialchars($testimonio->getNombre() . ' ' . htmlspecialchars($testimonio->getApellidos())); ?></strong><br>
-                    Problema: <?php echo htmlspecialchars($testimonio->getProblema()); ?><br>
-                    Solución: <?php echo htmlspecialchars($testimonio->getSolucion()); ?>
+                <div class="testimonio-content">
+                    <h2><?php echo htmlspecialchars($testimonio->getNombre() . ' ' . htmlspecialchars($testimonio->getApellidos())); ?></h2>
+                    <p><strong>Problema:</strong> <?php echo htmlspecialchars($testimonio->getProblema()); ?></p>
+                    <p><strong>Solución:</strong> <?php echo htmlspecialchars($testimonio->getSolucion()); ?></p>
+                    <div class="testimonio-actions">
+                        <a href="index.php?accion=editarTestimonio&idTestimonio=<?php echo $testimonio->getIdTestimonio(); ?>" class="btn-edit">Editar</a>
+                        <a href="index.php?accion=borrarTestimonio&idTestimonio=<?php echo $testimonio->getIdTestimonio(); ?>" class="btn-delete">Eliminar</a>
+                    </div>
                 </div>
-                <div class="testimonio-actions btn-group">
-                    <a href="index.php?accion=editarTestimonio&idTestimonio=<?php echo $testimonio->getIdTestimonio(); ?>">Editar</a>
-                    <a href="index.php?accion=borrarTestimonio&idTestimonio=<?php echo $testimonio->getIdTestimonio(); ?>" class="btn-delete">Eliminar</a>
-                </div>
-            </li>
+            </div>
         <?php endforeach; ?>
-    </ul>
+    </div>
 
     <div id="custom-confirm" class="custom-confirm">
         <div class="confirm-box">

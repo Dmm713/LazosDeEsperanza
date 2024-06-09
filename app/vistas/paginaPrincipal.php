@@ -91,6 +91,9 @@
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Proyectos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Testimonios</strong></a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                         </ul>
@@ -140,6 +143,9 @@
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Testimonios</a>
                             </li>
                         </ul>
                     </div>
