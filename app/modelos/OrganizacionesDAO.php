@@ -180,6 +180,19 @@ class OrganizacionesDAO {
         }
         
     }
+
+    public function updateFoto($organizacion)
+    {
+        if (!$stmt = $this->conn->prepare("UPDATE organizaciones SET foto=? WHERE idOrganizacion=?")) {
+            die("Error al preparar la consulta updateFoto: " . $this->conn->error);
+        }
+        $foto = $organizacion->getFoto();
+        $idOrganizacion = $organizacion->getIdOrganizacion();
+        $stmt->bind_param('si', $foto, $idOrganizacion);
+        return $stmt->execute();
+    }
+    
+
  
 }
 ?>

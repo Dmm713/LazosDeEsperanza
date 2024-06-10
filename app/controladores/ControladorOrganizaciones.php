@@ -376,7 +376,65 @@ class ControladorOrganizaciones
         die();
     }
 
+    public function actualizarFoto()
+{
+    $error = '';
+    
+    // Verificar que la solicitud sea POST
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Obtener el id de la organización desde la URL
+        $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
+        
+        // Conectamos con la BD
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Crear el objeto OrganizacionesDAO
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        
+        // Obtener la organización por id
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+        
+        // Guardar el nombre de la foto antigua
+        $fotoAntigua = $organizacion->getFoto();
+        
+        // Manejar la subida de la nueva foto
+        if (!empty($_FILES['nuevaFoto']['name'])) {
+            if (
+                $_FILES['nuevaFoto']['type'] != 'image/jpeg' &&
+                $_FILES['nuevaFoto']['type'] != 'image/webp' &&
+                $_FILES['nuevaFoto']['type'] != 'image/png'
+            ) {
+                $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+            } else {
+                $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                while (file_exists("web/fotosUsuarios/$foto")) {
+                    $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                }
+                if (!move_uploaded_file($_FILES['nuevaFoto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                    die("Error al copiar la foto a la carpeta fotosUsuarios");
+                }
 
+                // Actualizar la foto de la organización
+                $organizacion->setFoto($foto);
+                if ($organizacionesDAO->updateFoto($organizacion)) {
+                    // Borrar la foto antigua si se subió una nueva
+                    if ($fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
+                        unlink("web/fotosUsuarios/$fotoAntigua");
+                    }
+                    echo json_encode(['success' => true, 'foto' => $foto]);
+                    die();
+                } else {
+                    $error = "No se ha podido actualizar la foto de la organización";
+                }
+            }
+        }
+        echo json_encode(['success' => false, 'error' => $error]);
+        die();
+    }
+}
+
+    
 
 
     public function insertarOrganizacion()
