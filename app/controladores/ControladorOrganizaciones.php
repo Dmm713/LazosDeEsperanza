@@ -14,18 +14,23 @@ class ControladorOrganizaciones
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
             $direccion = htmlentities($_POST['direccion']);
-            $foto = '';
             $ciego = htmlentities($_POST['ciego']);
             $rol = htmlentities($_POST['rol']);
-
+            $quienesSomos = htmlentities($_POST['quienesSomos']);
+            $objetivos = htmlentities($_POST['objetivos']);
+            $ciudades = htmlentities($_POST['ciudades']);
+            $foto = '';
+            $logo = '';
+    
             // Validación y conexión con la BD
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-
+    
             $organizacionesDAO = new OrganizacionesDAO($conn);
             if ($organizacionesDAO->getByEmail($email) != null) {
                 $error = "Ya hay una organización con ese email";
             } else {
+                // Validación de la foto
                 if (
                     $_FILES['foto']['type'] != 'image/jpeg' &&
                     $_FILES['foto']['type'] != 'image/webp' &&
@@ -41,6 +46,24 @@ class ControladorOrganizaciones
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
                 }
+    
+                // Validación del logo
+                if (
+                    $_FILES['logo']['type'] != 'image/jpeg' &&
+                    $_FILES['logo']['type'] != 'image/webp' &&
+                    $_FILES['logo']['type'] != 'image/png'
+                ) {
+                    $error = "El logo no tiene el formato admitido, debe ser jpg, webp o png";
+                } else {
+                    $logo = generarNombreArchivo($_FILES['logo']['name']);
+                    while (file_exists("web/logosOrganizaciones/$logo")) {
+                        $logo = generarNombreArchivo($_FILES['logo']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['logo']['tmp_name'], "web/logosOrganizaciones/$logo")) {
+                        die("Error al copiar el logo a la carpeta logosOrganizaciones");
+                    }
+                }
+    
                 if ($error == '') {
                     $organizacion = new Organizacion();
                     $organizacion->setNombre($nombre);
@@ -54,8 +77,12 @@ class ControladorOrganizaciones
                     $organizacion->setFoto($foto);
                     $organizacion->setCiego($ciego);
                     $organizacion->setRol($rol);
+                    $organizacion->setLogo($logo);
+                    $organizacion->setQuienesSomos($quienesSomos);
+                    $organizacion->setObjetivos($objetivos);
+                    $organizacion->setCiudades($ciudades);
                     $organizacion->setSid(sha1(rand() + time()), true);
-
+    
                     if ($organizacionesDAO->insert($organizacion)) {
                         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();
@@ -65,7 +92,7 @@ class ControladorOrganizaciones
                 }
             }
         }
-
+    
         require 'app/vistas/registrar.php';
     }
 
@@ -138,52 +165,67 @@ class ControladorOrganizaciones
 
     public function borrarOrganizacion()
     {
-        //Creamos la conexión utilizando la clase que hemos creado
+        // Creamos la conexión utilizando la clase que hemos creado
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-
-        //Creamos el objeto OrganizacionesDAO para acceder a BBDD a través de este objeto
+    
+        // Creamos el objeto OrganizacionesDAO para acceder a la BBDD a través de este objeto
         $organizacionesDAO = new OrganizacionesDAO($conn);
-
-        //Obtener el id del usuario
+    
+        // Obtener el id de la organización
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
-
-        // Borrar el usuario y obtener el nombre de la foto
-        $foto = $organizacionesDAO->borrarOrganizacion($idOrganizacion);
-
-        // Si se borró el usuario, borrar la foto del servidor
-        if ($foto) {
-            $filePath = "web/fotosUsuarios/$foto";
-            if (file_exists($filePath)) {
-                unlink($filePath);
+    
+        // Obtener la organización antes de borrarla para obtener los nombres de la foto y el logo
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+        $foto = $organizacion->getFoto();
+        $logo = $organizacion->getLogo();
+    
+        // Borrar la organización
+        $borrado = $organizacionesDAO->borrarOrganizacion($idOrganizacion);
+    
+        // Si se borró la organización, borrar la foto y el logo del servidor
+        if ($borrado) {
+            if ($foto) {
+                $filePathFoto = "web/fotosUsuarios/$foto";
+                if (file_exists($filePathFoto)) {
+                    unlink($filePathFoto);
+                }
+            }
+            if ($logo) {
+                $filePathLogo = "web/logosOrganizaciones/$logo";
+                if (file_exists($filePathLogo)) {
+                    unlink($filePathLogo);
+                }
             }
         }
-
-        // Redirigir a la lista de usuarios
+    
+        // Redirigir a la lista de organizaciones
         header('location: index.php?accion=verTodasLasOrganizaciones');
         die();
     }
+    
 
     public function editarOrganizacion()
     {
         $error = '';
 
-        //Conectamos con la BD
+        // Conectamos con la BD
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-
-        //Obtengo el id del usuario que viene por GET
+    
+        // Obtengo el id de la organización que viene por GET
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
-        //Obtengo el usuario de la BD
+        // Obtengo la organización de la BD
         $organizacionesDAO = new OrganizacionesDAO($conn);
         $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-
-        // Guardar el nombre de la foto antigua
+    
+        // Guardar el nombre de la foto y logo antiguos
         $fotoAntigua = $organizacion->getFoto();
-
-        //Cuando se envíe el formulario actualizo el usuario en la BD
+        $logoAntiguo = $organizacion->getLogo();
+    
+        // Cuando se envíe el formulario actualizo la organización en la BD
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //Limpiamos los datos que vienen del usuario
+            // Limpiamos los datos que vienen del usuario
             $nombre = htmlspecialchars($_POST['nombre']);
             $descripcion = htmlspecialchars($_POST['descripcion']);
             $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
@@ -191,10 +233,14 @@ class ControladorOrganizaciones
             $direccion = htmlspecialchars($_POST['direccion']);
             $ciego = htmlspecialchars($_POST['ciego']);
             $rol = htmlspecialchars($_POST['rol']);
+            $quienesSomos = htmlspecialchars($_POST['quienesSomos']);
+            $objetivos = htmlspecialchars($_POST['objetivos']);
+            $ciudades = htmlspecialchars($_POST['ciudades']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
-
-            //Validamos los datos
-            if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol)) {
+            $logoTemporal = htmlspecialchars($_POST['logoTemporal']);
+    
+            // Validamos los datos
+            if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol) || empty($quienesSomos) || empty($objetivos) || empty($ciudades)) {
                 $error = "Todos los campos son obligatorios";
             } else {
                 $organizacion->setNombre($nombre);
@@ -204,7 +250,10 @@ class ControladorOrganizaciones
                 $organizacion->setDireccion($direccion);
                 $organizacion->setCiego($ciego);
                 $organizacion->setRol($rol);
-
+                $organizacion->setQuienesSomos($quienesSomos);
+                $organizacion->setObjetivos($objetivos);
+                $organizacion->setCiudades($ciudades);
+    
                 // Manejar la subida de la nueva foto
                 if (!empty($_FILES['foto']['name'])) {
                     if (
@@ -230,19 +279,55 @@ class ControladorOrganizaciones
                     rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
                     $organizacion->setFoto($foto);
                 }
-
+    
+                // Manejar la subida del nuevo logo
+                if (!empty($_FILES['logo']['name'])) {
+                    if (
+                        $_FILES['logo']['type'] != 'image/jpeg' &&
+                        $_FILES['logo']['type'] != 'image/webp' &&
+                        $_FILES['logo']['type'] != 'image/png'
+                    ) {
+                        $error = "El logo no tiene el formato admitido, debe ser jpg, webp o png";
+                    } else {
+                        $logo = generarNombreArchivo($_FILES['logo']['name']);
+                        while (file_exists("web/logosOrganizaciones/$logo")) {
+                            $logo = generarNombreArchivo($_FILES['logo']['name']);
+                        }
+                        if (!move_uploaded_file($_FILES['logo']['tmp_name'], "web/logosOrganizaciones/$logo")) {
+                            die("Error al copiar el logo a la carpeta logosOrganizaciones");
+                        }
+                        // Actualizar el logo solo si se ha subido uno nuevo
+                        $organizacion->setLogo($logo);
+                    }
+                } elseif (!empty($logoTemporal)) {
+                    // Si no se subió un nuevo logo pero hay un logo temporal
+                    $logo = str_replace("temp_", "", $logoTemporal); // Renombrar logo temporal a definitivo
+                    rename("web/logosOrganizaciones/$logoTemporal", "web/logosOrganizaciones/$logo");
+                    $organizacion->setLogo($logo);
+                }
+    
                 if ($error == '') {
                     if ($organizacionesDAO->update($organizacion)) {
                         // Borrar la foto antigua si se subió una nueva
                         if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
                             unlink("web/fotosUsuarios/$fotoAntigua");
                         }
-
+    
                         // Borrar cualquier foto temporal remanente
                         if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
                             unlink("web/fotosUsuarios/$fotoTemporal");
                         }
-
+    
+                        // Borrar el logo antiguo si se subió uno nuevo
+                        if (!empty($_FILES['logo']['name']) && $logoAntiguo && $organizacion->getLogo() !== $logoAntiguo) {
+                            unlink("web/logosOrganizaciones/$logoAntiguo");
+                        }
+    
+                        // Borrar cualquier logo temporal remanente
+                        if (!empty($logoTemporal) && file_exists("web/logosOrganizaciones/$logoTemporal")) {
+                            unlink("web/logosOrganizaciones/$logoTemporal");
+                        }
+    
                         header('location: index.php?accion=verTodasLasOrganizaciones');
                         die();
                     } else {
@@ -307,18 +392,23 @@ class ControladorOrganizaciones
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
             $direccion = htmlentities($_POST['direccion']);
-            $foto = '';
             $ciego = htmlentities($_POST['ciego']);
             $rol = htmlentities($_POST['rol']);
-
+            $quienesSomos = htmlentities($_POST['quienesSomos']);
+            $objetivos = htmlentities($_POST['objetivos']);
+            $ciudades = htmlentities($_POST['ciudades']);
+            $foto = '';
+            $logo = '';
+    
             // Validación y conexión con la BD
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-
+    
             $organizacionesDAO = new OrganizacionesDAO($conn);
             if ($organizacionesDAO->getByEmail($email) != null) {
                 $error = "Ya hay una organización con ese email";
             } else {
+                // Validación de la foto
                 if (
                     $_FILES['foto']['type'] != 'image/jpeg' &&
                     $_FILES['foto']['type'] != 'image/webp' &&
@@ -334,6 +424,24 @@ class ControladorOrganizaciones
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
                 }
+    
+                // Validación del logo
+                if (
+                    $_FILES['logo']['type'] != 'image/jpeg' &&
+                    $_FILES['logo']['type'] != 'image/webp' &&
+                    $_FILES['logo']['type'] != 'image/png'
+                ) {
+                    $error = "El logo no tiene el formato admitido, debe ser jpg, webp o png";
+                } else {
+                    $logo = generarNombreArchivo($_FILES['logo']['name']);
+                    while (file_exists("web/logosOrganizaciones/$logo")) {
+                        $logo = generarNombreArchivo($_FILES['logo']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['logo']['tmp_name'], "web/logosOrganizaciones/$logo")) {
+                        die("Error al copiar el logo a la carpeta logosOrganizaciones");
+                    }
+                }
+    
                 if ($error == '') {
                     $organizacion = new Organizacion();
                     $organizacion->setNombre($nombre);
@@ -347,8 +455,12 @@ class ControladorOrganizaciones
                     $organizacion->setFoto($foto);
                     $organizacion->setCiego($ciego);
                     $organizacion->setRol($rol);
+                    $organizacion->setLogo($logo);
+                    $organizacion->setQuienesSomos($quienesSomos);
+                    $organizacion->setObjetivos($objetivos);
+                    $organizacion->setCiudades($ciudades);
                     $organizacion->setSid(sha1(rand() + time()), true);
-
+    
                     if ($organizacionesDAO->insert($organizacion)) {
                         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();
@@ -358,7 +470,7 @@ class ControladorOrganizaciones
                 }
             }
         }
-
+    
         require 'app/vistas/insertarOrganizacion.php';
     }
 

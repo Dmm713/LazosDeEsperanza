@@ -21,27 +21,49 @@
                 <?php endif; ?>
                 <form action="index.php?accion=registrarOrganizacion" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
+                    
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" placeholder="Escriba su nombre" required>
+                    
                     <label for="descripcion">Descripción:</label>
                     <input type="text" name="descripcion" placeholder="Escriba su descripción" required>
+                    
                     <label for="sitioWeb">Sitio Web: (https://www.ejemplo.com)</label>
                     <input type="text" name="sitioWeb" placeholder="Escriba su sitio web" required>
+                    
                     <label for="telefono">Teléfono:</label>
                     <input type="text" name="telefono" placeholder="Escriba su teléfono" required>
+                    
                     <label for="ciego">Ciego:</label>
                     <select name="ciego" id="ciego">
                         <option value="SI">SI</option>
                         <option value="NO">NO</option>
                     </select>
+                    
                     <label for="email">Email:</label>
                     <input type="email" name="email" placeholder="Escriba su email" required>
+                    
                     <label for="password">Contraseña:</label>
                     <input type="password" name="password" placeholder="Escriba su contraseña" required>
+                    
                     <label for="direccion">Dirección:</label>
                     <input type="text" name="direccion" placeholder="Escriba su dirección" required>
+                    
                     <label for="foto">Foto:</label>
                     <input type="file" name="foto" accept="image/jpeg, image/gif, image/webp, image/png" placeholder="inserte su foto de perfil">
+                    
+                    <label for="logo">Logo:</label>
+                    <input type="file" name="logo" accept="image/jpeg, image/gif, image/webp, image/png" placeholder="inserte su logo">
+                    
+                    <label for="quienesSomos">Quiénes Somos:</label>
+                    <input type="text" name="quienesSomos" placeholder="Escriba sobre quiénes son" required>
+                    
+                    <label for="objetivos">Objetivos:</label>
+                    <input type="text" name="objetivos" placeholder="Escriba sus objetivos" required>
+                    
+                    <label for="ciudades">Ciudades:</label>
+                    <input type="text" name="ciudades" placeholder="Escriba las ciudades en las que operan" required>
+                    
                     <label for="rol">Rol:</label>
                     <input type="text" name="rol" value="Organización" readonly>
 

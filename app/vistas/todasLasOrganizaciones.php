@@ -24,9 +24,10 @@
                 <div class="title-container">
                     <h1>TODAS LAS ORGANIZACIONES</h1>
                 </div>
-                <!-- Botón para insertar una nueva organización -->
-                <div class="new-user-container">
+                <!-- Botones para insertar una nueva organización y volver -->
+                <div class="button-group">
                     <a href="index.php?accion=insertarOrganizacion" class="btn btn-primary">Insertar Nueva Organización</a>
+                    <a href="index.php?accion=paginaPrincipal" class="btn btn-secondary hover-door"><i class="fa-solid fa-left-long"></i></a>
                 </div>
             </div>
         </div>
@@ -51,10 +52,6 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <!-- Botón para volver -->
-        <div class="return-container">
-            <a href="index.php?accion=paginaPrincipal" class="btn btn-secondary hover-door"><i class="fa-solid fa-left-long"></i></a>
-        </div>
     </div>
 
     <div id="custom-confirm" class="custom-confirm">
@@ -66,8 +63,7 @@
     </div>
 
     <script>
-
-document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const accessibility = "<?php echo $_SESSION['accessibility'] ?>"
             console.log(accessibility)
@@ -134,4 +130,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     </script>
 </body>
+
 </html>

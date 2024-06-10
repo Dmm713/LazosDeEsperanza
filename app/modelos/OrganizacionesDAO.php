@@ -105,9 +105,10 @@ class OrganizacionesDAO {
      * @return idOrganizacion Devuelve el id autonumérico que se le ha asignado al usuario o false en caso de error
      */
     function insert(Organizacion $organizacion): int|bool{
-        if(!$stmt = $this->conn->prepare("INSERT INTO organizaciones (nombre, descripcion, sitioWeb, telefono, email, password, direccion, foto, ciego, rol, sid) VALUES (?,?,?,?,?,?,?,?,?,?,?)")){
-            die("Error al preparar la consulta insert: " . $this->conn->error );
+        if (!$stmt = $this->conn->prepare("INSERT INTO organizaciones (nombre, descripcion, sitioWeb, telefono, email, password, direccion, foto, ciego, rol, logo, quienesSomos, objetivos, ciudades, sid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+            die("Error al preparar la consulta insert: " . $this->conn->error);
         }
+    
         $nombre = $organizacion->getNombre();
         $descripcion = $organizacion->getDescripcion();
         $sitioWeb = $organizacion->getSitioWeb();
@@ -118,21 +119,27 @@ class OrganizacionesDAO {
         $foto = $organizacion->getFoto();
         $ciego = $organizacion->getCiego();
         $rol = $organizacion->getRol();
+        $logo = $organizacion->getLogo();
+        $quienesSomos = $organizacion->getQuienesSomos();
+        $objetivos = $organizacion->getObjetivos();
+        $ciudades = $organizacion->getCiudades();
         $sid = $organizacion->getSid();
-        $stmt->bind_param('sssssssssss',$nombre, $descripcion, $sitioWeb, $telefono, $email, $password, $direccion, $foto, $ciego, $rol, $sid);
-        if($stmt->execute()){
+    
+        $stmt->bind_param('sssssssssssssss', $nombre, $descripcion, $sitioWeb, $telefono, $email, $password, $direccion, $foto, $ciego, $rol, $logo, $quienesSomos, $objetivos, $ciudades, $sid);
+        
+        if ($stmt->execute()) {
             return $stmt->insert_id;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
 
     public function update($organizacion, $fotoAntigua = null){
-        if(!$stmt = $this->conn->prepare("UPDATE organizaciones SET nombre=?, descripcion=?, sitioWeb=?, telefono=?, direccion=?, foto=?, ciego=?, rol=? WHERE idOrganizacion=?")){
-            die("Error al preparar la consulta update: " . $this->conn->error );
+        if (!$stmt = $this->conn->prepare("UPDATE organizaciones SET nombre=?, descripcion=?, sitioWeb=?, telefono=?, direccion=?, foto=?, ciego=?, rol=?, logo=?, quienesSomos=?, objetivos=?, ciudades=? WHERE idOrganizacion=?")) {
+            die("Error al preparar la consulta update: " . $this->conn->error);
         }
+    
         $nombre = $organizacion->getNombre();
         $descripcion = $organizacion->getDescripcion();
         $sitioWeb = $organizacion->getSitioWeb();
@@ -141,8 +148,14 @@ class OrganizacionesDAO {
         $foto = $organizacion->getFoto();
         $ciego = $organizacion->getCiego();
         $rol = $organizacion->getRol();
+        $logo = $organizacion->getLogo();
+        $quienesSomos = $organizacion->getQuienesSomos();
+        $objetivos = $organizacion->getObjetivos();
+        $ciudades = $organizacion->getCiudades();
         $idOrganizacion = $organizacion->getIdOrganizacion();
-        $stmt->bind_param('ssssssssi', $nombre, $descripcion, $sitioWeb, $telefono, $direccion, $foto, $ciego, $rol, $idOrganizacion);
+    
+        $stmt->bind_param('ssssssssssssi', $nombre, $descripcion, $sitioWeb, $telefono, $direccion, $foto, $ciego, $rol, $logo, $quienesSomos, $objetivos, $ciudades, $idOrganizacion);
+        
         return $stmt->execute();
     }
     

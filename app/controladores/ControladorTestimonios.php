@@ -23,7 +23,7 @@ class ControladorTestimonios{
 
         // Obtener la organización seleccionada por el ID
         $organizacionesDAO = new OrganizacionesDAO($conn);
-        $organizacion = $organizacionesDAO->getById($idOrganizacion);
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
 
         // Verificar si la organización existe
         if (!$organizacion) {

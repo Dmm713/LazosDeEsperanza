@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(189,229,225);
+    background-color: rgb(189, 229, 225);
 }
 
 /*-------------------------------------ESTILOS HEADER------------------------------------------------------------------------------------------------*/
@@ -39,11 +39,23 @@ header {
     color: white;
 }
 
-.new-user-container {
+.button-group {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1;
+}
+
+.button-group .btn {
+    margin-left: 10px;
+    padding: 10px 15px; /* Ajustado para asegurar el icono se ajuste */
+    line-height: 1.5; /* Asegura que ambos botones tengan la misma altura */
+    display: flex;
+    align-items: center;
+}
+
+.button-group .btn-secondary i {
+    font-size: 24px; /* Ajusta el tamaño del icono según sea necesario */
 }
 
 header h1 {
@@ -73,13 +85,14 @@ header h1 {
     flex-direction: column;
     align-items: center;
     margin: 15px;
-    padding: 15px;
+    padding: 0; /* Ajustado para no tener padding extra */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    width: 250px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .col-md-4:hover {
@@ -92,6 +105,7 @@ header h1 {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    width: 100%;
 }
 
 .card-img-top {
@@ -105,19 +119,22 @@ header h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
+    padding: 15px;
 }
 
 .card-body h3 {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 10px;
+    word-wrap: break-word; /* Ajustado para texto largo */
 }
 
 .card-body p {
     font-size: 1rem;
     color: #666;
     margin-bottom: 15px;
+    word-wrap: break-word; /* Ajustado para texto largo */
+    overflow-wrap: break-word; /* Ajustado para texto largo */
     flex-grow: 1;
 }
 
@@ -136,6 +153,9 @@ header h1 {
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center; /* Asegura que el contenido del botón esté centrado verticalmente */
+    line-height: 1.5; /* Asegura que ambos botones tengan la misma altura */
 }
 
 .btn-primary:hover {
@@ -143,28 +163,27 @@ header h1 {
     transform: scale(1.05);
 }
 
-.return-container {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.return-container .btn-secondary {
+.btn-secondary {
     background-color: #014949;
     border-color: #7FF9B9;
     color: #7FF9B9;
     padding: 10px 15px;
+    margin: 5px;
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center; /* Asegura que el contenido del botón esté centrado verticalmente */
+    line-height: 1.5; /* Asegura que ambos botones tengan la misma altura */
 }
 
-.return-container .btn-secondary:hover {
-    background-color: #5a6268;
+.btn-secondary:hover {
+    background-color: #008080;
     transform: scale(1.05);
 }
 
 i {
-    font-size: 35px;
+    font-size: 24px;
 }
 
 .hover-door {
@@ -181,6 +200,24 @@ i {
 
     .title-container {
         margin: 10px 0;
+    }
+
+    .col-md-4 {
+        width: 100%; /* Ajuste para pantallas pequeñas */
+        max-width: none;
+    }
+
+    .button-group {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group .btn {
+        width: 90%;
+        margin-bottom: 10px;
+        text-align: center;
     }
 }
 

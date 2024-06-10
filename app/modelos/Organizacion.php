@@ -12,6 +12,10 @@ class Organizacion {
     private $foto;
     private $ciego;
     private $rol;
+    private $logo;
+    private $quienesSomos;
+    private $objetivos;
+    private $ciudades;
     private $sid;
 
     /**
@@ -191,6 +195,66 @@ class Organizacion {
      */
     public function setCiego($ciego): self {
         $this->ciego = $ciego;
+        return $this;
+    }
+
+    /**
+     * Get the value of logo
+     */
+    public function getLogo() {
+        return $this->logo;
+    }
+
+    /**
+     * Set the value of logo
+     */
+    public function setLogo($logo): self {
+        $this->logo = $logo;
+        return $this;
+    }
+
+    /**
+     * Get the value of quienesSomos
+     */
+    public function getQuienesSomos() {
+        return $this->quienesSomos;
+    }
+
+    /**
+     * Set the value of quienesSomos
+     */
+    public function setQuienesSomos($quienesSomos): self {
+        $this->quienesSomos = $quienesSomos;
+        return $this;
+    }
+
+    /**
+     * Get the value of objetivos
+     */
+    public function getObjetivos() {
+        return $this->objetivos;
+    }
+
+    /**
+     * Set the value of objetivos
+     */
+    public function setObjetivos($objetivos): self {
+        $this->objetivos = $objetivos;
+        return $this;
+    }
+
+    /**
+     * Get the value of ciudades
+     */
+    public function getCiudades() {
+        return $this->ciudades;
+    }
+
+    /**
+     * Set the value of ciudades
+     */
+    public function setCiudades($ciudades): self {
+        $this->ciudades = $ciudades;
         return $this;
     }
 }
