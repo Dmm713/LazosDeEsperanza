@@ -197,18 +197,18 @@ Class ControladorUsuarios {
         $conn = $connexionDB->getConnexion();
         $idUsuario = htmlspecialchars($_GET['idUsuario']);
         $usuariosDAO = new UsuariosDAO($conn);
-        $usuario = $usuariosDAO->getById($idUsuario);
+        $usuario = $usuariosDAO->getUsuarioById($idUsuario);
         $fotoAntigua = $usuario->getFoto();
-
-        if($_SERVER['REQUEST_METHOD']=='POST') {
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nombre = htmlspecialchars($_POST['nombre']);
             $apellidos = htmlspecialchars($_POST['apellidos']);
             $direccion = htmlspecialchars($_POST['direccion']);
             $ciego = htmlspecialchars($_POST['ciego']);
             $rol = htmlspecialchars($_POST['rol']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
-
-            if(empty($nombre) || empty($apellidos) || empty($direccion) || empty($ciego) || empty($rol)){
+    
+            if (empty($nombre) || empty($apellidos) || empty($direccion) || empty($ciego) || empty($rol)) {
                 $error = "Todos los campos son obligatorios";
             } else {
                 $usuario->setNombre($nombre);
@@ -216,7 +216,7 @@ Class ControladorUsuarios {
                 $usuario->setDireccion($direccion);
                 $usuario->setCiego($ciego);
                 $usuario->setRol($rol);
-
+    
                 if (!empty($_FILES['foto']['name'])) {
                     if ($_FILES['foto']['type'] != 'image/jpeg' &&
                         $_FILES['foto']['type'] != 'image/webp' &&
@@ -237,16 +237,17 @@ Class ControladorUsuarios {
                     rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
                     $usuario->setFoto($foto);
                 }
-
+    
                 if ($error == '') {
                     if ($usuariosDAO->update($usuario)) {
+                        // Eliminar la foto anterior si existe
                         if (!empty($_FILES['foto']['name']) && $fotoAntigua && $usuario->getFoto() !== $fotoAntigua) {
                             unlink("web/fotosUsuarios/$fotoAntigua");
                         }
                         if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
                             unlink("web/fotosUsuarios/$fotoTemporal");
                         }
-                        header('location: index.php?accion=verTodosLosUsuarios');
+                        header('location: index.php?accion=miPerfilUsuario');
                         die();
                     } else {
                         $error = "No se ha podido actualizar el usuario";
