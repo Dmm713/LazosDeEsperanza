@@ -242,7 +242,7 @@
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="vision-img">
             </section>
 
-
+ 
 
             <div class="containerDos">
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">

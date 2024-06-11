@@ -41,7 +41,7 @@ class ControladorGlobal{
      
      // Obtener la organización seleccionada por el ID
      $organizacionesDAO = new OrganizacionesDAO($conn);
-     $organizacion = $organizacionesDAO->getById($idOrganizacion);
+     $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
      
      // Obtener todos los usuarios
      $usuariosDAO = new UsuariosDAO($conn);
