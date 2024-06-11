@@ -88,6 +88,19 @@ Class ControladorUsuarios {
         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
     }
 
+    public function miPerfilUsuario($idUsuario) {
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+    
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuario = $usuariosDAO->getUsuarioById($idUsuario);
+    
+        // Incluir la vista y pasar la organización
+        require 'app/vistas/miPerfilUsuario.php';
+    
+        }
+
     public function verTodosLosUsuarios() {
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
@@ -178,24 +191,111 @@ Class ControladorUsuarios {
         require 'app/vistas/editarUsuario.php';
     }
 
-    public function subirFotoAjax() {
-        $response = ['error' => '', 'foto' => ''];
+    public function editarMiPerfilUsuario() {
+        $error = '';
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        $idUsuario = htmlspecialchars($_GET['idUsuario']);
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuario = $usuariosDAO->getById($idUsuario);
+        $fotoAntigua = $usuario->getFoto();
 
+        if($_SERVER['REQUEST_METHOD']=='POST') {
+            $nombre = htmlspecialchars($_POST['nombre']);
+            $apellidos = htmlspecialchars($_POST['apellidos']);
+            $direccion = htmlspecialchars($_POST['direccion']);
+            $ciego = htmlspecialchars($_POST['ciego']);
+            $rol = htmlspecialchars($_POST['rol']);
+            $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
+
+            if(empty($nombre) || empty($apellidos) || empty($direccion) || empty($ciego) || empty($rol)){
+                $error = "Todos los campos son obligatorios";
+            } else {
+                $usuario->setNombre($nombre);
+                $usuario->setApellidos($apellidos);
+                $usuario->setDireccion($direccion);
+                $usuario->setCiego($ciego);
+                $usuario->setRol($rol);
+
+                if (!empty($_FILES['foto']['name'])) {
+                    if ($_FILES['foto']['type'] != 'image/jpeg' &&
+                        $_FILES['foto']['type'] != 'image/webp' &&
+                        $_FILES['foto']['type'] != 'image/png') {
+                        $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                    } else {
+                        $foto = generarNombreArchivo($_FILES['foto']['name']);
+                        while (file_exists("web/fotosUsuarios/$foto")) {
+                            $foto = generarNombreArchivo($_FILES['foto']['name']);
+                        }
+                        if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                            die("Error al copiar la foto a la carpeta fotosUsuarios");
+                        }
+                        $usuario->setFoto($foto);
+                    }
+                } elseif (!empty($fotoTemporal)) {
+                    $foto = str_replace("temp_", "", $fotoTemporal);
+                    rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
+                    $usuario->setFoto($foto);
+                }
+
+                if ($error == '') {
+                    if ($usuariosDAO->update($usuario)) {
+                        if (!empty($_FILES['foto']['name']) && $fotoAntigua && $usuario->getFoto() !== $fotoAntigua) {
+                            unlink("web/fotosUsuarios/$fotoAntigua");
+                        }
+                        if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
+                            unlink("web/fotosUsuarios/$fotoTemporal");
+                        }
+                        header('location: index.php?accion=verTodosLosUsuarios');
+                        die();
+                    } else {
+                        $error = "No se ha podido actualizar el usuario";
+                    }
+                }
+            }
+        }
+        require 'app/vistas/editarMiPerfilUsuario.php';
+    }
+
+
+    public function subirFotoAjax() {
+        $response = ['success' => false, 'error' => '', 'foto' => ''];
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_FILES['foto'])) {
-                if ($_FILES['foto']['type'] != 'image/jpeg' &&
-                    $_FILES['foto']['type'] != 'image/webp' &&
-                    $_FILES['foto']['type'] != 'image/png') {
+            if (isset($_FILES['nuevaFoto'])) {
+                if ($_FILES['nuevaFoto']['type'] != 'image/jpeg' &&
+                    $_FILES['nuevaFoto']['type'] != 'image/webp' &&
+                    $_FILES['nuevaFoto']['type'] != 'image/png') {
                     $response['error'] = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
                 } else {
-                    $foto = "temp_" . generarNombreArchivo($_FILES['foto']['name']);
+                    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+                    $conn = $connexionDB->getConnexion();
+                    $usuariosDAO = new UsuariosDAO($conn);
+    
+                    // Obtener el usuario actual por idUsuario de la sesión
+                    $idUsuario = $_SESSION['idUsuario'];
+                    $usuario = $usuariosDAO->getUsuarioById($idUsuario);
+                    $fotoAnterior = $usuario->getFoto();
+    
+                    $foto = "temp_" . generarNombreArchivo($_FILES['nuevaFoto']['name']);
                     while (file_exists("web/fotosUsuarios/$foto")) {
-                        $foto = "temp_" . generarNombreArchivo($_FILES['foto']['name']);
+                        $foto = "temp_" . generarNombreArchivo($_FILES['nuevaFoto']['name']);
                     }
-                    if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                    if (!move_uploaded_file($_FILES['nuevaFoto']['tmp_name'], "web/fotosUsuarios/$foto")) {
                         $response['error'] = "Error al copiar la foto a la carpeta fotosUsuarios";
                     } else {
-                        $response['foto'] = $foto;
+                        // Actualizar la foto del usuario en la base de datos
+                        $usuario->setFoto($foto);
+                        if ($usuariosDAO->update($usuario)) {
+                            // Eliminar la foto anterior del sistema de archivos si existe
+                            if ($fotoAnterior && file_exists("web/fotosUsuarios/$fotoAnterior")) {
+                                unlink("web/fotosUsuarios/$fotoAnterior");
+                            }
+                            $response['foto'] = $foto;
+                            $response['success'] = true;
+                        } else {
+                            $response['error'] = "Error al actualizar la foto en la base de datos";
+                        }
                     }
                 }
             } else {
@@ -205,6 +305,8 @@ Class ControladorUsuarios {
         echo json_encode($response);
         die();
     }
+    
+    
 
     public function insertarUsuario() {
         $error = '';

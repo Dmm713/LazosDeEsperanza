@@ -94,7 +94,7 @@
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Testimonios</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mi Perfil</strong></a>
+                                <a class="nav-link navbarLink" aria-current="page"  href="index.php?accion=miPerfilUsuario&idUsuario=<?php echo $_SESSION['idUsuario'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                         </ul>
                     </div>

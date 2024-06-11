@@ -229,6 +229,9 @@ if ($accion == 'paginaOrganizacion' && isset($_GET['idOrganizacion'])) {
 } else if ($accion == 'miPerfilOrganizacion' && isset($_SESSION['idOrganizacion'])) {
     $idOrganizacion = $_SESSION['idOrganizacion'];
     $objeto->$metodo($idOrganizacion);
+} else if ($accion == 'miPerfilUsuario' && isset($_SESSION['idUsuario'])) {
+    $idUsuario = $_SESSION['idUsuario'];
+    $objeto->$metodo($idUsuario);
 } else {
     $objeto->$metodo();
 }

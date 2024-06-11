@@ -409,7 +409,7 @@ class ControladorOrganizaciones
             $ciudades = htmlspecialchars($_POST['ciudades']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
             $logoTemporal = htmlspecialchars($_POST['logoTemporal']);
-    
+     
             // Validamos los datos
             if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol) || empty($quienesSomos) || empty($objetivos) || empty($ciudades)) {
                 $error = "Todos los campos son obligatorios";
