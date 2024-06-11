@@ -376,8 +376,145 @@ class ControladorOrganizaciones
         die();
     }
 
-    public function actualizarFoto()
-{
+    public function editarMiPerfilOrganizacion()
+    {
+        $error = '';
+
+        // Conectamos con la BD
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+    
+        // Obtengo el id de la organización que viene por GET
+        $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
+        // Obtengo la organización de la BD
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+    
+        // Guardar el nombre de la foto y logo antiguos
+        $fotoAntigua = $organizacion->getFoto();
+        $logoAntiguo = $organizacion->getLogo();
+    
+        // Cuando se envíe el formulario actualizo la organización en la BD
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Limpiamos los datos que vienen del usuario
+            $nombre = htmlspecialchars($_POST['nombre']);
+            $descripcion = htmlspecialchars($_POST['descripcion']);
+            $sitioWeb = htmlspecialchars($_POST['sitioWeb']);
+            $telefono = htmlspecialchars($_POST['telefono']);
+            $direccion = htmlspecialchars($_POST['direccion']);
+            $ciego = htmlspecialchars($_POST['ciego']);
+            $rol = htmlspecialchars($_POST['rol']);
+            $quienesSomos = htmlspecialchars($_POST['quienesSomos']);
+            $objetivos = htmlspecialchars($_POST['objetivos']);
+            $ciudades = htmlspecialchars($_POST['ciudades']);
+            $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
+            $logoTemporal = htmlspecialchars($_POST['logoTemporal']);
+    
+            // Validamos los datos
+            if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol) || empty($quienesSomos) || empty($objetivos) || empty($ciudades)) {
+                $error = "Todos los campos son obligatorios";
+            } else {
+                $organizacion->setNombre($nombre);
+                $organizacion->setDescripcion($descripcion);
+                $organizacion->setSitioWeb($sitioWeb);
+                $organizacion->setTelefono($telefono);
+                $organizacion->setDireccion($direccion);
+                $organizacion->setCiego($ciego);
+                $organizacion->setRol($rol);
+                $organizacion->setQuienesSomos($quienesSomos);
+                $organizacion->setObjetivos($objetivos);
+                $organizacion->setCiudades($ciudades);
+    
+                // Manejar la subida de la nueva foto
+                if (!empty($_FILES['foto']['name'])) {
+                    if (
+                        $_FILES['foto']['type'] != 'image/jpeg' &&
+                        $_FILES['foto']['type'] != 'image/webp' &&
+                        $_FILES['foto']['type'] != 'image/png'
+                    ) {
+                        $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                    } else {
+                        $foto = generarNombreArchivo($_FILES['foto']['name']);
+                        while (file_exists("web/fotosUsuarios/$foto")) {
+                            $foto = generarNombreArchivo($_FILES['foto']['name']);
+                        }
+                        if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                            die("Error al copiar la foto a la carpeta fotosUsuarios");
+                        }
+                        // Actualizar la foto solo si se ha subido una nueva
+                        $organizacion->setFoto($foto);
+                    }
+                } elseif (!empty($fotoTemporal)) {
+                    // Si no se subió una nueva foto pero hay una foto temporal
+                    $foto = str_replace("temp_", "", $fotoTemporal); // Renombrar foto temporal a definitiva
+                    rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
+                    $organizacion->setFoto($foto);
+                }
+    
+                // Manejar la subida del nuevo logo
+                if (!empty($_FILES['logo']['name'])) {
+                    if (
+                        $_FILES['logo']['type'] != 'image/jpeg' &&
+                        $_FILES['logo']['type'] != 'image/webp' &&
+                        $_FILES['logo']['type'] != 'image/png'
+                    ) {
+                        $error = "El logo no tiene el formato admitido, debe ser jpg, webp o png";
+                    } else {
+                        $logo = generarNombreArchivo($_FILES['logo']['name']);
+                        while (file_exists("web/logosOrganizaciones/$logo")) {
+                            $logo = generarNombreArchivo($_FILES['logo']['name']);
+                        }
+                        if (!move_uploaded_file($_FILES['logo']['tmp_name'], "web/logosOrganizaciones/$logo")) {
+                            die("Error al copiar el logo a la carpeta logosOrganizaciones");
+                        }
+                        // Actualizar el logo solo si se ha subido uno nuevo
+                        $organizacion->setLogo($logo);
+                    }
+                } elseif (!empty($logoTemporal)) {
+                    // Si no se subió un nuevo logo pero hay un logo temporal
+                    $logo = str_replace("temp_", "", $logoTemporal); // Renombrar logo temporal a definitivo
+                    rename("web/logosOrganizaciones/$logoTemporal", "web/logosOrganizaciones/$logo");
+                    $organizacion->setLogo($logo);
+                }
+    
+                if ($error == '') {
+                    if ($organizacionesDAO->update($organizacion)) {
+                        // Borrar la foto antigua si se subió una nueva
+                        if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
+                            unlink("web/fotosUsuarios/$fotoAntigua");
+                        }
+    
+                        // Borrar cualquier foto temporal remanente
+                        if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
+                            unlink("web/fotosUsuarios/$fotoTemporal");
+                        }
+    
+                        // Borrar el logo antiguo si se subió uno nuevo
+                        if (!empty($_FILES['logo']['name']) && $logoAntiguo && $organizacion->getLogo() !== $logoAntiguo) {
+                            unlink("web/logosOrganizaciones/$logoAntiguo");
+                        }
+    
+                        // Borrar cualquier logo temporal remanente
+                        if (!empty($logoTemporal) && file_exists("web/logosOrganizaciones/$logoTemporal")) {
+                            unlink("web/logosOrganizaciones/$logoTemporal");
+                        }
+    
+                        header('location: index.php?accion=miPerfilOrganizacion');
+                        die();
+                    } else {
+                        $error = "No se ha podido actualizar la organización";
+                    }
+                }
+            }
+        }
+        require 'app/vistas/editarMiPerfilOrganizacion.php';
+    }
+
+
+
+
+    
+    public function actualizarFoto(){
     $error = '';
     
     // Verificar que la solicitud sea POST
