@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($organizacion->getNombre()); ?></title>
     <link rel="stylesheet" href="web/css/estilosPaginaOrganizacion.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+    </style>
 </head>
 
 <body>
@@ -19,9 +22,11 @@
                     <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
                 </div>
                 <div class="new-user-container">
-                    <a href="index.php?accion=hazVoluntariado" class="btn btn-primary">Hacer Voluntariado</a>
-                    <a href="index.php?accion=donar" class="btn btn-primary">Donar</a>
-                </div>
+    <a href="index.php?accion=hazVoluntariado" class="btn btn-primary">Hacer Voluntariado</a>
+    <a href="index.php?accion=donar" class="btn btn-primary">Donar</a>
+    <a href="index.php?accion=donar" class="btn btn-primary volver">Puerta volver</a>
+</div>
+
             </div>
         </div>
     </header>
@@ -38,13 +43,19 @@
                 </div>
             </section>
 
+            <section class="mission-vision-values">
+                <div class="content-wrapper">
+                    <div class="vision objetivos">
+                        <h2>Objetivos</h2>
+                        <p><?php echo htmlspecialchars($organizacion->getQuienesSomos()); ?></p>
+                    </div>
+                    <div class="vision">
+                        <h2>Ciudades</h2>
+                        <p><?php echo htmlspecialchars($organizacion->getQuienesSomos()); ?></p>
+                    </div>
+                </div>
+            </section>
 
-
-            <div>
-                <h2>Fotos Objetivos</h2>
-                <img src="ruta/a/foto_objetivo1.jpg" alt="Objetivo 1">
-                <img src="ruta/a/foto_objetivo2.jpg" alt="Objetivo 2">
-            </div>
         </div>
         <div class="events">
             <h2>Eventos y Proyectos</h2>

@@ -9,9 +9,10 @@ body {
 header {
     width: 100%;
     background-color: #00aab7;
-    padding: 10px 20px;
-    font-family: Changa;
+    padding: 20px; /* Aumentado el padding */
+    font-family: 'Changa', sans-serif;
     font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadido sombra para efecto de elevación */
 }
 
 .header-content {
@@ -36,9 +37,10 @@ header {
 
 .new-user-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Coloca los primeros dos botones uno debajo del otro */
+    align-items: flex-end; /* Alinea los botones a la derecha */
     flex: 1;
+    gap: 10px; /* Espaciado entre botones */
 }
 
 header h1 {
@@ -51,7 +53,80 @@ header h1 {
     height: auto;
 }
 
-/*--------------------------------------------------------------------------------------------------------------------------------------------------*/
+.btn {
+    display: block;
+    width: 200px; /* Ancho fijo para ambos botones */
+    padding: 15px; /* Aumentado el padding para mayor altura */
+    background-color: #014949;
+    color: #7FF9B9;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #067a83;
+}
+
+/* Botón Puerta Volver */
+.volver {
+    width: 200px; /* Ancho fijo para que coincida con los otros botones */
+    align-self: flex-start; /* Alinea este botón a la izquierda */
+}
+
+/*-----------------------------------ESTILOS RESPONSIVE-----------------------------------------*/
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-container, .title-container, .new-user-container {
+        flex: none;
+        width: 100%;
+    }
+
+    .new-user-container {
+        align-items: center; /* Centra los botones en dispositivos pequeños */
+    }
+
+    .volver {
+        align-self: center; /* Centra este botón también */
+    }
+
+    .btn {
+        width: 80%; /* Ajusta el ancho de los botones en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 5px 10px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .new-user-container {
+        flex-direction: column;
+        align-items: center; /* Centra los botones en dispositivos muy pequeños */
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .volver {
+        width: 100%; /* Asegura que este botón también tenga un ancho completo */
+    }
+}
+
+/*-----------------------------------ESTILOS GENERALES-----------------------------------------*/
 
 h1, h2 {
     text-align: center;
@@ -61,7 +136,7 @@ h1, h2 {
 .event-list {
     list-style-type: none;
     padding: 0;
-    max-width: 900px; /* Aumentado el ancho máximo */
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -69,16 +144,16 @@ h1, h2 {
     display: flex;
     align-items: center;
     background-color: #fff;
-    margin-bottom: 30px; /* Aumentado el margen inferior */
-    padding: 20px; /* Aumentado el padding */
+    margin-bottom: 30px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .event-image {
-    max-width: 200px; /* Aumentado el ancho máximo */
+    max-width: 200px;
     height: auto;
-    margin-right: 30px; /* Aumentado el margen derecho */
+    margin-right: 30px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -88,7 +163,7 @@ h1, h2 {
 }
 
 .event-details strong {
-    font-size: 1.4em; /* Aumentado el tamaño de fuente */
+    font-size: 1.4em;
     color: #08929c;
 }
 
@@ -99,8 +174,8 @@ h1, h2 {
 }
 
 .event-actions a {
-    margin: 10px 0; /* Aumentado el margen */
-    padding: 10px 20px; /* Aumentado el padding */
+    margin: 10px 0;
+    padding: 10px 20px;
     background-color: #014949;
     border-color: #7FF9B9;
     color: #7FF9B9;
@@ -108,30 +183,11 @@ h1, h2 {
     border: none;
     border-radius: 8px;
     text-decoration: none;
-    font-size: 1em; /* Aumentado el tamaño de fuente */
+    font-size: 1em;
     cursor: pointer;
 }
 
 .event-actions a:hover {
-    background-color: #067a83;
-}
-
-.btn {
-    display: block;
-    width: fit-content;
-    margin: 20px auto;
-    padding: 15px 30px; /* Aumentado el padding */
-    background-color: #014949;
-    color: #7FF9B9;
-    text-align: center;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 1.1em; /* Aumentado el tamaño de fuente */
-    cursor: pointer;
-}
-
-.btn:hover {
     background-color: #067a83;
 }
 
@@ -191,7 +247,7 @@ h1, h2 {
 }
 
 .foto-izquierda {
-    width: 50%; /* Ajusta el tamaño según tus necesidades */
+    width: 50%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -199,96 +255,6 @@ h1, h2 {
 
 .quienes-somos {
     flex: 1;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .logo-container, .title-container, .new-user-container {
-        flex: none;
-        width: 100%;
-    }
-
-    .event-item {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .event-image {
-        margin-right: 0;
-        margin-bottom: 10px;
-        width: 100%;
-        max-width: 200px; /* Mantiene el nuevo tamaño máximo */
-    }
-
-    .event-details {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .event-actions {
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .event-actions a {
-        margin: 10px; /* Añadido margen para separación */
-    }
-
-    .foto-y-quienes-somos {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .foto-izquierda {
-        width: 100%;
-        max-width: 300px; /* Ajusta el tamaño según tus necesidades */
-        margin-bottom: 20px;
-    }
-
-    .quienes-somos {
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 5px 10px;
-    }
-
-    .logo {
-        width: 100px;
-    }
-
-    .btn {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .event-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .event-details {
-        margin-top: 10px;
-    }
-
-    .event-actions {
-        width: 100%;
-        margin-top: 10px;
-        flex-direction: column; /* Cambia la dirección a columna */
-    }
-
-    .event-actions a {
-        margin: 10px 0; /* Añadido margen para separación */
-    }
 }
 
 .sobreNosotros {
@@ -344,7 +310,7 @@ h1, h2 {
 }
 
 .sobreNosotros .mission-vision-values img {
-    width: 50%; /* Ajusta el tamaño según tus necesidades */
+    width: 50%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -358,8 +324,8 @@ h1, h2 {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alinea el contenido al inicio */
-    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .sobreNosotros .vision h2 {
@@ -376,6 +342,12 @@ h1, h2 {
     text-align: justify;
 }
 
+/* Ajuste de anchura para "Objetivos" */
+.sobreNosotros .vision.objetivos {
+    width: 50%;
+    max-width: 50%;
+}
+
 /* Responsive Design for mission-vision-values */
 @media (max-width: 768px) {
     .sobreNosotros .mission-vision-values .content-wrapper {
@@ -385,7 +357,7 @@ h1, h2 {
 
     .sobreNosotros .mission-vision-values img {
         width: 100%;
-        max-width: 300px; /* Ajusta el tamaño según tus necesidades */
+        max-width: 300px;
         margin-bottom: 20px;
     }
 
