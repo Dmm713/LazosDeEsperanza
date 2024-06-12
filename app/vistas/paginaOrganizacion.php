@@ -22,17 +22,17 @@
                     <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
                 </div>
                 <div class="new-user-container">
-    <a href="index.php?accion=hazVoluntariado" class="btn btn-primary">Hacer Voluntariado</a>
-    <a href="index.php?accion=donar" class="btn btn-primary">Donar</a>
-    <a href="index.php?accion=donar" class="btn btn-primary volver">Puerta volver</a>
-</div>
-
+                    <div class="button-column">
+                        <a href="index.php?accion=hazVoluntariado" class="btn btn-primary">Hacer Voluntariado</a>
+                        <a href="index.php?accion=donar" class="btn btn-primary">Donar</a>
+                    </div>
+                    <a href="index.php?accion=donar" class="btn btn-primary volver">Puerta volver</a>
+                </div>
             </div>
         </div>
     </header>
     <div class="container">
         <div class="sobreNosotros">
-
             <section class="mission-vision-values">
                 <div class="content-wrapper">
                     <img src="web/fotosUsuarios/<?= htmlspecialchars($organizacion->getFoto()) ?>" alt="Foto Fundación" class="vision-img">
@@ -55,22 +55,59 @@
                     </div>
                 </div>
             </section>
-
         </div>
         <div class="events">
-            <h2>Eventos y Proyectos</h2>
-            <?php
-            $eventos = (new EventosDAO($conn))->getEventosByOrganizacion($organizacion->getIdOrganizacion());
-            foreach ($eventos as $evento) {
-                echo "<div class='event'>
-                        <h3>" . htmlspecialchars($evento->getTitulo()) . "</h3>
-                        <p>" . htmlspecialchars($evento->getDescripcion()) . "</p>
-                        <p><strong>Fecha:</strong> " . htmlspecialchars($evento->getFechaEvento()) . "</p>
-                        <img src='ruta/a/evento_foto.jpg' alt='Foto Evento'>
-                      </div>";
-            }
-            ?>
+            <h2>Eventos</h2>
+            <div class="event-container">
+                <?php
+                $eventos = (new EventosDAO($conn))->getEventosByOrganizacion($organizacion->getIdOrganizacion());
+                foreach ($eventos as $evento) {
+                    echo "<div class='event'>
+                            <img src='web/fotosEventos/" . htmlspecialchars($evento->getFotoEvento()) . "' alt='Foto del evento' class='event-image'>
+                            <div class='event-content'>
+                                <h3>" . htmlspecialchars($evento->getTitulo()) . "</h3>
+                                <p>" . htmlspecialchars($evento->getDescripcion()) . "</p>
+                                <div class='event-footer'>
+                                    <strong>Fecha:</strong>
+                                    <span>" . htmlspecialchars($evento->getFechaEvento()) . "</span>
+                                </div>
+                            </div>
+                          </div>";
+                }
+                ?>
+            </div>
         </div>
+
+        <div class="proyectos">
+            <h2>Proyectos</h2>
+            <div class="proyecto-container">
+                <?php
+                $proyectos = (new ProyectosDAO($conn))->getProyectosByOrganizacion($organizacion->getIdOrganizacion());
+                foreach ($proyectos as $proyecto) {
+                    echo "<div class='proyecto'>
+                            <img src='web/fotosProyectos/" . htmlspecialchars($proyecto->getFotoProyecto()) . "' alt='Foto del proyecto' class='proyecto-image'>
+                            <div class='proyecto-content'>
+                                <h3>" . htmlspecialchars($proyecto->getTitulo()) . "</h3>
+                                <p>" . htmlspecialchars($proyecto->getDescripcion()) . "</p>
+                                <div class='proyecto-footer'>
+                                    <strong>Fecha Inicio:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getFechaInicio()) . "</span>
+                                </div>
+                                <div class='proyecto-footer'>
+                                    <strong>Fecha Fin:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getFechaFin()) . "</span>
+                                </div>
+                                <div class='proyecto-footer'>
+                                    <strong>Objetivo Financiero:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getObjetivoFinanciero()) . "</span>
+                                </div>
+                            </div>
+                          </div>";
+                }
+                ?>
+            </div>
+        </div>
+
         <div class="testimonials">
             <h2>Testimonios</h2>
             <div class="testimonial">

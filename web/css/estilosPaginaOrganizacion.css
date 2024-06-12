@@ -37,10 +37,15 @@ header {
 
 .new-user-container {
     display: flex;
-    flex-direction: column; /* Coloca los primeros dos botones uno debajo del otro */
-    align-items: flex-end; /* Alinea los botones a la derecha */
+    align-items: center;
     flex: 1;
     gap: 10px; /* Espaciado entre botones */
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 header h1 {
@@ -73,8 +78,7 @@ header h1 {
 
 /* Botón Puerta Volver */
 .volver {
-    width: 200px; /* Ancho fijo para que coincida con los otros botones */
-    align-self: flex-start; /* Alinea este botón a la izquierda */
+    margin-left: auto; /* Empuja el botón a la derecha */
 }
 
 /*-----------------------------------ESTILOS RESPONSIVE-----------------------------------------*/
@@ -90,15 +94,18 @@ header h1 {
     }
 
     .new-user-container {
-        align-items: center; /* Centra los botones en dispositivos pequeños */
-    }
-
-    .volver {
-        align-self: center; /* Centra este botón también */
+        justify-content: center; /* Centra los botones en dispositivos pequeños */
+        flex-direction: column; /* Coloca todos los botones en columna en pantallas pequeñas */
+        align-items: center;
     }
 
     .btn {
         width: 80%; /* Ajusta el ancho de los botones en pantallas pequeñas */
+    }
+
+    .volver {
+        width: 80%; /* Asegura que este botón también tenga un ancho adecuado */
+        margin-left: 0; /* Resetea el margen */
     }
 }
 
@@ -363,5 +370,252 @@ h1, h2 {
 
     .sobreNosotros .vision {
         text-align: center;
+    }
+}
+/*-------------------------------------ESTILOS RESPONSIVOS PARA TARJETAS DE EVENTOS----------------------------------------*/
+
+.events {
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.events h2 {
+    text-align: center;
+    color: #00aab7;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.event-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Centra las tarjetas al inicio */
+}
+
+.event {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 300px; /* Ancho máximo de las tarjetas */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.event img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 10px;
+}
+
+.event-content {
+    padding: 10px;
+    width: 100%;
+}
+
+.event h3 {
+    font-size: 1.4rem;
+    color: #014949;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.event p {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.event strong {
+    font-size: 1rem;
+    color: #08929c;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.event-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (min-width: 480px) {
+    .event {
+        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas pequeñas */
+    }
+}
+
+@media (min-width: 768px) {
+    .event-container {
+        justify-content: center; /* Desplaza las tarjetas al agregar más */
+    }
+    .event {
+        width: calc(33.333% - 20px); /* Tres tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media (min-width: 1024px) {
+    .event-container {
+        justify-content: center; /* Desplaza las tarjetas al agregar más */
+    }
+    .event {
+        width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas grandes */
+    }
+}
+/*-------------------------------------NUEVOS ESTILOS PARA TARJETAS DE PROYECTOS----------------------------------------*/
+
+.proyectos {
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.proyectos h2 {
+    text-align: center;
+    color: #00aab7;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.proyecto-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Centra las tarjetas al inicio */
+}
+
+.proyecto {
+    background-color: white;
+    border: 2px solid #00aab7;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease; /* Añade la transición de altura */
+    width: 100%;
+    max-width: 250px; /* Ancho máximo de las tarjetas */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Para contener el posicionamiento absoluto de la imagen */
+    height: 300px; /* Altura inicial de la tarjeta */
+}
+
+.proyecto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    height: 450px; /* Cambia la altura de la tarjeta al pasar el ratón */
+}
+
+.proyecto img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain; /* Ajusta la imagen para mostrarla completa */
+    opacity: 0; /* Oculta la imagen inicialmente */
+    transition: opacity 0.3s ease; /* Transición para el efecto de desvanecimiento */
+    position: absolute; /* Saca la imagen del flujo normal del documento */
+    top: 0;
+    left: 0;
+    background-color: #666;
+}
+
+.proyecto:hover img {
+    opacity: 1; /* Muestra la imagen al pasar el ratón por encima */
+    position: relative; /* Muestra la imagen dentro del flujo normal */
+}
+
+.proyecto-content {
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.proyecto h3 {
+    font-size: 1.3rem;
+    color: #014949;
+    margin-bottom: 8px;
+}
+
+.proyecto p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.proyecto strong {
+    font-size: 1rem;
+    color: #08929c;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.proyecto-footer {
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.proyecto-footer span {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.proyecto-footer strong {
+    font-size: 0.9rem;
+    color: #014949;
+}
+
+/* Responsive adjustments */
+@media (min-width: 480px) {
+    .proyecto {
+        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas pequeñas */
+    }
+}
+
+@media (min-width: 768px) {
+    .proyecto-container {
+        justify-content: flex-start; /* Desplaza las tarjetas al agregar más */
+    }
+    .proyecto {
+        width: calc(33.333% - 20px); /* Tres tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media (min-width: 1024px) {
+    .proyecto-container {
+        justify-content: flex-start; /* Desplaza las tarjetas al agregar más */
+    }
+    .proyecto {
+        width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas grandes */
     }
 }
