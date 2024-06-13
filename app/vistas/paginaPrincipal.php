@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<header>
+    <header>
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
@@ -94,7 +94,7 @@
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Testimonios</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page"  href="index.php?accion=miPerfilUsuario&idUsuario=<?php echo $_SESSION['idUsuario'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
+                                <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=miPerfilUsuario&idUsuario=<?php echo $_SESSION['idUsuario'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                         </ul>
                     </div>
@@ -109,13 +109,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page"  href="index.php?accion=miPerfilOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
+                                <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=miPerfilOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="index.php?accion=misEventosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Eventos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="index.php?accion=misProyectosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>"style="text-align: center;"><strong>Mis Proyectos</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=misProyectosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Proyectos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="index.php?accion=misTestimoniosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Testimonios</strong></a>
@@ -195,11 +195,12 @@
                                 <h5 class="card-title"><?= htmlspecialchars($organizacion->getNombre()) ?></h5>
                                 <p class="card-text"><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                                 <a href="<?= htmlspecialchars($organizacion->getSitioWeb()) ?>" style="color: #3280d3; text-decoration: underline; text-align: center;"><?= htmlspecialchars($organizacion->getSitioWeb()) ?></a>
-                                <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?> " class="btn btn-primary">Ver Mas</a>
+                                <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?>&rol=<?= isset($_SESSION['rol']) ? $_SESSION['rol'] : '' ?>" class="btn btn-primary">Ver Más</a>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
+
             </div>
         </div>
 
@@ -242,7 +243,7 @@
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="vision-img">
             </section>
 
- 
+
 
             <div class="containerDos">
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">

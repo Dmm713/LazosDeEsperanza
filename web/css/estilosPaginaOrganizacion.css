@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #e0f7fa;
     color: #333;
     margin: 0;
 }
@@ -9,17 +9,17 @@ body {
 header {
     width: 100%;
     background-color: #00aab7;
-    padding: 20px; /* Aumentado el padding */
+    padding: 20px;
     font-family: 'Changa', sans-serif;
     font-size: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadido sombra para efecto de elevación */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
 .logo-container {
@@ -39,7 +39,8 @@ header {
     display: flex;
     align-items: center;
     flex: 1;
-    gap: 10px; /* Espaciado entre botones */
+    gap: 10px;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
 }
 
 .button-column {
@@ -54,14 +55,15 @@ header h1 {
 }
 
 .logo {
-    width: 150px;
-    height: auto;
+    width: 120px; /* Aumenta el tamaño de la imagen */
+    height: 120px; /* Aumenta el tamaño de la imagen */
+    border-radius: 50%; /* Hace la imagen redonda */
 }
 
 .btn {
     display: block;
-    width: 200px; /* Ancho fijo para ambos botones */
-    padding: 15px; /* Aumentado el padding para mayor altura */
+    width: 190px; /* Ancho fijo para los botones */
+    padding: 5px;
     background-color: #014949;
     color: #7FF9B9;
     text-align: center;
@@ -70,18 +72,20 @@ header h1 {
     text-decoration: none;
     font-size: 1.1em;
     cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .btn:hover {
     background-color: #067a83;
+    transform: translateY(-5px);
 }
 
 /* Botón Puerta Volver */
 .volver {
-    margin-left: auto; /* Empuja el botón a la derecha */
+    width: 35%; /* Igual ancho que otros botones */
+    margin-right: 50px; /* Añade margen a la derecha */
 }
 
-/*-----------------------------------ESTILOS RESPONSIVE-----------------------------------------*/
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
@@ -94,18 +98,14 @@ header h1 {
     }
 
     .new-user-container {
-        justify-content: center; /* Centra los botones en dispositivos pequeños */
-        flex-direction: column; /* Coloca todos los botones en columna en pantallas pequeñas */
+        justify-content: center;
+        flex-direction: column;
         align-items: center;
     }
 
-    .btn {
+    .btn, .volver {
         width: 80%; /* Ajusta el ancho de los botones en pantallas pequeñas */
-    }
-
-    .volver {
-        width: 80%; /* Asegura que este botón también tenga un ancho adecuado */
-        margin-left: 0; /* Resetea el margen */
+        margin-right: 0; /* Elimina margen a la derecha en pantallas pequeñas */
     }
 }
 
@@ -115,21 +115,19 @@ header h1 {
     }
 
     .logo {
-        width: 100px;
+        width: 150px; /* Ajusta el tamaño de la imagen para pantallas pequeñas */
+        height: 150px; /* Ajusta el tamaño de la imagen para pantallas pequeñas */
     }
 
     .new-user-container {
         flex-direction: column;
-        align-items: center; /* Centra los botones en dispositivos muy pequeños */
+        align-items: center;
         gap: 10px;
     }
 
-    .btn {
-        width: 100%;
-    }
-
-    .volver {
-        width: 100%; /* Asegura que este botón también tenga un ancho completo */
+    .btn, .volver {
+        width: 100%; /* Ajusta el ancho de los botones en pantallas muy pequeñas */
+        margin-right: 0; /* Elimina margen a la derecha en pantallas muy pequeñas */
     }
 }
 
@@ -137,142 +135,20 @@ header h1 {
 
 h1, h2 {
     text-align: center;
-    color: #08929c;
+    color: #006064;
 }
 
-.event-list {
-    list-style-type: none;
-    padding: 0;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.event-item {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.event-image {
-    max-width: 200px;
-    height: auto;
-    margin-right: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.event-details {
-    flex: 1;
-}
-
-.event-details strong {
-    font-size: 1.4em;
-    color: #08929c;
-}
-
-.event-actions {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-
-.event-actions a {
-    margin: 10px 0;
-    padding: 10px 20px;
-    background-color: #014949;
-    border-color: #7FF9B9;
-    color: #7FF9B9;
-    text-align: center;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.event-actions a:hover {
-    background-color: #067a83;
-}
-
-/* Custom Confirm Dialog */
-.custom-confirm {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.confirm-box {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.confirm-box p {
-    margin-bottom: 20px;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.confirm-box .btn-container {
-    display: flex;
-    justify-content: center;
-}
-
-.confirm-box .btn {
-    background-color: #014949;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin: 5px;
-}
-
-.confirm-box .btn:hover {
-    background-color: #008080;
-}
-
-/*-------------------------------------ESTILOS NUEVOS PARA FOTO A LA IZQUIERDA-----------------------------------------------------------------------*/
-.foto-y-quienes-somos {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.foto-izquierda {
-    width: 50%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.quienes-somos {
-    flex: 1;
-}
+/*-----------------------------------SOBRE NOSOTROS-----------------------------------------*/
 
 .sobreNosotros {
-    background-color: #f8f9fa;
+    background-color: #b2ebf2;
     padding: 40px 20px;
     color: #333;
 }
 
 .sobreNosotros h2 {
     text-align: center;
-    color: #00aab7;
+    color: #004d40;
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
@@ -336,7 +212,7 @@ h1, h2 {
 }
 
 .sobreNosotros .vision h2 {
-    color: #00aab7;
+    color: #004d40;
     font-size: 2rem;
     margin-bottom: 15px;
     text-align: center;
@@ -372,10 +248,11 @@ h1, h2 {
         text-align: center;
     }
 }
-/*-------------------------------------ESTILOS RESPONSIVOS PARA TARJETAS DE EVENTOS----------------------------------------*/
+
+/*-----------------------------------EVENTOS-----------------------------------------*/
 
 .events {
-    background-color: #f8f9fa;
+    background-color: #4dd0e1;
     padding: 40px 20px;
     color: #333;
     margin-top: 20px;
@@ -383,7 +260,7 @@ h1, h2 {
 
 .events h2 {
     text-align: center;
-    color: #00aab7;
+    color: #006064;
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
@@ -392,7 +269,7 @@ h1, h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Centra las tarjetas al inicio */
+    justify-content: center;
 }
 
 .event {
@@ -403,7 +280,7 @@ h1, h2 {
     padding: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 300px; /* Ancho máximo de las tarjetas */
+    max-width: 300px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -430,7 +307,7 @@ h1, h2 {
 
 .event h3 {
     font-size: 1.4rem;
-    color: #014949;
+    color: #004d40;
     margin-bottom: 5px;
     text-align: center;
 }
@@ -444,7 +321,7 @@ h1, h2 {
 
 .event strong {
     font-size: 1rem;
-    color: #08929c;
+    color: #004d40;
     display: block;
     text-align: center;
     margin-bottom: 5px;
@@ -463,31 +340,32 @@ h1, h2 {
 /* Responsive adjustments */
 @media (min-width: 480px) {
     .event {
-        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas pequeñas */
+        width: calc(50% - 20px);
     }
 }
 
 @media (min-width: 768px) {
     .event-container {
-        justify-content: center; /* Desplaza las tarjetas al agregar más */
+        justify-content: center;
     }
     .event {
-        width: calc(33.333% - 20px); /* Tres tarjetas por fila en pantallas medianas */
+        width: calc(33.333% - 20px);
     }
 }
 
 @media (min-width: 1024px) {
     .event-container {
-        justify-content: center; /* Desplaza las tarjetas al agregar más */
+        justify-content: center;
     }
     .event {
-        width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas grandes */
+        width: calc(25% - 20px);
     }
 }
-/*-------------------------------------NUEVOS ESTILOS PARA TARJETAS DE PROYECTOS----------------------------------------*/
+
+/*-----------------------------------PROYECTOS-----------------------------------------*/
 
 .proyectos {
-    background-color: #f8f9fa;
+    background-color: #26c6da;
     padding: 40px 20px;
     color: #333;
     margin-top: 20px;
@@ -495,7 +373,7 @@ h1, h2 {
 
 .proyectos h2 {
     text-align: center;
-    color: #00aab7;
+    color: #006064;
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
@@ -504,7 +382,7 @@ h1, h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Centra las tarjetas al inicio */
+    justify-content: center;
 }
 
 .proyecto {
@@ -513,39 +391,29 @@ h1, h2 {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease; /* Añade la transición de altura */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 250px; /* Ancho máximo de las tarjetas */
+    max-width: 250px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    position: relative; /* Para contener el posicionamiento absoluto de la imagen */
-    height: 300px; /* Altura inicial de la tarjeta */
+    position: relative;
+    height: auto; /* Ajusta la altura automáticamente */
 }
 
 .proyecto:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    height: 450px; /* Cambia la altura de la tarjeta al pasar el ratón */
 }
 
 .proyecto img {
     width: 100%;
     height: 150px;
-    object-fit: contain; /* Ajusta la imagen para mostrarla completa */
-    opacity: 0; /* Oculta la imagen inicialmente */
-    transition: opacity 0.3s ease; /* Transición para el efecto de desvanecimiento */
-    position: absolute; /* Saca la imagen del flujo normal del documento */
-    top: 0;
-    left: 0;
+    object-fit: contain;
     background-color: #666;
-}
-
-.proyecto:hover img {
-    opacity: 1; /* Muestra la imagen al pasar el ratón por encima */
-    position: relative; /* Muestra la imagen dentro del flujo normal */
+    margin-bottom: 15px;
 }
 
 .proyecto-content {
@@ -558,7 +426,7 @@ h1, h2 {
 
 .proyecto h3 {
     font-size: 1.3rem;
-    color: #014949;
+    color: #004d40;
     margin-bottom: 8px;
 }
 
@@ -570,19 +438,23 @@ h1, h2 {
 
 .proyecto strong {
     font-size: 1rem;
-    color: #08929c;
+    color: #004d40;
     display: block;
     margin-bottom: 5px;
 }
 
 .proyecto-footer {
     width: 100%;
-    border-top: 1px solid #eee;
     padding-top: 10px;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 10px; /* Añade margen inferior a la sección de pie de proyecto */
+}
+
+.proyecto-footer.boton-voluntariado {
+    margin-bottom: 20px; /* Añade margen inferior específico al botón */
 }
 
 .proyecto-footer span {
@@ -592,30 +464,125 @@ h1, h2 {
 
 .proyecto-footer strong {
     font-size: 0.9rem;
-    color: #014949;
+    color: #004d40;
 }
 
 /* Responsive adjustments */
 @media (min-width: 480px) {
     .proyecto {
-        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas pequeñas */
+        width: calc(50% - 20px);
     }
 }
 
 @media (min-width: 768px) {
     .proyecto-container {
-        justify-content: flex-start; /* Desplaza las tarjetas al agregar más */
+        justify-content: center;
     }
     .proyecto {
-        width: calc(33.333% - 20px); /* Tres tarjetas por fila en pantallas medianas */
+        width: calc(33.333% - 20px);
     }
 }
 
 @media (min-width: 1024px) {
     .proyecto-container {
-        justify-content: flex-start; /* Desplaza las tarjetas al agregar más */
+        justify-content: center;
     }
     .proyecto {
-        width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas grandes */
+        width: calc(25% - 20px);
     }
+}
+
+/*-----------------------------------TESTIMONIOS-----------------------------------------*/
+
+.cards-container {
+    padding: 20px;
+    background-color: #b2ebf2;
+    text-align: center;
+}
+
+.cards-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    color: #006064;
+    font-weight: bold;
+}
+
+.owl-carousel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.owl-carousel .card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #006064;
+    padding: 20px;
+    margin: 0 15px;
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, border 0.3s;
+}
+
+.owl-carousel .card:hover {
+    transform: translateY(-5px);
+    border: 2px solid #004d40;
+}
+
+.image-container {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #00838f;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body h5 {
+    font-size: 1.2em;
+    color: #004d40;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.card-body span {
+    font-size: 0.85em;
+    color: #00796b;
+}
+
+.card-text {
+    font-size: 0.9em;
+    color: #004d40;
+    line-height: 1.5;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*-----------------------------------FOOTER-----------------------------------------*/
+
+.footer {
+    background-color: #004d40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer img {
+    width: 70px; /* Aumenta el tamaño de la imagen */
+    height: 70px; /* Aumenta el tamaño de la imagen */
+    border-radius: 50%; /* Hace la imagen redonda */
+    margin-bottom: 10px;
 }
