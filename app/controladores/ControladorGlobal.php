@@ -124,5 +124,12 @@ class ControladorGlobal{
      return $proyecto->getIdOrganizacion();
  }
 
+ public function verTodosLosEventos() {
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
+    $eventosDAO = new EventosDAO($conn);
+    $eventos = $eventosDAO->getAllEventos(); // Asumiendo que existe un método getAllEventos en EventosDAO
+    require 'app/vistas/verTodosLosEventos.php';
+}
 
 }

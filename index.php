@@ -139,10 +139,22 @@ $mapa = array(
     'inscribirseVoluntariado'=>array('controlador'=>'ControladorGlobal', 
                        'metodo'=>'inscribirseVoluntariado', 
                        'privada'=>false),
+    'inscribirseVoluntariadoTodosProyectos'=>array('controlador'=>'ControladorProyectos', 
+                       'metodo'=>'inscribirseVoluntariadoTodosProyectos', 
+                       'privada'=>false),
     'procesarDonacion' => array(
                     'controlador' => 'ControladorDonaciones',
                     'metodo' => 'procesarDonacion',
-                    'privada' => true),                                             
+                    'privada' => true),
+    'verTodosLosEventos' => array(
+                        'controlador' => 'ControladorGlobal',
+                        'metodo' => 'verTodosLosEventos',
+                        'privada' => true),
+    'verTodosLosProyectos' => array(
+                            'controlador' => 'ControladorProyectos',
+                            'metodo' => 'verTodosLosProyectos',
+                            'privada' => true),
+                                          
 );
 
 foreach ($mapa as $i => $valor) {

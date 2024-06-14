@@ -230,5 +230,43 @@ public function borrarProyecto() {
     die();
 }
 
+public function verTodosLosProyectos() {
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
+    $proyectosDAO = new ProyectosDAO($conn);
+    $proyectos = $proyectosDAO->getAllProyectos(); // Asumiendo que existe un método getAllProyectos en ProyectosDAO
+    require 'app/vistas/verTodosLosProyectos.php';
+}
+
+public function inscribirseVoluntariadoTodosProyectos() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $idProyecto = htmlspecialchars($_POST['idProyecto']);
+        $fechaInicio = htmlspecialchars($_POST['fechaInicio']);
+        $fechaFin = htmlspecialchars($_POST['fechaFin']);
+        $returnUrl = htmlspecialchars($_POST['returnUrl']);
+
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $voluntarioDAO = new VoluntariosDAO($conn);
+        $voluntario = new Voluntario();
+        $voluntario->setIdUsuario($_SESSION['idUsuario']);
+        $voluntario->setIdProyecto($idProyecto);
+        $voluntario->setFechaInicio($fechaInicio);
+        $voluntario->setFechaFin($fechaFin);
+
+        if ($voluntarioDAO->insert($voluntario)) {
+            $_SESSION['message'] = "Te has inscrito exitosamente como voluntario.";
+        } else {
+            $_SESSION['message'] = "Hubo un problema al inscribirse como voluntario.";
+        }
+
+        header('Location: ' . $returnUrl);
+        exit();
+    }
+}
+
+
+
 
 }

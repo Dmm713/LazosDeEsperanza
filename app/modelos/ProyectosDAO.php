@@ -130,4 +130,27 @@ public function getProyectoById($idProyecto) {
     }
 }
 
+
+public function getAllProyectos() {
+    $query = "SELECT * FROM proyectos";
+    $result = $this->conn->query($query);
+    $proyectosData = $result->fetch_all(MYSQLI_ASSOC);
+
+    $proyectos = [];
+    foreach ($proyectosData as $proyectoData) {
+        $proyecto = new Proyecto();
+        $proyecto->setIdProyecto($proyectoData['idProyecto']);
+        $proyecto->setIdOrganizacion($proyectoData['idOrganizacion']);
+        $proyecto->setTitulo($proyectoData['titulo']);
+        $proyecto->setDescripcion($proyectoData['descripcion']);
+        $proyecto->setFechaInicio($proyectoData['fechaInicio']);
+        $proyecto->setFechaFin($proyectoData['fechaFin']);
+        $proyecto->setObjetivoFinanciero($proyectoData['objetivoFinanciero']);
+        $proyecto->setFotoProyecto($proyectoData['fotoProyecto']);
+        $proyectos[] = $proyecto;
+    }
+
+    return $proyectos;
+}
+
 }

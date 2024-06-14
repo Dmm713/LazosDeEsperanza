@@ -85,13 +85,19 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav w-100 justify-content-around">
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" aria-current="page" href="#" style="text-align: center;"><strong>Eventos</strong></a>
+                                <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=verTodosLosEventos" style="text-align: center;"><strong>Eventos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Proyectos</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verTodosLosProyectos" style="text-align: center;"><strong>Proyectos</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Testimonios</strong></a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Voluntariados</strong></a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Donaciones</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=miPerfilUsuario&idUsuario=<?php echo $_SESSION['idUsuario'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>

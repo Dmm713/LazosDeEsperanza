@@ -28,6 +28,9 @@
                 <div class="new-user-container">
                     <a href="index.php?accion=insertarUsuario" class="btn btn-primary">Insertar Nuevo Usuario</a>
                 </div>
+                <div class="return-container">
+            <a href="index.php?accion=paginaPrincipal" class="btn btn-secondary hover-door" style="width: 100%;"><i class="fa-solid fa-left-long"></i></a>
+        </div>
             </div>
         </div>
     </header>
@@ -41,17 +44,13 @@
                             <h3><?= htmlspecialchars($usuario->getNombre()) ?></h3>
                             <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
                             <div class="btn-group">
-                                <a href="index.php?accion=editarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="index.php?accion=borrarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary btn-delete"><i class="fa-solid fa-trash-can" style="color: red;"></i></a>
+                                <a href="index.php?accion=editarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary">Eliminar</a>
+                                <a href="index.php?accion=borrarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary btn-delete">Borrar</a>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
-        <!-- Botón para volver -->
-        <div class="return-container">
-            <a href="index.php?accion=paginaPrincipal" class="btn btn-secondary hover-door"><i class="fa-solid fa-left-long"></i></a>
         </div>
     </div>
  
