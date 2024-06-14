@@ -60,7 +60,7 @@ header h1 {
     border-radius: 50%; /* Hace la imagen redonda */
 }
 
-.btn {
+.btn  {
     display: block;
     width: 190px; /* Ancho fijo para los botones */
     padding: 5px;
@@ -548,6 +548,7 @@ h1, h2 {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 .card-body h5 {
@@ -585,4 +586,65 @@ h1, h2 {
     height: 70px; /* Aumenta el tamaño de la imagen */
     border-radius: 50%; /* Hace la imagen redonda */
     margin-bottom: 10px;
+}
+
+.custom-modal {
+    background-color: #e0f7fa;
+    color: #014949;
+}
+
+.custom-modal .modal-header,
+.custom-modal .modal-footer {
+    border: none; /* Remueve los bordes */
+    background-color: #014949;
+    color: #7FF9B9;
+}
+
+.custom-modal .modal-title {
+    color: #7FF9B9;
+}
+
+.custom-modal .btn-close {
+    filter: invert(1); /* Cambia el color del botón de cierre */
+}
+
+.custom-modal .form-label {
+    color: #014949;
+}
+
+.custom-modal .form-control {
+    background-color: #e0f7fa;
+    color: #014949;
+    border: 1px solid #014949;
+}
+
+.custom-modal .form-control:focus {
+    background-color: #e0f7fa;
+    color: #014949;
+    border-color: #014949;
+    box-shadow: none;
+}
+
+.custom-modal .btn-secondary {
+    background-color: #014949;
+    color: #7FF9B9;
+    border: 1px solid #7FF9B9;
+}
+
+.custom-modal .btn-secondary:hover {
+    background-color: #013838;
+    color: #7FF9B9;
+    border: 1px solid #7FF9B9;
+}
+
+.custom-modal .btn-primary {
+    background-color: #7FF9B9;
+    color: #014949;
+    border: 1px solid #014949;
+}
+
+.custom-modal .btn-primary:hover {
+    background-color: #6fe0a2;
+    color: #014949;
+    border: 1px solid #014949;
 }

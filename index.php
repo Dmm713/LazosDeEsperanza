@@ -135,12 +135,9 @@ $mapa = array(
     'registrarOrganizacion'=>array('controlador'=>'ControladorOrganizaciones', 
                     'metodo'=>'registrarOrganizacion', 
                     'privada'=>false),
-    'insertar_favorito'=>array('controlador'=>'ControladorFavoritos', 
-                       'metodo'=>'insertar', 
-                       'privada'=>false),                       
-    'borrar_favorito'=>array('controlador'=>'ControladorFavoritos', 
-                       'metodo'=>'borrar', 
-                       'privada'=>false),                                              
+    'inscribirseVoluntariado'=>array('controlador'=>'ControladorGlobal', 
+                       'metodo'=>'inscribirseVoluntariado', 
+                       'privada'=>false),                                             
 );
 
 foreach ($mapa as $i => $valor) {

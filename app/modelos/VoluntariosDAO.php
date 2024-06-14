@@ -105,4 +105,15 @@ class VoluntariosDAO {
         $stmt->bind_param('iissi', $idProyecto, $idUsuario, $fechaInicio, $fechaFin, $idVoluntario);
         return $stmt->execute();
     }
+
+    public function getVoluntariadosByUsuario($idUsuario) {
+        $query = "SELECT * FROM voluntarios WHERE idUsuario = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $idUsuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $voluntariados = $result->fetch_all(MYSQLI_ASSOC);
+        return $voluntariados;
+    }
+    
 }

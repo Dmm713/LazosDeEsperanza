@@ -116,4 +116,18 @@ public function getById($idProyecto)
     return null;
 }
 
+public function getProyectoById($idProyecto) {
+    if(!$stmt = $this->conn->prepare("SELECT * FROM proyectos WHERE idProyecto = ?")) {
+        die("Error en la SQL: " . $this->conn->error);
+    }
+    $stmt->bind_param('i', $idProyecto);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result->num_rows >= 1) {
+        return $result->fetch_object(Proyecto::class);
+    } else {
+        return null;
+    }
+}
+
 }
