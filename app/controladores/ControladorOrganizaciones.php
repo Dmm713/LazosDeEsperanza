@@ -895,5 +895,25 @@ class ControladorOrganizaciones
     die();
     }
 
-
+    public function verVoluntarios() {
+        // Verificar si la organización está autenticada y obtener su idOrganizacion
+        if (!isset($_SESSION['idOrganizacion'])) {
+            header('location: index.php?accion=loginOrganizacion');
+            die();
+        }
+        
+        $idOrganizacion = $_SESSION['idOrganizacion'];
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Obtener la lista de voluntarios de la organización con detalles del proyecto y del usuario
+        $voluntariosDAO = new VoluntariosDAO($conn);
+        $voluntarios = $voluntariosDAO->getVoluntariosByOrganizacionWithUserDetails($idOrganizacion);
+        
+        // Incluir la vista y pasar los voluntarios
+        require 'app/vistas/voluntariosOrganizacion.php';
+    }
+    
 }

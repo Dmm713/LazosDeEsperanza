@@ -135,5 +135,25 @@ class VoluntariosDAO {
         return $voluntariados;
     }
     
+    public function getVoluntariosByOrganizacionWithUserDetails($idOrganizacion) {
+        $query = "
+            SELECT v.*, u.nombre AS nombreUsuario, u.apellidos AS apellidosUsuario, u.email AS emailUsuario, 
+                   p.titulo AS nombreProyecto, p.descripcion AS descripcionProyecto, p.fotoProyecto 
+            FROM voluntarios v
+            INNER JOIN usuarios u ON v.idUsuario = u.idUsuario
+            INNER JOIN proyectos p ON v.idProyecto = p.idProyecto
+            WHERE p.idOrganizacion = ?
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return [];
+        }
+        $stmt->bind_param('i', $idOrganizacion);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $voluntarios = $result->fetch_all(MYSQLI_ASSOC);
+        return $voluntarios;
+    }
     
 }

@@ -173,6 +173,11 @@ $mapa = array(
                             'metodo' => 'donacionesOrganizacion',
                             'privada' => true
                             ),
+    'voluntariosOrganizacion' => array(
+                                'controlador' => 'ControladorOrganizaciones',
+                                'metodo' => 'verVoluntarios', // Cambiar 'voluntariosOrganizacion' a 'verVoluntarios'
+                                'privada' => true
+                            ),
                         
                                 
                                           

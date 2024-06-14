@@ -129,6 +129,9 @@
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="index.php?accion=donacionesOrganizacion" style="text-align: center;"><strong>Mis Donaciones</strong></a>
                             </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="index.php?accion=voluntariosOrganizacion" style="text-align: center;"><strong>Mis Voluntarios</strong></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
