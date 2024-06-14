@@ -95,6 +95,43 @@ class DonacionesDAO {
         $donacion->setCcv($row['ccv']);
         return $donacion;
     }
+
+    public function getDonacionesByUsuarioWithProjectDetails($idUsuario) {
+        $query = "
+            SELECT d.*, p.titulo AS nombreProyecto, p.descripcion AS descripcionProyecto, p.fotoProyecto 
+            FROM donaciones d
+            INNER JOIN proyectos p ON d.idProyecto = p.idProyecto
+            WHERE d.idUsuario = ?
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return [];
+        }
+        $stmt->bind_param('i', $idUsuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $donaciones = $result->fetch_all(MYSQLI_ASSOC);
+        return $donaciones;
+    }
+    public function getDonacionesByOrganizacionWithProjectDetails($idOrganizacion) {
+        $query = "
+            SELECT d.*, p.titulo AS nombreProyecto, p.descripcion AS descripcionProyecto, p.fotoProyecto 
+            FROM donaciones d
+            INNER JOIN proyectos p ON d.idProyecto = p.idProyecto
+            WHERE p.idOrganizacion = ?
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return [];
+        }
+        $stmt->bind_param('i', $idOrganizacion);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $donaciones = $result->fetch_all(MYSQLI_ASSOC);
+        return $donaciones;
+    }
 }
 
 

@@ -1,0 +1,189 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    background-color: #00aab7;
+    padding: 10px 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.title-container {
+    flex: 2;
+    text-align: center;
+    color: white;
+}
+
+.new-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #08929c;
+}
+
+main {
+    flex: 1; /* Hace que el main ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.donacion-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.donacion-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex: 1 1 300px;
+    max-width: 300px;
+}
+
+.donacion-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.donacion-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.donacion-content {
+    padding: 15px;
+}
+
+.donacion-content h2 {
+    font-size: 1.5em;
+    color: #08929c;
+    margin: 0 0 10px 0;
+}
+
+.donacion-content p {
+    margin: 5px 0;
+}
+
+.no-donaciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.no-donaciones p {
+    font-size: 1.5em;
+    color: #08929c;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #00aab7;
+    color: white;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-container, .title-container, .new-user-container {
+        flex: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 5px 10px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+.btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 15px 30px;
+    background-color: #014949;
+    color: #7FF9B9;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #067a83;
+}

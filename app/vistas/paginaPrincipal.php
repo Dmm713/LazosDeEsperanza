@@ -97,7 +97,7 @@
                                 <a class="nav-link navbarLink" href="index.php?accion=verMisVoluntariados" style="text-align: center;"><strong>Mis Voluntariados</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Donaciones</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=misDonaciones" style="text-align: center;"><strong>Mis Donaciones</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" aria-current="page" href="index.php?accion=miPerfilUsuario&idUsuario=<?php echo $_SESSION['idUsuario'] ?>" style="text-align: center;"><strong>Mi Perfil</strong></a>
@@ -125,6 +125,9 @@
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="index.php?accion=misTestimoniosOrganizacion&idOrganizacion=<?php echo $_SESSION['idOrganizacion'] ?>" style="text-align: center;"><strong>Mis Testimonios</strong></a>
+                            </li>
+                            <li class="nav-item flex-grow-1">
+                                <a class="nav-link navbarLink" href="index.php?accion=donacionesOrganizacion" style="text-align: center;"><strong>Mis Donaciones</strong></a>
                             </li>
                         </ul>
                     </div>

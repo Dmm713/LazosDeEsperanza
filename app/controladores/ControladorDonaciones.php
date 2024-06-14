@@ -55,5 +55,48 @@ class ControladorDonaciones {
             exit();
         }
     }
+
+    public function misDonaciones() {
+        // Verificar si el usuario está autenticado y obtener su idUsuario
+        if (!isset($_SESSION['idUsuario'])) {
+            header('location: index.php?accion=login');
+            die();
+        }
+        
+        $idUsuario = $_SESSION['idUsuario'];
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Obtener la lista de donaciones del usuario con detalles del proyecto
+        $donacionesDAO = new DonacionesDAO($conn);
+        $donaciones = $donacionesDAO->getDonacionesByUsuarioWithProjectDetails($idUsuario);
+        
+        // Incluir la vista y pasar las donaciones
+        require 'app/vistas/misDonaciones.php';
+    }
+
+    public function donacionesOrganizacion() {
+        // Verificar si la organización está autenticada y obtener su idOrganizacion
+        if (!isset($_SESSION['idOrganizacion'])) {
+            header('location: index.php?accion=loginOrganizacion');
+            die();
+        }
+        
+        $idOrganizacion = $_SESSION['idOrganizacion'];
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Obtener la lista de donaciones de la organización con detalles del proyecto
+        $donacionesDAO = new DonacionesDAO($conn);
+        $donaciones = $donacionesDAO->getDonacionesByOrganizacionWithProjectDetails($idOrganizacion);
+        
+        // Incluir la vista y pasar las donaciones
+        require 'app/vistas/donacionesOrganizacion.php';
+    }
 }
+
 ?>

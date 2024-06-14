@@ -163,6 +163,17 @@ $mapa = array(
                                     'metodo' => 'misVoluntariados',
                                     'privada' => true
                                 ),
+    'misDonaciones' => array(
+                           'controlador' => 'ControladorDonaciones',
+                           'metodo' => 'misDonaciones',
+                           'privada' => true
+                           ),
+    'donacionesOrganizacion' => array(
+                            'controlador' => 'ControladorDonaciones',
+                            'metodo' => 'donacionesOrganizacion',
+                            'privada' => true
+                            ),
+                        
                                 
                                           
 );
