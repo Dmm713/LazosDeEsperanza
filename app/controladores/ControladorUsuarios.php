@@ -366,5 +366,29 @@ Class ControladorUsuarios {
         }
         require 'app/vistas/insertarUsuario.php';
     }
+    public function misVoluntariados() {
+        // Verificar si el usuario está autenticado y obtener su idUsuario
+        if (!isset($_SESSION['idUsuario'])) {
+            header('location: index.php?accion=login');
+            die();
+        }
+        
+        $idUsuario = $_SESSION['idUsuario'];
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Obtener la lista de voluntariados del usuario con detalles del proyecto
+        $voluntariosDAO = new VoluntariosDAO($conn);
+        $voluntariados = $voluntariosDAO->getVoluntariadosByUsuarioWithProjectDetails($idUsuario);
+        
+        // Incluir la vista y pasar los voluntariados
+        require 'app/vistas/misVoluntariados.php';
+    }
+    
+    
+    
+
 }
 ?>

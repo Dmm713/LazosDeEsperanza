@@ -158,10 +158,12 @@ $mapa = array(
                                 'controlador' => 'ControladorTestimonios',
                                 'metodo' => 'verTodosLosTestimonios',
                                 'privada' => true),
-    'misVoluntariados' => array(
+    'verMisVoluntariados' => array(
                                     'controlador' => 'ControladorUsuarios',
                                     'metodo' => 'misVoluntariados',
-                                    'privada' => true),
+                                    'privada' => true
+                                ),
+                                
                                           
 );
 

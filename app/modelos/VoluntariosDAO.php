@@ -115,5 +115,25 @@ class VoluntariosDAO {
         $voluntariados = $result->fetch_all(MYSQLI_ASSOC);
         return $voluntariados;
     }
+
+    public function getVoluntariadosByUsuarioWithProjectDetails($idUsuario) {
+        $query = "
+            SELECT v.*, p.titulo AS nombreProyecto, p.descripcion AS descripcionProyecto, p.fotoProyecto 
+            FROM voluntarios v
+            INNER JOIN proyectos p ON v.idProyecto = p.idProyecto
+            WHERE v.idUsuario = ?
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return [];
+        }
+        $stmt->bind_param('i', $idUsuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $voluntariados = $result->fetch_all(MYSQLI_ASSOC);
+        return $voluntariados;
+    }
+    
     
 }

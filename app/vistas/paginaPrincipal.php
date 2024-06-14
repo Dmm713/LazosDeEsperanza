@@ -94,7 +94,7 @@
                                 <a class="nav-link navbarLink" href="index.php?accion=verTodosLosTestimonios" style="text-align: center;"><strong>Testimonios</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Voluntariados</strong></a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verMisVoluntariados" style="text-align: center;"><strong>Mis Voluntariados</strong></a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;"><strong>Mis Donaciones</strong></a>
