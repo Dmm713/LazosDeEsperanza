@@ -222,4 +222,20 @@ class ControladorTestimonios{
         header('location: index.php?accion=misTestimoniosOrganizacion');
         die();
     }
+
+    public function verTodosLosTestimonios() {
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Crear una instancia de TestimoniosDAO
+        $testimoniosDAO = new TestimoniosDAO($conn);
+        
+        // Obtener todos los testimonios
+        $testimonios = $testimoniosDAO->getAllTestimonios(); // Asumiendo que existe un método getAllTestimonios en TestimoniosDAO
+        
+        // Incluir la vista y pasar los testimonios
+        require 'app/vistas/verTodosLosTestimonios.php';
+    }
+    
 }

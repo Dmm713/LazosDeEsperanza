@@ -109,4 +109,27 @@ class TestimoniosDAO {
         return null;
     }
     
+    public function getAllTestimonios() {
+        $query = "SELECT * FROM testimonios";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $testimoniosData = $result->fetch_all(MYSQLI_ASSOC);
+    
+        $testimonios = [];
+        foreach ($testimoniosData as $testimonioData) {
+            $testimonio = new Testimonio();
+            $testimonio->setIdTestimonio($testimonioData['idTestimonio']);
+            $testimonio->setIdOrganizacion($testimonioData['idOrganizacion']);
+            $testimonio->setNombre($testimonioData['nombre']);
+            $testimonio->setApellidos($testimonioData['apellidos']);
+            $testimonio->setProblema($testimonioData['problema']);
+            $testimonio->setSolucion($testimonioData['solucion']);
+            $testimonio->setFoto($testimonioData['foto']);
+            $testimonios[] = $testimonio;
+        }
+    
+        return $testimonios;
+    }
+    
 }

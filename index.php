@@ -154,6 +154,14 @@ $mapa = array(
                             'controlador' => 'ControladorProyectos',
                             'metodo' => 'verTodosLosProyectos',
                             'privada' => true),
+    'verTodosLosTestimonios' => array(
+                                'controlador' => 'ControladorTestimonios',
+                                'metodo' => 'verTodosLosTestimonios',
+                                'privada' => true),
+    'misVoluntariados' => array(
+                                    'controlador' => 'ControladorUsuarios',
+                                    'metodo' => 'misVoluntariados',
+                                    'privada' => true),
                                           
 );
 
