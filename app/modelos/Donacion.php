@@ -6,21 +6,16 @@ class Donacion {
     private $idProyecto;
     private $cantidad;
     private $fecha;
-    private $metodoDePago;
+    private $numeroTarjeta;
+    private $mes;
+    private $year;
+    private $ccv;
 
-    /**
-     * Get the value of metodoDePago
-     */
-    public function getMetodoDePago() {
-        return $this->metodoDePago;
-    }
-
-    /**
-     * Set the value of metodoDePago
-     */
-    public function setMetodoDePago($metodoDePago): self {
-        $this->metodoDePago = $metodoDePago;
-        return $this;
+    public function __construct($idUsuario = null, $idProyecto = null, $cantidad = null) {
+        $this->idUsuario = $idUsuario;
+        $this->idProyecto = $idProyecto;
+        $this->cantidad = $cantidad;
+        $this->fecha = date('Y-m-d');
     }
 
     /**
@@ -95,6 +90,66 @@ class Donacion {
      */
     public function setIdDonacion($idDonacion): self {
         $this->idDonacion = $idDonacion;
+        return $this;
+    }
+
+    /**
+     * Get the value of numeroTarjeta
+     */
+    public function getNumeroTarjeta() {
+        return $this->numeroTarjeta;
+    }
+
+    /**
+     * Set the value of numeroTarjeta
+     */
+    public function setNumeroTarjeta($numeroTarjeta): self {
+        $this->numeroTarjeta = $numeroTarjeta;
+        return $this;
+    }
+
+    /**
+     * Get the value of mes
+     */
+    public function getMes() {
+        return $this->mes;
+    }
+
+    /**
+     * Set the value of mes
+     */
+    public function setMes($mes): self {
+        $this->mes = $mes;
+        return $this;
+    }
+
+    /**
+     * Get the value of year
+     */
+    public function getYear() {
+        return $this->year;
+    }
+
+    /**
+     * Set the value of year
+     */
+    public function setYear($year): self {
+        $this->year = $year;
+        return $this;
+    }
+
+    /**
+     * Get the value of ccv
+     */
+    public function getCcv() {
+        return $this->ccv;
+    }
+
+    /**
+     * Set the value of ccv
+     */
+    public function setCcv($ccv): self {
+        $this->ccv = $ccv;
         return $this;
     }
 }

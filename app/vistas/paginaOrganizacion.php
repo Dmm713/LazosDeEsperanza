@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+
         body {
             font-family: Arial, sans-serif;
             background-color: #e0f7fa;
@@ -20,9 +21,31 @@
 </head>
 
 <body>
-    <?php
+<?php
+   
     $rol = isset($_GET['rol']) ? $_GET['rol'] : '';
+
+    // Inicializar $proyectosVoluntarios como un array vacío
+    $proyectosVoluntarios = [];
+
+    // Supongamos que tienes una función para obtener los proyectos de voluntariado del usuario actual
+    if (isset($_SESSION['idUsuario'])) {
+        $voluntariados = (new VoluntariosDAO($conn))->getVoluntariadosByUsuario($_SESSION['idUsuario']);
+        $proyectosVoluntarios = array_column($voluntariados, 'idProyecto');
+    }
     ?>
+
+    <!-- Cuadro de diálogo para mensajes de donación -->
+    <?php if (isset($_SESSION['message'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const message = "<?= $_SESSION['message']; ?>";
+                alert(message);
+                <?php unset($_SESSION['message']); unset($_SESSION['message_type']); ?>
+            });
+        </script>
+    <?php endif; ?>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -33,7 +56,6 @@
                     <h1><?php echo htmlspecialchars($organizacion->getNombre()); ?></h1>
                 </div>
                 <div class="new-user-container">
-                    <a href="index.php?accion=paginaPrincipal" class="btn btn-primary volver" style="background-color: #014949; color: #7FF9B9; border-color: #014949;">Donar</a>
                     <a href="index.php?accion=paginaPrincipal" class="btn btn-primary volver" style="background-color: #014949; color: #7FF9B9; border-color: #014949;"><i class="fa-solid fa-left-long"></i></a>
                 </div>
             </div>
@@ -86,39 +108,42 @@
             </div>
         </div>
 
+        <!-- Sección de Proyectos -->
         <div class="proyectos">
             <h2>Proyectos</h2>
             <div class="proyecto-container">
                 <?php
                 $proyectos = (new ProyectosDAO($conn))->getProyectosByOrganizacion($organizacion->getIdOrganizacion());
-                $proyectosVoluntarios = array_column($voluntariados, 'idProyecto');
                 foreach ($proyectos as $proyecto) {
                     echo "<div class='proyecto' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>
-                    <img src='web/fotosProyectos/" . htmlspecialchars($proyecto->getFotoProyecto()) . "' alt='Foto del proyecto' class='proyecto-image'>
-                    <div class='proyecto-content'>
-                        <h3>" . htmlspecialchars($proyecto->getTitulo()) . "</h3>
-                        <p>" . htmlspecialchars($proyecto->getDescripcion()) . "</p>
-                        <div class='proyecto-footer'>
-                            <strong>Fecha Inicio:</strong>
-                            <span>" . htmlspecialchars($proyecto->getFechaInicio()) . "</span>
-                        </div>
-                        <div class='proyecto-footer'>
-                            <strong>Fecha Fin:</strong>
-                            <span>" . htmlspecialchars($proyecto->getFechaFin()) . "</span>
-                        </div>
-                        <div class='proyecto-footer'>
-                            <strong>Objetivo Financiero:</strong>
-                            <span>" . htmlspecialchars($proyecto->getObjetivoFinanciero()) . "</span>
-                        </div>";
+                        <img src='web/fotosProyectos/" . htmlspecialchars($proyecto->getFotoProyecto()) . "' alt='Foto del proyecto' class='proyecto-image'>
+                        <div class='proyecto-content'>
+                            <h3>" . htmlspecialchars($proyecto->getTitulo()) . "</h3>
+                            <p>" . htmlspecialchars($proyecto->getDescripcion()) . "</p>
+                            <div class='proyecto-footer'>
+                                <strong>Fecha Inicio:</strong>
+                                <span>" . htmlspecialchars($proyecto->getFechaInicio()) . "</span>
+                            </div>
+                            <div class='proyecto-footer'>
+                                <strong>Fecha Fin:</strong>
+                                <span>" . htmlspecialchars($proyecto->getFechaFin()) . "</span>
+                            </div>
+                            <div class='proyecto-footer'>
+                                <strong>Objetivo Financiero:</strong>
+                                <span>" . htmlspecialchars($proyecto->getObjetivoFinanciero()) . "</span>
+                            </div>
+                            <div class='proyecto-footer'>
+                                <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#donacionModal' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>Donar</button>
+                            </div>";
                     if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'Usuario') {
                         if (in_array($proyecto->getIdProyecto(), $proyectosVoluntarios)) {
                             echo "<div class='proyecto-footer boton-voluntariado'>
-                            <button class='btn btn-secondary' disabled>Ya está apuntado como voluntario</button>
-                          </div>";
+                                <button class='btn btn-secondary' disabled>Ya está apuntado como voluntario</button>
+                            </div>";
                         } else {
                             echo "<div class='proyecto-footer boton-voluntariado'>
-                            <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#voluntariadoModal' data-fechainicio='" . htmlspecialchars($proyecto->getFechaInicio()) . "' data-fechafin='" . htmlspecialchars($proyecto->getFechaFin()) . "'>Hacer Voluntariado</button>
-                          </div>";
+                                <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#voluntariadoModal' data-fechainicio='" . htmlspecialchars($proyecto->getFechaInicio()) . "' data-fechafin='" . htmlspecialchars($proyecto->getFechaFin()) . "'>Hacer Voluntariado</button>
+                            </div>";
                         }
                     }
                     echo "</div></div>";
@@ -126,6 +151,8 @@
                 ?>
             </div>
         </div>
+
+
 
         <div class="cards-container">
             <h2>Testimonios</h2>
@@ -184,7 +211,66 @@
         </div>
     </div>
 
+    <!-- Modal para donaciones -->
+    <div class="modal fade" id="donacionModal" tabindex="-1" aria-labelledby="donacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content custom-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="donacionModalLabel">Realizar Donación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="donacionForm" method="post" action="index.php?accion=procesarDonacion">
+                        <div class="mb-3">
+                            <label for="cantidad" class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                            <input type="text" class="form-control" id="numeroTarjeta" name="numeroTarjeta" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mes" class="form-label">Mes</label>
+                            <input type="text" class="form-control" id="mes" name="mes" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Año</label>
+                            <input type="text" class="form-control" id="year" name="year" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ccv" class="form-label">CCV</label>
+                            <input type="text" class="form-control" id="ccv" name="ccv" required>
+                        </div>
+                        <input type="hidden" id="idProyecto" name="idProyecto">
+                        <input type="hidden" id="returnUrl" name="returnUrl" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Donar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const donacionModal = document.getElementById('donacionModal');
+            donacionModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const idProyecto = button.getAttribute('data-idproyecto');
+                const idProyectoInput = donacionModal.querySelector('#idProyecto');
+                idProyectoInput.value = idProyecto;
+            });
+
+            <?php if (isset($_SESSION['message'])): ?>
+                const message = "<?= $_SESSION['message']; ?>";
+                alert(message);
+                <?php unset($_SESSION['message']); unset($_SESSION['message_type']); ?>
+            <?php endif; ?>
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -35,36 +35,37 @@ class ControladorGlobal{
           
     }
     public function paginaOrganizacion($idOrganizacion) {
-        // Conectar a la base de datos
-    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-    $conn = $connexionDB->getConnexion();
-
-    // Obtener la organización seleccionada por el ID
-    $organizacionesDAO = new OrganizacionesDAO($conn);
-    $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-
-    // Obtener todos los usuarios
-    $usuariosDAO = new UsuariosDAO($conn);
-    $usuarios = $usuariosDAO->getAllUsuarios();
-
-    // Obtener los testimonios relacionados con la organización
-    $testimoniosDAO = new TestimoniosDAO($conn);
-    $testimonios = $testimoniosDAO->getTestimoniosByOrganizacion($idOrganizacion);
-
-    // Obtener los proyectos de la organización
-    $proyectosDAO = new ProyectosDAO($conn);
-    $proyectos = $proyectosDAO->getProyectosByOrganizacion($idOrganizacion);
-
-    // Obtener los voluntarios del usuario en sesión para los proyectos de la organización
-    $voluntariosDAO = new VoluntariosDAO($conn);
-    $idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
-    $voluntariados = [];
-    if ($idUsuario) {
-        $voluntariados = $voluntariosDAO->getVoluntariadosByUsuario($idUsuario);
-    }
-
-    // Incluir la vista
-    require 'app/vistas/paginaOrganizacion.php';
+          // Conectar a la base de datos
+          $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+          $conn = $connexionDB->getConnexion();
+  
+          // Obtener la organización seleccionada por el ID
+          $organizacionesDAO = new OrganizacionesDAO($conn);
+          $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+  
+          // Obtener todos los usuarios
+          $usuariosDAO = new UsuariosDAO($conn);
+          $usuarios = $usuariosDAO->getAllUsuarios();
+  
+          // Obtener los testimonios relacionados con la organización
+          $testimoniosDAO = new TestimoniosDAO($conn);
+          $testimonios = $testimoniosDAO->getTestimoniosByOrganizacion($idOrganizacion);
+  
+          // Obtener los proyectos de la organización
+          $proyectosDAO = new ProyectosDAO($conn);
+          $proyectos = $proyectosDAO->getProyectosByOrganizacion($idOrganizacion);
+  
+          // Obtener los voluntarios del usuario en sesión para los proyectos de la organización
+          $voluntariosDAO = new VoluntariosDAO($conn);
+          $idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
+          $voluntariados = [];
+          if ($idUsuario) {
+              $voluntariados = $voluntariosDAO->getVoluntariadosByUsuario($idUsuario);
+          }
+  
+          // Incluir la vista
+          require 'app/vistas/paginaOrganizacion.php';
+  
  }
  
 

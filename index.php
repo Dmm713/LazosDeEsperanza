@@ -22,6 +22,7 @@ require_once 'app/controladores/ControladorProyectos.php';
 require_once 'app/controladores/ControladorTestimonios.php';
 require_once 'app/controladores/ControladorGlobal.php';
 require_once 'app/controladores/ControladorUsuarios.php';
+require_once 'app/controladores/ControladorDonaciones.php';
 require_once 'app/utils/funciones.php';
 //Uso de variables de sesión
 session_start();
@@ -137,7 +138,11 @@ $mapa = array(
                     'privada'=>false),
     'inscribirseVoluntariado'=>array('controlador'=>'ControladorGlobal', 
                        'metodo'=>'inscribirseVoluntariado', 
-                       'privada'=>false),                                             
+                       'privada'=>false),
+    'procesarDonacion' => array(
+                    'controlador' => 'ControladorDonaciones',
+                    'metodo' => 'procesarDonacion',
+                    'privada' => true),                                             
 );
 
 foreach ($mapa as $i => $valor) {
