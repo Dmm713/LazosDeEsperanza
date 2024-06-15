@@ -78,24 +78,58 @@ class ControladorDonaciones {
     }
 
     public function donacionesOrganizacion() {
-        // Verificar si la organización está autenticada y obtener su idOrganizacion
         if (!isset($_SESSION['idOrganizacion'])) {
             header('location: index.php?accion=loginOrganizacion');
             die();
         }
-        
+
         $idOrganizacion = $_SESSION['idOrganizacion'];
-        
+
         // Conectar a la base de datos
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-        
+
         // Obtener la lista de donaciones de la organización con detalles del proyecto
         $donacionesDAO = new DonacionesDAO($conn);
         $donaciones = $donacionesDAO->getDonacionesByOrganizacionWithProjectDetails($idOrganizacion);
-        
-        // Incluir la vista y pasar las donaciones
+
+        // Calcular el total de dinero recaudado
+        $totalRecaudado = 0;
+        foreach ($donaciones as $donacion) {
+            $totalRecaudado += $donacion['cantidad'];
+        }
+
+        // Incluir la vista y pasar las donaciones y el total recaudado
         require 'app/vistas/donacionesOrganizacion.php';
+    }
+
+
+    public function borrarDonacion() {
+        if (!isset($_SESSION['idOrganizacion'])) {
+            header('location: index.php?accion=loginOrganizacion');
+            die();
+        }
+
+        if (isset($_GET['idDonacion'])) {
+            $idDonacion = $_GET['idDonacion'];
+
+            // Conectar a la base de datos
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+
+            // Eliminar la donación
+            $donacionesDAO = new DonacionesDAO($conn);
+            if ($donacionesDAO->delete($idDonacion)) {
+                $_SESSION['message'] = "Donación eliminada correctamente.";
+                $_SESSION['message_type'] = "success";
+            } else {
+                $_SESSION['message'] = "No se pudo eliminar la donación.";
+                $_SESSION['message_type'] = "error";
+            }
+
+            header('Location: index.php?accion=donacionesOrganizacion');
+            exit();
+        }
     }
 }
 

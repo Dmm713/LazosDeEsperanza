@@ -67,7 +67,7 @@ h1, h2 {
 }
 
 main {
-    flex: 1; /* Hace que el main ocupe el espacio restante */
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,6 +85,7 @@ main {
 }
 
 .donacion-card {
+    position: relative;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -119,6 +120,21 @@ main {
     margin: 5px 0;
 }
 
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
 .no-donaciones {
     display: flex;
     justify-content: center;
@@ -134,12 +150,27 @@ main {
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     background-color: #00aab7;
     color: white;
     width: 100%;
     position: relative;
     bottom: 0;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #08929c;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: #ff0000;
 }
 
 @media (max-width: 768px) {
@@ -186,4 +217,73 @@ footer {
 
 .btn:hover {
     background-color: #067a83;
+}
+
+/* Estilos para el cuadro de diálogo */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+.dialog-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.dialog-buttons {
+    margin-top: 20px;
+}
+
+.dialog-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.dialog-buttons .confirm-btn {
+    background-color: #014949;
+    color: #7FF9B9;
+}
+
+.dialog-buttons .confirm-btn:hover {
+    background-color: #026666;
+    transform: translateY(-2px);
+}
+
+.dialog-buttons .cancel-btn {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.dialog-buttons .cancel-btn:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
 }

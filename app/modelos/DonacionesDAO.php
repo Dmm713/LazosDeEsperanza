@@ -132,6 +132,16 @@ class DonacionesDAO {
         $donaciones = $result->fetch_all(MYSQLI_ASSOC);
         return $donaciones;
     }
+
+    public function delete($idDonacion) {
+        $query = "DELETE FROM donaciones WHERE idDonacion = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $idDonacion);
+        return $stmt->execute();
+    }
+    
+
+
 }
 
 

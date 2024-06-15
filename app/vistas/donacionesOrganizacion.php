@@ -27,6 +27,9 @@
         </div>
     </header>
     <main>
+        <div class="total-recaudado">
+            <h2>Total Recaudado: <?php echo htmlspecialchars($totalRecaudado); ?>€</h2>
+        </div>
         <?php if (!empty($donaciones)) : ?>
             <div class="donacion-container">
                 <?php foreach ($donaciones as $donacion) : ?>
@@ -41,6 +44,7 @@
                             <p><?php echo htmlspecialchars($donacion['descripcionProyecto']); ?></p>
                             <p><strong>Cantidad:</strong> <?php echo htmlspecialchars($donacion['cantidad']); ?></p>
                             <p><strong>Fecha:</strong> <?php echo htmlspecialchars($donacion['fecha']); ?></p>
+                            <a href="javascript:void(0);" class="delete-button" onclick="showConfirmationModal(<?php echo htmlspecialchars($donacion['idDonacion']); ?>)"><i class="fas fa-times-circle"></i></a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -54,6 +58,38 @@
     <footer>
         <p>&copy; 2024 Mi Organización</p>
     </footer>
+
+    <!-- Modal de confirmación -->
+    <div id="confirmationModal" class="dialog-overlay">
+        <div class="dialog-box">
+            <span class="close" onclick="closeConfirmationModal()">&times;</span>
+            <p>¿Estás seguro de que deseas borrar esta donación?</p>
+            <div class="dialog-buttons">
+                <button id="confirmButton" class="confirm-btn">Confirmar</button>
+                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let idDonacionToDelete = null;
+
+        function showConfirmationModal(idDonacion) {
+            idDonacionToDelete = idDonacion;
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+            idDonacionToDelete = null;
+        }
+
+        document.getElementById('confirmButton').onclick = function () {
+            if (idDonacionToDelete) {
+                window.location.href = "index.php?accion=borrarDonacion&idDonacion=" + idDonacionToDelete;
+            }
+        }
+    </script>
 </body>
 
 </html>
