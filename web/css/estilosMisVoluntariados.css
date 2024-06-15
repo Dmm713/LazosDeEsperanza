@@ -90,8 +90,9 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
-    flex: 1 1 300px;
-    max-width: 300px;
+    flex: 1 1 calc(45% - 20px); /* Tres tarjetas por fila con espacio de 20px entre ellas */
+    max-width: calc(45% - 20px);
+    box-sizing: border-box;
 }
 
 .voluntariado-card:hover {
@@ -152,6 +153,11 @@ footer {
         flex: none;
         width: 100%;
     }
+
+    .voluntariado-card {
+        flex: 1 1 calc(50% - 20px); /* Dos tarjetas por fila */
+        max-width: calc(50% - 20px);
+    }
 }
 
 @media (max-width: 480px) {
@@ -166,6 +172,11 @@ footer {
     .btn {
         width: 100%;
         margin: 10px 0;
+    }
+
+    .voluntariado-card {
+        flex: 1 1 100%; /* Una tarjeta por fila */
+        max-width: 100%;
     }
 }
 
