@@ -78,10 +78,11 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
     gap: 20px;
     padding: 20px;
     max-width: 1200px;
-    margin: 20px auto;
+    margin: 0 auto;
 }
 
 .voluntario-card {
@@ -91,8 +92,8 @@ main {
     overflow: hidden;
     position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
-    flex: 1 1 300px;
-    max-width: 300px;
+    flex: 1 1 calc(50% - 20px); /* Ajusta el ancho para pantallas grandes */
+    max-width: calc(50% - 20px); /* Ajusta el ancho para pantallas grandes */
 }
 
 .voluntario-card:hover {
@@ -158,7 +159,26 @@ footer {
     color: #ff0000;
 }
 
+@media (max-width: 1200px) {
+    .voluntario-card {
+        flex: 1 1 calc(45% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+        max-width: calc(45% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media (max-width: 992px) {
+    .voluntario-card {
+        flex: 1 1 calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+        max-width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
 @media (max-width: 768px) {
+    .voluntario-card {
+        flex: 1 1 100%; /* Una tarjeta por fila en pantallas pequeñas */
+        max-width: 100%; /* Una tarjeta por fila en pantallas pequeñas */
+    }
+
     .header-content {
         flex-direction: column;
         text-align: center;
@@ -290,4 +310,3 @@ footer {
 .btn-delete:hover {
     color: #cc0000;
 }
-

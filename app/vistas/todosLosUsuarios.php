@@ -44,7 +44,7 @@
                             <h3><?= htmlspecialchars($usuario->getNombre()) ?></h3>
                             <p><?= htmlspecialchars($usuario->getApellidos()) ?></p>
                             <div class="btn-group">
-                                <a href="index.php?accion=editarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary">Eliminar</a>
+                                <a href="index.php?accion=editarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary">Editar</a>
                                 <a href="index.php?accion=borrarUsuario&idUsuario=<?= $usuario->getIdUsuario() ?>" class="btn btn-primary btn-delete">Borrar</a>
                             </div>
                         </div>

@@ -44,8 +44,8 @@
                                 <p><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                             </div>
                             <div class="btn-group">
-                                <a href="index.php?accion=editarOrganizacion&idOrganizacion=<?= $organizacion->getIdOrganizacion() ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="#" class="btn btn-primary btn-delete" data-id="<?= $organizacion->getIdOrganizacion() ?>"><i class="fa-solid fa-trash-can" style="color: red;"></i></a>
+                                <a href="index.php?accion=editarOrganizacion&idOrganizacion=<?= $organizacion->getIdOrganizacion() ?>" class="btn btn-primary">Editar</a>
+                                <a href="#" class="btn btn-primary btn-delete" data-id="<?= $organizacion->getIdOrganizacion() ?>">Borrar</a>
                             </div>
                         </div>
                     </div>

@@ -174,13 +174,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="3000">
-                <img src="web/Images/unicef.jpg" class="d-block w-100" alt="...">
+                <img src="web/Images/Unicef.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="web/Images/Dia-Mundial-contra-el-Cancer.png" class="d-block w-100" alt="...">
+                <img src="web/Images/Cancer.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="web/Images/aedem.jpg" class="d-block w-100" alt="...">
+                <img src="web/Images/Aedem.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
