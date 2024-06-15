@@ -31,6 +31,7 @@
             <div class="voluntariado-container">
                 <?php foreach ($voluntariados as $voluntariado) : ?>
                     <div class="voluntariado-card">
+                        <a href="#" class="delete-btn" onclick="openModal(<?php echo htmlspecialchars($voluntariado['idVoluntario']); ?>)">&times;</a>
                         <?php if ($voluntariado['fotoProyecto']) : ?>
                             <img src="web/fotosProyectos/<?php echo htmlspecialchars($voluntariado['fotoProyecto']); ?>" alt="Foto del proyecto" class="voluntariado-image">
                         <?php else : ?>
@@ -54,6 +55,42 @@
     <footer>
         <p>&copy; 2024 Mi Organización</p>
     </footer>
+
+    <!-- Modal -->
+    <div class="dialog-overlay" id="dialog-overlay">
+        <div class="dialog-box">
+            <p>¿Estás seguro de que quieres borrar este voluntariado?</p>
+            <div class="dialog-buttons">
+                <button class="confirm-btn" id="confirmDeleteBtn">Confirmar</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("dialog-overlay");
+        var confirmBtn = document.getElementById("confirmDeleteBtn");
+        var idVoluntarioToDelete;
+
+        function openModal(idVoluntario) {
+            idVoluntarioToDelete = idVoluntario;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        confirmBtn.onclick = function() {
+            window.location.href = "index.php?accion=borrarMisVoluntariados&idVoluntario=" + idVoluntarioToDelete;
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

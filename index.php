@@ -181,6 +181,9 @@ $mapa = array(
     'borrarVoluntario'=>array('controlador'=>'ControladorOrganizaciones',
                                 'metodo'=>'borrarVoluntario',
                                 'privada'=>true),
+    'borrarMisVoluntariados'=>array('controlador'=>'ControladorUsuarios',
+                                'metodo'=>'borrarMisVoluntariados',
+                                'privada'=>true),
     'borrarDonacion' => array(
                                 'controlador' => 'ControladorDonaciones',
                                 'metodo' => 'borrarDonacion',

@@ -386,7 +386,38 @@ Class ControladorUsuarios {
         // Incluir la vista y pasar los voluntariados
         require 'app/vistas/misVoluntariados.php';
     }
+     
+    public function borrarMisVoluntariados() {
+        if (!isset($_SESSION['idUsuario'])) {
+            echo "ID de usuario no encontrado en la sesión.";
+            return;
+        }
     
+        // Obtener el idVoluntario de la solicitud GET
+        $idVoluntario = htmlspecialchars($_GET['idVoluntario']);
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Verificar que el voluntariado pertenece al usuario
+        $voluntariosDAO = new VoluntariosDAO($conn);
+        $voluntario = $voluntariosDAO->getByIdVoluntario($idVoluntario);
+        if ($voluntario->getIdUsuario() !== $_SESSION['idUsuario']) {
+            echo "No tienes permiso para borrar este voluntariado.";
+            return;
+        }
+        
+        // Borrar el voluntario
+        $borrado = $voluntariosDAO->borrarVoluntario($idVoluntario);
+        
+        if ($borrado) {
+            header('location: index.php?accion=verMisVoluntariados');
+        } else {
+            echo "No se pudo borrar el voluntariado.";
+        }
+        die();
+    }
     
     
 
