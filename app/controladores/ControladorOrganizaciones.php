@@ -916,4 +916,30 @@ class ControladorOrganizaciones
         require 'app/vistas/voluntariosOrganizacion.php';
     }
     
+
+    public function borrarVoluntario() {
+        if (!isset($_SESSION['idOrganizacion'])) {
+            echo "ID de organización no encontrado en la sesión.";
+            return;
+        }
+    
+        // Obtener el idVoluntario de la solicitud GET
+        $idVoluntario = htmlspecialchars($_GET['idVoluntario']);
+        
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        
+        // Borrar el voluntario
+        $voluntariosDAO = new VoluntariosDAO($conn);
+        $borrado = $voluntariosDAO->borrarVoluntario($idVoluntario);
+        
+        if ($borrado) {
+            header('location: index.php?accion=voluntariosOrganizacion');
+        } else {
+            echo "No se pudo borrar el voluntario.";
+        }
+        die();
+    }
+    
 }

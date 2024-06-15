@@ -31,6 +31,9 @@
             <div class="voluntario-container">
                 <?php foreach ($voluntarios as $voluntario) : ?>
                     <div class="voluntario-card">
+                        <button class="btn-delete" onclick="mostrarDialogo(<?php echo $voluntario['idVoluntario']; ?>)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                         <?php if ($voluntario['fotoProyecto']) : ?>
                             <img src="web/fotosProyectos/<?php echo htmlspecialchars($voluntario['fotoProyecto']); ?>" alt="Foto del proyecto" class="voluntario-image">
                         <?php else : ?>
@@ -39,6 +42,7 @@
                         <div class="voluntario-content">
                             <h2><?php echo htmlspecialchars($voluntario['nombreUsuario'] . ' ' . $voluntario['apellidosUsuario']); ?></h2>
                             <p><strong>Correo:</strong> <?php echo htmlspecialchars($voluntario['emailUsuario']); ?></p>
+                            <h2>Proyecto</h2>
                             <h3><?php echo htmlspecialchars($voluntario['nombreProyecto']); ?></h3>
                             <p><?php echo htmlspecialchars($voluntario['descripcionProyecto']); ?></p>
                             <p><strong>Fecha de Inicio:</strong> <?php echo htmlspecialchars($voluntario['fechaInicio']); ?></p>
@@ -54,8 +58,39 @@
         <?php endif; ?>
     </main>
     <footer>
-        <p>&copy; 2024 Mi Organización</p>
+        <p>&copy; 2024 Lazos De Esperenza</p>
     </footer>
+
+    <!-- Cuadro de diálogo -->
+    <div id="dialog-overlay" class="dialog-overlay">
+        <div class="dialog-box">
+            <p>¿Estás seguro de que deseas eliminar a este voluntario?</p>
+            <div class="dialog-buttons">
+                <button class="confirm-btn" onclick="confirmarEliminacion()">Confirmar</button>
+                <button class="cancel-btn" onclick="cerrarDialogo()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let voluntarioAEliminar = null;
+
+        function mostrarDialogo(idVoluntario) {
+            voluntarioAEliminar = idVoluntario;
+            document.getElementById('dialog-overlay').style.display = 'flex';
+        }
+
+        function cerrarDialogo() {
+            document.getElementById('dialog-overlay').style.display = 'none';
+            voluntarioAEliminar = null;
+        }
+
+        function confirmarEliminacion() {
+            if (voluntarioAEliminar !== null) {
+                window.location.href = 'index.php?accion=borrarVoluntario&idVoluntario=' + voluntarioAEliminar;
+            }
+        }
+    </script>
 </body>
 
 </html>

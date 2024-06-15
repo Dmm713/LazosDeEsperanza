@@ -1,0 +1,293 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    background-color: #00aab7;
+    padding: 10px 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.title-container {
+    flex: 2;
+    text-align: center;
+    color: white;
+}
+
+.new-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #08929c;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.voluntario-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.voluntario-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex: 1 1 300px;
+    max-width: 300px;
+}
+
+.voluntario-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.voluntario-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.voluntario-content {
+    padding: 15px;
+}
+
+.voluntario-content h2 {
+    font-size: 1.5em;
+    color: #08929c;
+    margin: 0 0 10px 0;
+}
+
+.voluntario-content p {
+    margin: 5px 0;
+}
+
+.no-voluntarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.no-voluntarios p {
+    font-size: 1.5em;
+    color: #08929c;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #00aab7;
+    color: white;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #08929c;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: #ff0000;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-container, .title-container, .new-user-container {
+        flex: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 5px 10px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+.btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 15px 30px;
+    background-color: #014949;
+    color: #7FF9B9;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #067a83;
+}
+
+
+/* Estilos para el cuadro de diálogo */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+.dialog-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.dialog-buttons {
+    margin-top: 20px;
+}
+
+.dialog-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.dialog-buttons .confirm-btn {
+    background-color: #014949;
+    color: #7FF9B9;
+}
+
+.dialog-buttons .confirm-btn:hover {
+    background-color: #026666;
+    transform: translateY(-2px);
+}
+
+.dialog-buttons .cancel-btn {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.dialog-buttons .cancel-btn:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* Estilos para el botón de eliminación */
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #ff0000; /* Color de la cruz */
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-delete:hover {
+    color: #cc0000;
+}
+

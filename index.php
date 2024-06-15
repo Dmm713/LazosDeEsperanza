@@ -178,6 +178,9 @@ $mapa = array(
                                 'metodo' => 'verVoluntarios', // Cambiar 'voluntariosOrganizacion' a 'verVoluntarios'
                                 'privada' => true
                             ),
+    'borrarVoluntario'=>array('controlador'=>'ControladorOrganizaciones',
+                                'metodo'=>'borrarVoluntario',
+                                'privada'=>true),
                         
                                 
                                           
