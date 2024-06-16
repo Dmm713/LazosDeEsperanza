@@ -92,7 +92,7 @@
         </main>
     </div>
     <footer>
-        <p>&copy; 2024 Mi Organización</p>
+        <p>&copy; 2024 Lazos De Esperanza</p>
     </footer>
 <!-- Modal para hacer voluntariado -->
 <div class="modal fade custom-modal" id="voluntariadoModal" tabindex="-1" aria-labelledby="voluntariadoModalLabel" aria-hidden="true">
