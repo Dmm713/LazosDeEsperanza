@@ -58,7 +58,7 @@
 
             <div class="btn-container">
                 <button type="submit" form="editarEventoForm" class="btn">Guardar Cambios</button>
-                <a href="index.php?accion=verTodosLosEventos" class="btn">Cancelar</a>
+                <a href="index.php?accion=verTodosLosEventosAdmin" class="btn">Cancelar</a>
             </div>
         </form>
     </div>

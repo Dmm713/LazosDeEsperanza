@@ -833,7 +833,7 @@ class ControladorOrganizaciones
     
             $eventosDAO = new EventosDAO($conn);
             if ($eventosDAO->insert($evento)) {
-                header('location: index.php?accion=verTodosLosEventos');
+                header('location: index.php?accion=verTodosLosEventosAdmin');
                 die();
             } else {
                 echo "No se ha podido crear el evento.";
@@ -1011,7 +1011,7 @@ class ControladorOrganizaciones
                             unlink("web/fotosEventos/$fotoTemporal");
                         }
 
-                        header('location: index.php?accion=verTodosLosEventos');
+                        header('location: index.php?accion=verTodosLosEventosAdmin');
                         die();
                     } else {
                         $error = "No se ha podido actualizar el evento";
@@ -1075,7 +1075,7 @@ class ControladorOrganizaciones
             }
         }
 
-        header('location: index.php?accion=verTodosLosEventos');
+        header('location: index.php?accion=verTodosLosEventosAdmin');
         die();
     }
 

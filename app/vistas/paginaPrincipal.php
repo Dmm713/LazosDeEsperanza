@@ -154,7 +154,7 @@
                                 <a class="nav-link navbarLink" href="index.php?accion=verTodasLasOrganizaciones" style="text-align: center;">Organizaciones</a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="index.php?accion=verTodosLosEventos" style="text-align: center;">Eventos</a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verTodosLosEventosAdmin" style="text-align: center;">Eventos</a>
                             </li>
                             <li class="nav-item flex-grow-1">
                                 <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
