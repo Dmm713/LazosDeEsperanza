@@ -14,6 +14,9 @@
             background-image: url(web/Images/fondoFooter.png);
             background-size: cover;
         }
+
+ 
+
     </style>
 </head>
 
@@ -207,7 +210,7 @@
                                 <h5 class="card-title"><?= htmlspecialchars($organizacion->getNombre()) ?></h5>
                                 <p class="card-text"><?= htmlspecialchars($organizacion->getDescripcion()) ?></p>
                                 <a href="<?= htmlspecialchars($organizacion->getSitioWeb()) ?>" style="color: #3280d3; text-decoration: underline; text-align: center;"><?= htmlspecialchars($organizacion->getSitioWeb()) ?></a>
-                                <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?>&rol=<?= isset($_SESSION['rol']) ? $_SESSION['rol'] : '' ?>" class="btn btn-primary">Ver Más</a>
+                                <a href="index.php?accion=paginaOrganizacion&idOrganizacion=<?= htmlspecialchars($organizacion->getIdOrganizacion()) ?>&rol=<?= isset($_SESSION['rol']) ? $_SESSION['rol'] : '' ?>" class="btn btn-primary" style="background-color: #014949; color:#7FF9B9 ; border-color: #7FF9B9;" >Ver Más</a>
                             </div>
                         </div>
                     </div>
@@ -336,9 +339,53 @@
                     <a href="https://www.cancer.gov/espanol/noticias/temas-y-relatos-blog/2024/fda-elahere-cancer-ovario-resistente-platino"><button>Ver Noticia</button></a>
                 </div>
             </div>
-
-            <!-- Puedes añadir más tarjetas de noticias aquí -->
         </div>
+
+ 
+        <div class="container mt-5">
+    <h2>Testimonios</h2>
+    <?php if (isset($testimonios) && !empty($testimonios)) : ?>
+        <div id="testimoniosCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <?php foreach ($testimonios as $index => $testimonio) : ?>
+                    <button type="button" data-bs-target="#testimoniosCarousel" data-bs-slide-to="<?= $index ?>" class="<?= $index === 0 ? 'active' : '' ?>" aria-current="true" aria-label="Slide <?= $index + 1 ?>"></button>
+                <?php endforeach; ?>
+            </div>
+            <div class="carousel-inner">
+                <?php foreach ($testimonios as $index => $testimonio) : ?>
+                    <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                        <div class="d-flex justify-content-center">
+                            <div class="card">
+                                <img src="web/fotosTestimonios/<?= htmlspecialchars($testimonio->getFoto()) ?>" class="card-img-top" alt="Foto de <?= htmlspecialchars($testimonio->getNombre()) ?>">
+                                <div class="card-body">
+                                    <h1 class="card-title" style="color: #08929c;"> <strong><?= htmlspecialchars($testimonio->getNombre()) ?> <?= htmlspecialchars($testimonio->getApellidos()) ?></strong></h1>
+                                    <p class="card-text"><strong>Problema:</strong> <?= htmlspecialchars($testimonio->getProblema()) ?></p>
+                                    <p class="card-text"><strong>Solución:</strong> <?= htmlspecialchars($testimonio->getSolucion()) ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimoniosCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimoniosCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    <?php else : ?>
+        <p>No hay testimonios disponibles en este momento.</p>
+    <?php endif; ?>
+</div>
+
+
+ 
+
+
+
 
 
 

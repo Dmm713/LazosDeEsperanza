@@ -24,13 +24,17 @@ class ControladorGlobal{
          $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
          $conn = $connexionDB->getConnexion();
          
-         // Obtener todas las organizaciones
-         $organizacionesDAO = new OrganizacionesDAO($conn);
+       
+        // Obtener todas las organizaciones
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        $organizaciones = $organizacionesDAO->getAllOrganizaciones();
 
-         $organizaciones = $organizacionesDAO->getAllOrganizaciones();
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuarios = $usuariosDAO->getAllUsuarios();
 
-         $usuariosDAO = new UsuariosDAO($conn);
-         $usuarios = $usuariosDAO->getAllUsuarios();
+        // Obtener todos los testimonios
+        $testimoniosDAO = new TestimoniosDAO($conn);
+        $testimonios = $testimoniosDAO->getAllTestimonios();
          require 'app/vistas/paginaPrincipal.php';
           
     }
@@ -74,12 +78,17 @@ class ControladorGlobal{
          $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
          $conn = $connexionDB->getConnexion();
          
-         // Obtener todas las organizaciones
-         $organizacionesDAO = new OrganizacionesDAO($conn);
-         $organizaciones = $organizacionesDAO->getAllOrganizaciones();
+       
+        // Obtener todas las organizaciones
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        $organizaciones = $organizacionesDAO->getAllOrganizaciones();
 
         $usuariosDAO = new UsuariosDAO($conn);
         $usuarios = $usuariosDAO->getAllUsuarios();
+
+        // Obtener todos los testimonios
+        $testimoniosDAO = new TestimoniosDAO($conn);
+        $testimonios = $testimoniosDAO->getAllTestimonios();
         require 'app/vistas/paginaPrincipal.php';
     }
     
