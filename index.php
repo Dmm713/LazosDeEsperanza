@@ -228,6 +228,11 @@ $mapa = array(
                                 'metodo' => 'borrarDonacion',
                                      'privada' => true
                                 ),
+    'sobreMi' => array(
+                    'controlador' => 'ControladorGlobal',
+                    'metodo' => 'sobreMi',
+                    'privada' => true
+                    ),
                                 
                         
                                 

@@ -22,19 +22,14 @@
 
 <body>
     <header>
-        <div class="container">
+        <div class="container" id="inicio">
             <div class="row align-items-center justify-content-between">
-                <!-- Logo -->
                 <div class="col-auto">
-                    <img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo">
+                <a href="index.php"><img src="web/Images/lazos de esperanza Blanco.png" alt="Lazos de Esperanza" class="logo"></a>
                 </div>
-
-                <!-- Texto del Header -->
                 <div class="col text-center">
                     <h1>Enlaza Con Nosotros Tu Solidaridad</h1>
                 </div>
-
-                <!-- Botones -->
                 <div class="col-auto">
                     <?php if (isset($_SESSION['email'])) : ?>
                         <div class="user-container">
@@ -64,13 +59,22 @@
                             <a class="nav-link" aria-current="page" href="#" style="text-align: center;"><strong>Inicio</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;"><strong>Sobre Nosotros</strong></a>
+                            <a class="nav-link" href="#organizacionesColaboradoras" style="text-align: center;"><strong>Organizaciones Colaboradoras</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;"><strong>Servicios</strong></a>
+                            <a class="nav-link" href="#sobreNosotros" style="text-align: center;"><strong>Sobre Nosotros</strong></a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <a class="nav-link" href="#" style="text-align: center;"><strong>Contacto</strong></a>
+                            <a class="nav-link" href="#vision" style="text-align: center;"><strong>Visión</strong></a>
+                        </li>
+                        <li class="nav-item flex-grow-1">
+                            <a class="nav-link" href="#nuestraHistoria" style="text-align: center;"><strong>Nuestra Historia</strong></a>
+                        </li>
+                        <li class="nav-item flex-grow-1">
+                            <a class="nav-link" href="#noticias" style="text-align: center;"><strong>Noticias</strong></a>
+                        </li>
+                        <li class="nav-item flex-grow-1">
+                            <a class="nav-link" href="#testimonios" style="text-align: center;"><strong>Testimonios</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -199,7 +203,7 @@
     <div class="">
 
 
-        <div class="container">
+        <div class="container" id="organizacionesColaboradoras">
             <h2>Organizaciones Colaboradoras</h2>
             <div class="row card-container">
                 <?php foreach ($organizaciones as $organizacion) : ?>
@@ -220,7 +224,7 @@
         </div>
 
 
-        <div class="sobreNosotros">
+        <div class="sobreNosotros" id="sobreNosotros">
             <section class="intro">
                 <div class="intro-content">
                     <h2>Sobre Nosotros</h2>
@@ -241,7 +245,7 @@
 
             </section>
 
-            <section class="mission-vision-values">
+            <section class="mission-vision-values" id="vision">
                 <div class="vision">
                     <h2>Visión</h2>
                     <p>
@@ -260,7 +264,7 @@
 
 
 
-            <div class="containerDos">
+            <div class="containerDos" id="nuestraHistoria">
                 <img src="web/Images/sobreNosotros.png" alt="Descripción de la imagen" class="foto2">
                 <section class="history">
                     <div>
@@ -285,7 +289,7 @@
 
         </div>
 
-        <div>
+        <div id="noticias">
             <h1>Noticias</h1>
         </div>
         <div class="containerNoticias">
@@ -342,7 +346,7 @@
         </div>
 
  
-        <div class="container mt-5">
+        <div class="container mt-5" id="testimonios">
     <h2>Testimonios</h2>
     <?php if (isset($testimonios) && !empty($testimonios)) : ?>
         <div id="testimoniosCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -400,11 +404,14 @@
                     </div>
                 </div>
                 <div class="box__footer">
-                    <h2>Soluciones</h2>
-                    <a href="#">Acerca de</a>
-                    <a href="#">Trabajos</a>
-                    <a href="#">Procesos</a>
-                    <a href="#">Servicios</a>
+                    <h2>Menú</h2>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#organizacionesColaboradoras">Organizaciones Colaboradoras</a>
+                    <a href="#sobreNosotros">Sobre Nosotros</a>
+                    <a href="#vision">Visión</a>
+                    <a href="#nuestraHistoria">Nuestra Historia</a>
+                    <a href="#noticias">Noticias</a>
+                    <a href="#testimonios">Testimonios</a>
                 </div>
 
                 <div class="box__footer">
@@ -413,6 +420,11 @@
                     <a href="#"><i class="fab fa-twitter-square">&nbsp</i> Twitter</a>
                     <a href="#"><i class="fab fa-linkedin">&nbsp</i> Linkedin</a>
                     <a href="#"><i class="fab fa-instagram-square">&nbsp</i> Instagram</a>
+                </div>
+                <div class="box__footer">
+                    <h2>Sobre mí</h2>
+                    <a href="index.php?accion=sobreMi">Sobre mi</a>
+                    <a href="web/cv.pdf" download >Descargar CV</a>
                 </div>
             </div>
             <div class="box__copyright">

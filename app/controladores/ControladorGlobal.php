@@ -147,5 +147,10 @@ public function verTodosLosEventosAdmin() {
     $eventos = $eventosDAO->getAllEventos(); // Asumiendo que existe un método getAllEventos en EventosDAO
     require 'app/vistas/verTodosLosEventosAdmin.php';
 }
-
+public function sobreMi() {
+    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $conn = $connexionDB->getConnexion();
+   
+    require 'app/vistas/sobreMi.php';
+}
 }
