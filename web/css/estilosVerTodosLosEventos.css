@@ -4,6 +4,9 @@ body {
     color: #333;
     margin: 0;
     overflow-x: hidden; /* Previene el desplazamiento horizontal */
+    min-height: 100vh; /* Asegura que la página tenga al menos la altura de la ventana gráfica */
+    display: flex;
+    flex-direction: column; /* Hace que el body actúe como un contenedor flex */
 }
 
 header {
@@ -52,6 +55,10 @@ header h1 {
 h1, h2 {
     text-align: center;
     color: #08929c;
+}
+
+main {
+    flex: 1; /* Hace que el main tome todo el espacio disponible */
 }
 
 .event-container {
@@ -152,5 +159,99 @@ footer {
 }
 
 .btn:hover {
+    background-color: #067a83;
+}
+
+.btn-edit {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background-color: #014949;
+    color: #7FF9B9;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background-color: #067a83;
+}
+
+.btn-delete {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background-color: #014949;
+    color: #7FF9B9;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #067a83;
+}
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+}
+
+.modal p {
+    margin-bottom: 20px;
+}
+
+.modal .btn {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #014949;
+    color: #7FF9B9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.modal .btn:hover {
     background-color: #067a83;
 }

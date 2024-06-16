@@ -21,11 +21,11 @@ class ControladorOrganizaciones
             $ciudades = htmlentities($_POST['ciudades']);
             $foto = '';
             $logo = '';
-    
+
             // Validación y conexión con la BD
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-    
+
             $organizacionesDAO = new OrganizacionesDAO($conn);
             if ($organizacionesDAO->getByEmail($email) != null) {
                 $error = "Ya hay una organización con ese email";
@@ -46,7 +46,7 @@ class ControladorOrganizaciones
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
                 }
-    
+
                 // Validación del logo
                 if (
                     $_FILES['logo']['type'] != 'image/jpeg' &&
@@ -63,7 +63,7 @@ class ControladorOrganizaciones
                         die("Error al copiar el logo a la carpeta logosOrganizaciones");
                     }
                 }
-    
+
                 if ($error == '') {
                     $organizacion = new Organizacion();
                     $organizacion->setNombre($nombre);
@@ -82,7 +82,7 @@ class ControladorOrganizaciones
                     $organizacion->setObjetivos($objetivos);
                     $organizacion->setCiudades($ciudades);
                     $organizacion->setSid(sha1(rand() + time()), true);
-    
+
                     if ($organizacionesDAO->insert($organizacion)) {
                         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();
@@ -92,7 +92,7 @@ class ControladorOrganizaciones
                 }
             }
         }
-    
+
         require 'app/vistas/registrar.php';
     }
 
@@ -137,17 +137,17 @@ class ControladorOrganizaciones
         require 'app/vistas/paginaPrincipal.php';
     }
 
-  public function miPerfilOrganizacion($idOrganizacion) {
-    // Conectar a la base de datos
-    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-    $conn = $connexionDB->getConnexion();
+    public function miPerfilOrganizacion($idOrganizacion)
+    {
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
 
-    $organizacionesDAO = new OrganizacionesDAO($conn);
-    $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
 
-    // Incluir la vista y pasar la organización
-    require 'app/vistas/miPerfilOrganizacion.php';
-
+        // Incluir la vista y pasar la organización
+        require 'app/vistas/miPerfilOrganizacion.php';
     }
 
     public function verTodasLasOrganizaciones()
@@ -168,21 +168,21 @@ class ControladorOrganizaciones
         // Creamos la conexión utilizando la clase que hemos creado
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-    
+
         // Creamos el objeto OrganizacionesDAO para acceder a la BBDD a través de este objeto
         $organizacionesDAO = new OrganizacionesDAO($conn);
-    
+
         // Obtener el id de la organización
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
-    
+
         // Obtener la organización antes de borrarla para obtener los nombres de la foto y el logo
         $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
         $foto = $organizacion->getFoto();
         $logo = $organizacion->getLogo();
-    
+
         // Borrar la organización
         $borrado = $organizacionesDAO->borrarOrganizacion($idOrganizacion);
-    
+
         // Si se borró la organización, borrar la foto y el logo del servidor
         if ($borrado) {
             if ($foto) {
@@ -198,12 +198,12 @@ class ControladorOrganizaciones
                 }
             }
         }
-    
+
         // Redirigir a la lista de organizaciones
         header('location: index.php?accion=verTodasLasOrganizaciones');
         die();
     }
-    
+
 
     public function editarOrganizacion()
     {
@@ -212,17 +212,17 @@ class ControladorOrganizaciones
         // Conectamos con la BD
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-    
+
         // Obtengo el id de la organización que viene por GET
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
         // Obtengo la organización de la BD
         $organizacionesDAO = new OrganizacionesDAO($conn);
         $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-    
+
         // Guardar el nombre de la foto y logo antiguos
         $fotoAntigua = $organizacion->getFoto();
         $logoAntiguo = $organizacion->getLogo();
-    
+
         // Cuando se envíe el formulario actualizo la organización en la BD
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Limpiamos los datos que vienen del usuario
@@ -238,7 +238,7 @@ class ControladorOrganizaciones
             $ciudades = htmlspecialchars($_POST['ciudades']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
             $logoTemporal = htmlspecialchars($_POST['logoTemporal']);
-    
+
             // Validamos los datos
             if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol) || empty($quienesSomos) || empty($objetivos) || empty($ciudades)) {
                 $error = "Todos los campos son obligatorios";
@@ -253,7 +253,7 @@ class ControladorOrganizaciones
                 $organizacion->setQuienesSomos($quienesSomos);
                 $organizacion->setObjetivos($objetivos);
                 $organizacion->setCiudades($ciudades);
-    
+
                 // Manejar la subida de la nueva foto
                 if (!empty($_FILES['foto']['name'])) {
                     if (
@@ -279,7 +279,7 @@ class ControladorOrganizaciones
                     rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
                     $organizacion->setFoto($foto);
                 }
-    
+
                 // Manejar la subida del nuevo logo
                 if (!empty($_FILES['logo']['name'])) {
                     if (
@@ -305,29 +305,29 @@ class ControladorOrganizaciones
                     rename("web/logosOrganizaciones/$logoTemporal", "web/logosOrganizaciones/$logo");
                     $organizacion->setLogo($logo);
                 }
-    
+
                 if ($error == '') {
                     if ($organizacionesDAO->update($organizacion)) {
                         // Borrar la foto antigua si se subió una nueva
                         if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
                             unlink("web/fotosUsuarios/$fotoAntigua");
                         }
-    
+
                         // Borrar cualquier foto temporal remanente
                         if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
                             unlink("web/fotosUsuarios/$fotoTemporal");
                         }
-    
+
                         // Borrar el logo antiguo si se subió uno nuevo
                         if (!empty($_FILES['logo']['name']) && $logoAntiguo && $organizacion->getLogo() !== $logoAntiguo) {
                             unlink("web/logosOrganizaciones/$logoAntiguo");
                         }
-    
+
                         // Borrar cualquier logo temporal remanente
                         if (!empty($logoTemporal) && file_exists("web/logosOrganizaciones/$logoTemporal")) {
                             unlink("web/logosOrganizaciones/$logoTemporal");
                         }
-    
+
                         header('location: index.php?accion=verTodasLasOrganizaciones');
                         die();
                     } else {
@@ -383,17 +383,17 @@ class ControladorOrganizaciones
         // Conectamos con la BD
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-    
+
         // Obtengo el id de la organización que viene por GET
         $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
         // Obtengo la organización de la BD
         $organizacionesDAO = new OrganizacionesDAO($conn);
         $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-    
+
         // Guardar el nombre de la foto y logo antiguos
         $fotoAntigua = $organizacion->getFoto();
         $logoAntiguo = $organizacion->getLogo();
-    
+
         // Cuando se envíe el formulario actualizo la organización en la BD
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Limpiamos los datos que vienen del usuario
@@ -409,7 +409,7 @@ class ControladorOrganizaciones
             $ciudades = htmlspecialchars($_POST['ciudades']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
             $logoTemporal = htmlspecialchars($_POST['logoTemporal']);
-     
+
             // Validamos los datos
             if (empty($nombre) || empty($descripcion) || empty($sitioWeb) || empty($telefono) || empty($direccion) || empty($ciego) || empty($rol) || empty($quienesSomos) || empty($objetivos) || empty($ciudades)) {
                 $error = "Todos los campos son obligatorios";
@@ -424,7 +424,7 @@ class ControladorOrganizaciones
                 $organizacion->setQuienesSomos($quienesSomos);
                 $organizacion->setObjetivos($objetivos);
                 $organizacion->setCiudades($ciudades);
-    
+
                 // Manejar la subida de la nueva foto
                 if (!empty($_FILES['foto']['name'])) {
                     if (
@@ -450,7 +450,7 @@ class ControladorOrganizaciones
                     rename("web/fotosUsuarios/$fotoTemporal", "web/fotosUsuarios/$foto");
                     $organizacion->setFoto($foto);
                 }
-    
+
                 // Manejar la subida del nuevo logo
                 if (!empty($_FILES['logo']['name'])) {
                     if (
@@ -476,29 +476,29 @@ class ControladorOrganizaciones
                     rename("web/logosOrganizaciones/$logoTemporal", "web/logosOrganizaciones/$logo");
                     $organizacion->setLogo($logo);
                 }
-    
+
                 if ($error == '') {
                     if ($organizacionesDAO->update($organizacion)) {
                         // Borrar la foto antigua si se subió una nueva
                         if (!empty($_FILES['foto']['name']) && $fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
                             unlink("web/fotosUsuarios/$fotoAntigua");
                         }
-    
+
                         // Borrar cualquier foto temporal remanente
                         if (!empty($fotoTemporal) && file_exists("web/fotosUsuarios/$fotoTemporal")) {
                             unlink("web/fotosUsuarios/$fotoTemporal");
                         }
-    
+
                         // Borrar el logo antiguo si se subió uno nuevo
                         if (!empty($_FILES['logo']['name']) && $logoAntiguo && $organizacion->getLogo() !== $logoAntiguo) {
                             unlink("web/logosOrganizaciones/$logoAntiguo");
                         }
-    
+
                         // Borrar cualquier logo temporal remanente
                         if (!empty($logoTemporal) && file_exists("web/logosOrganizaciones/$logoTemporal")) {
                             unlink("web/logosOrganizaciones/$logoTemporal");
                         }
-    
+
                         header('location: index.php?accion=miPerfilOrganizacion');
                         die();
                     } else {
@@ -513,65 +513,66 @@ class ControladorOrganizaciones
 
 
 
-    
-    public function actualizarFoto(){
-    $error = '';
-    
-    // Verificar que la solicitud sea POST
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Obtener el id de la organización desde la URL
-        $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
-        
-        // Conectamos con la BD
-        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-        $conn = $connexionDB->getConnexion();
-        
-        // Crear el objeto OrganizacionesDAO
-        $organizacionesDAO = new OrganizacionesDAO($conn);
-        
-        // Obtener la organización por id
-        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-        
-        // Guardar el nombre de la foto antigua
-        $fotoAntigua = $organizacion->getFoto();
-        
-        // Manejar la subida de la nueva foto
-        if (!empty($_FILES['nuevaFoto']['name'])) {
-            if (
-                $_FILES['nuevaFoto']['type'] != 'image/jpeg' &&
-                $_FILES['nuevaFoto']['type'] != 'image/webp' &&
-                $_FILES['nuevaFoto']['type'] != 'image/png'
-            ) {
-                $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
-            } else {
-                $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
-                while (file_exists("web/fotosUsuarios/$foto")) {
-                    $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
-                }
-                if (!move_uploaded_file($_FILES['nuevaFoto']['tmp_name'], "web/fotosUsuarios/$foto")) {
-                    die("Error al copiar la foto a la carpeta fotosUsuarios");
-                }
 
-                // Actualizar la foto de la organización
-                $organizacion->setFoto($foto);
-                if ($organizacionesDAO->updateFoto($organizacion)) {
-                    // Borrar la foto antigua si se subió una nueva
-                    if ($fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
-                        unlink("web/fotosUsuarios/$fotoAntigua");
-                    }
-                    echo json_encode(['success' => true, 'foto' => $foto]);
-                    die();
+    public function actualizarFoto()
+    {
+        $error = '';
+
+        // Verificar que la solicitud sea POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Obtener el id de la organización desde la URL
+            $idOrganizacion = htmlspecialchars($_GET['idOrganizacion']);
+
+            // Conectamos con la BD
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+
+            // Crear el objeto OrganizacionesDAO
+            $organizacionesDAO = new OrganizacionesDAO($conn);
+
+            // Obtener la organización por id
+            $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+
+            // Guardar el nombre de la foto antigua
+            $fotoAntigua = $organizacion->getFoto();
+
+            // Manejar la subida de la nueva foto
+            if (!empty($_FILES['nuevaFoto']['name'])) {
+                if (
+                    $_FILES['nuevaFoto']['type'] != 'image/jpeg' &&
+                    $_FILES['nuevaFoto']['type'] != 'image/webp' &&
+                    $_FILES['nuevaFoto']['type'] != 'image/png'
+                ) {
+                    $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
                 } else {
-                    $error = "No se ha podido actualizar la foto de la organización";
+                    $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                    while (file_exists("web/fotosUsuarios/$foto")) {
+                        $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['nuevaFoto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                        die("Error al copiar la foto a la carpeta fotosUsuarios");
+                    }
+
+                    // Actualizar la foto de la organización
+                    $organizacion->setFoto($foto);
+                    if ($organizacionesDAO->updateFoto($organizacion)) {
+                        // Borrar la foto antigua si se subió una nueva
+                        if ($fotoAntigua && $organizacion->getFoto() !== $fotoAntigua) {
+                            unlink("web/fotosUsuarios/$fotoAntigua");
+                        }
+                        echo json_encode(['success' => true, 'foto' => $foto]);
+                        die();
+                    } else {
+                        $error = "No se ha podido actualizar la foto de la organización";
+                    }
                 }
             }
+            echo json_encode(['success' => false, 'error' => $error]);
+            die();
         }
-        echo json_encode(['success' => false, 'error' => $error]);
-        die();
     }
-}
 
-    
+
 
 
     public function insertarOrganizacion()
@@ -594,11 +595,11 @@ class ControladorOrganizaciones
             $ciudades = htmlentities($_POST['ciudades']);
             $foto = '';
             $logo = '';
-    
+
             // Validación y conexión con la BD
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-    
+
             $organizacionesDAO = new OrganizacionesDAO($conn);
             if ($organizacionesDAO->getByEmail($email) != null) {
                 $error = "Ya hay una organización con ese email";
@@ -619,7 +620,7 @@ class ControladorOrganizaciones
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
                 }
-    
+
                 // Validación del logo
                 if (
                     $_FILES['logo']['type'] != 'image/jpeg' &&
@@ -636,7 +637,7 @@ class ControladorOrganizaciones
                         die("Error al copiar el logo a la carpeta logosOrganizaciones");
                     }
                 }
-    
+
                 if ($error == '') {
                     $organizacion = new Organizacion();
                     $organizacion->setNombre($nombre);
@@ -655,7 +656,7 @@ class ControladorOrganizaciones
                     $organizacion->setObjetivos($objetivos);
                     $organizacion->setCiudades($ciudades);
                     $organizacion->setSid(sha1(rand() + time()), true);
-    
+
                     if ($organizacionesDAO->insert($organizacion)) {
                         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();
@@ -665,56 +666,58 @@ class ControladorOrganizaciones
                 }
             }
         }
-    
+
         require 'app/vistas/insertarOrganizacion.php';
     }
 
 
 
-    public function misEventosOrganizacion(){
-         // Verificar si el idOrganizacion está en la sesión
-    if (!isset($_SESSION['idOrganizacion'])) {
-        echo "ID de organización no encontrado en la sesión.";
-        return;
+    public function misEventosOrganizacion()
+    {
+        // Verificar si el idOrganizacion está en la sesión
+        if (!isset($_SESSION['idOrganizacion'])) {
+            echo "ID de organización no encontrado en la sesión.";
+            return;
+        }
+
+        // Verificar si el rol del usuario es 'Organizacion'
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'Organizacion') {
+            echo "Acceso denegado. Rol insuficiente.";
+            return;
+        }
+
+        // Obtener el idOrganizacion de la sesión
+        $idOrganizacion = $_SESSION['idOrganizacion'];
+
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        // Obtener la organización seleccionada por el ID
+        $organizacionesDAO = new OrganizacionesDAO($conn);
+        $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
+
+        // Verificar si la organización existe
+        if (!$organizacion) {
+            // Manejar el caso donde la organización no existe
+            echo "Organización no encontrada.";
+            return;
+        }
+
+        // Obtener todos los usuarios
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuarios = $usuariosDAO->getAllUsuarios();
+
+        // Obtener todos los eventos de la organización
+        $eventosDAO = new EventosDAO($conn);
+        $eventos = $eventosDAO->getEventosByOrganizacion($idOrganizacion);
+
+        // Incluir la vista y pasar los datos necesarios
+        require 'app/vistas/misEventos.php';
     }
 
-    // Verificar si el rol del usuario es 'Organizacion'
-    if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'Organizacion') {
-        echo "Acceso denegado. Rol insuficiente.";
-        return;
-    }
-
-    // Obtener el idOrganizacion de la sesión
-    $idOrganizacion = $_SESSION['idOrganizacion'];
-
-    // Conectar a la base de datos
-    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-    $conn = $connexionDB->getConnexion();
-
-    // Obtener la organización seleccionada por el ID
-    $organizacionesDAO = new OrganizacionesDAO($conn);
-    $organizacion = $organizacionesDAO->getOrganizacionById($idOrganizacion);
-
-    // Verificar si la organización existe
-    if (!$organizacion) {
-        // Manejar el caso donde la organización no existe
-        echo "Organización no encontrada.";
-        return;
-    }
-
-    // Obtener todos los usuarios
-    $usuariosDAO = new UsuariosDAO($conn);
-    $usuarios = $usuariosDAO->getAllUsuarios();
-
-    // Obtener todos los eventos de la organización
-    $eventosDAO = new EventosDAO($conn);
-    $eventos = $eventosDAO->getEventosByOrganizacion($idOrganizacion);
-
-    // Incluir la vista y pasar los datos necesarios
-    require 'app/vistas/misEventos.php';
-    }
-
-    public function crearEvento(){
+    public function crearEvento()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Verificar si el idOrganizacion está en la sesión
             if (!isset($_SESSION['idOrganizacion'])) {
@@ -778,22 +781,92 @@ class ControladorOrganizaciones
         }
     }
 
-    public function editarEvento() {
+    public function crearEventoAdmin()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Verificar si el idOrganizacion está en la sesión
+            if (!isset($_SESSION['idOrganizacion'])) {
+                echo "ID de organización no encontrado en la sesión.";
+                return;
+            }
+    
+            // Conectar a la base de datos
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+    
+            // Obtener los datos del formulario
+            $idOrganizacion = htmlspecialchars($_POST['idOrganizacion']);
+            $titulo = htmlspecialchars($_POST['titulo']);
+            $descripcion = htmlspecialchars($_POST['descripcion']);
+            $fechaEvento = htmlspecialchars($_POST['fechaEvento']);
+            $ubicacion = htmlspecialchars($_POST['ubicacion']);
+            $fotoEvento = '';
+    
+            // Manejar la subida de la foto del evento
+            if (!empty($_FILES['fotoEvento']['name'])) {
+                if (
+                    $_FILES['fotoEvento']['type'] != 'image/jpeg' &&
+                    $_FILES['fotoEvento']['type'] != 'image/webp' &&
+                    $_FILES['fotoEvento']['type'] != 'image/png'
+                ) {
+                    echo "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                    return;
+                } else {
+                    $fotoEvento = generarNombreArchivo($_FILES['fotoEvento']['name']);
+                    while (file_exists("web/fotosEventos/$fotoEvento")) {
+                        $fotoEvento = generarNombreArchivo($_FILES['fotoEvento']['name']);
+                    }
+                    if (!move_uploaded_file($_FILES['fotoEvento']['tmp_name'], "web/fotosEventos/$fotoEvento")) {
+                        die("Error al copiar la foto a la carpeta fotosEventos");
+                    }
+                }
+            }
+    
+            // Crear el objeto Evento y guardarlo en la base de datos
+            $evento = new Evento();
+            $evento->setIdOrganizacion($idOrganizacion);
+            $evento->setTitulo($titulo);
+            $evento->setDescripcion($descripcion);
+            $evento->setFechaEvento($fechaEvento);
+            $evento->setUbicacion($ubicacion);
+            $evento->setFotoEvento($fotoEvento);
+    
+            $eventosDAO = new EventosDAO($conn);
+            if ($eventosDAO->insert($evento)) {
+                header('location: index.php?accion=verTodosLosEventos');
+                die();
+            } else {
+                echo "No se ha podido crear el evento.";
+            }
+        } else {
+            // Obtener todas las organizaciones
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+            $organizacionesDAO = new OrganizacionesDAO($conn);
+            $organizaciones = $organizacionesDAO->getAllOrganizaciones();
+    
+            // Mostrar el formulario de creación de eventos
+            require 'app/vistas/nuevoEventoAdmin.php';
+        }
+    }
+ 
+    public function editarEvento()
+    {
         $error = '';
 
         // Conectamos con la BD
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-    
+
         // Obtengo el id del evento que viene por GET
         $idEvento = htmlspecialchars($_GET['idEvento']);
         // Obtengo el evento de la BD
         $eventosDAO = new EventosDAO($conn);
         $evento = $eventosDAO->getById($idEvento);
-    
+
         // Guardar el nombre de la foto antigua
         $fotoAntigua = $evento->getFotoEvento();
-    
+
         // Cuando se envíe el formulario, actualizo el evento en la BD
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Limpiamos los datos que vienen del usuario
@@ -802,7 +875,7 @@ class ControladorOrganizaciones
             $fechaEvento = htmlspecialchars($_POST['fechaEvento']);
             $ubicacion = htmlspecialchars($_POST['ubicacion']);
             $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
-    
+
             // Validamos los datos
             if (empty($titulo) || empty($descripcion) || empty($fechaEvento) || empty($ubicacion)) {
                 $error = "Todos los campos son obligatorios";
@@ -811,7 +884,7 @@ class ControladorOrganizaciones
                 $evento->setDescripcion($descripcion);
                 $evento->setFechaEvento($fechaEvento);
                 $evento->setUbicacion($ubicacion);
-    
+
                 // Manejar la subida de la nueva foto
                 if (!empty($_FILES['fotoEvento']['name'])) {
                     if (
@@ -823,7 +896,7 @@ class ControladorOrganizaciones
                     } else {
                         $extension = pathinfo($_FILES['fotoEvento']['name'], PATHINFO_EXTENSION);
                         $fotoEvento = hash('sha256', uniqid()) . '.' . $extension;
-    
+
                         if (!move_uploaded_file($_FILES['fotoEvento']['tmp_name'], "web/fotosEventos/$fotoEvento")) {
                             die("Error al copiar la foto a la carpeta fotosEventos");
                         }
@@ -839,19 +912,19 @@ class ControladorOrganizaciones
                     // Si no se subió una nueva foto y no hay foto temporal, mantener la foto antigua
                     $evento->setFotoEvento($fotoAntigua);
                 }
-    
+
                 if ($error == '') {
                     if ($eventosDAO->update($evento)) {
                         // Borrar la foto antigua si se subió una nueva
                         if (!empty($_FILES['fotoEvento']['name']) && $fotoAntigua && $evento->getFotoEvento() !== $fotoAntigua) {
                             unlink("web/fotosEventos/$fotoAntigua");
                         }
-    
+
                         // Borrar cualquier foto temporal remanente
                         if (!empty($fotoTemporal) && file_exists("web/fotosEventos/$fotoTemporal")) {
                             unlink("web/fotosEventos/$fotoTemporal");
                         }
-    
+
                         header('location: index.php?accion=misEventosOrganizacion');
                         die();
                     } else {
@@ -862,78 +935,192 @@ class ControladorOrganizaciones
         }
         require 'app/vistas/editarEvento.php';
     }
-    
 
-    public function borrarEvento() {
-          // Verificar si el idOrganizacion está en la sesión
-    if (!isset($_SESSION['idOrganizacion'])) {
-        echo "ID de organización no encontrado en la sesión.";
-        return;
-    }
+    public function editarEventoAdmin()
+    {
+        $error = '';
 
-    // Obtener el idOrganizacion de la sesión
-    $idOrganizacion = $_SESSION['idOrganizacion'];
-    $idEvento = $_GET['idEvento'];
+        // Conectamos con la BD
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
 
-    // Conectar a la base de datos
-    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-    $conn = $connexionDB->getConnexion();
+        // Obtengo el id del evento que viene por GET
+        $idEvento = htmlspecialchars($_GET['idEvento']);
+        // Obtengo el evento de la BD
+        $eventosDAO = new EventosDAO($conn);
+        $evento = $eventosDAO->getById($idEvento);
 
-    // Eliminar el evento
-    $eventosDAO = new EventosDAO($conn);
-    $fotoEvento = $eventosDAO->delete($idEvento);
+        // Guardar el nombre de la foto antigua
+        $fotoAntigua = $evento->getFotoEvento();
 
-    if ($fotoEvento) {
-        // Si se eliminó el evento, borrar la foto del servidor
-        $filePath = "web/fotosEventos/$fotoEvento";
-        if (file_exists($filePath)) {
-            unlink($filePath);
+        // Cuando se envíe el formulario, actualizo el evento en la BD
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Limpiamos los datos que vienen del usuario
+            $titulo = htmlspecialchars($_POST['titulo']);
+            $descripcion = htmlspecialchars($_POST['descripcion']);
+            $fechaEvento = htmlspecialchars($_POST['fechaEvento']);
+            $ubicacion = htmlspecialchars($_POST['ubicacion']);
+            $fotoTemporal = htmlspecialchars($_POST['fotoTemporal']);
+
+            // Validamos los datos
+            if (empty($titulo) || empty($descripcion) || empty($fechaEvento) || empty($ubicacion)) {
+                $error = "Todos los campos son obligatorios";
+            } else {
+                $evento->setTitulo($titulo);
+                $evento->setDescripcion($descripcion);
+                $evento->setFechaEvento($fechaEvento);
+                $evento->setUbicacion($ubicacion);
+
+                // Manejar la subida de la nueva foto
+                if (!empty($_FILES['fotoEvento']['name'])) {
+                    if (
+                        $_FILES['fotoEvento']['type'] != 'image/jpeg' &&
+                        $_FILES['fotoEvento']['type'] != 'image/webp' &&
+                        $_FILES['fotoEvento']['type'] != 'image/png'
+                    ) {
+                        $error = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
+                    } else {
+                        $extension = pathinfo($_FILES['fotoEvento']['name'], PATHINFO_EXTENSION);
+                        $fotoEvento = hash('sha256', uniqid()) . '.' . $extension;
+
+                        if (!move_uploaded_file($_FILES['fotoEvento']['tmp_name'], "web/fotosEventos/$fotoEvento")) {
+                            die("Error al copiar la foto a la carpeta fotosEventos");
+                        }
+                        // Actualizar la foto solo si se ha subido una nueva
+                        $evento->setFotoEvento($fotoEvento);
+                    }
+                } elseif (!empty($fotoTemporal)) {
+                    // Si no se subió una nueva foto pero hay una foto temporal
+                    $fotoEvento = str_replace("temp_", "", $fotoTemporal); // Renombrar foto temporal a definitiva
+                    rename("web/fotosEventos/$fotoTemporal", "web/fotosEventos/$fotoEvento");
+                    $evento->setFotoEvento($fotoEvento);
+                } else {
+                    // Si no se subió una nueva foto y no hay foto temporal, mantener la foto antigua
+                    $evento->setFotoEvento($fotoAntigua);
+                }
+
+                if ($error == '') {
+                    if ($eventosDAO->update($evento)) {
+                        // Borrar la foto antigua si se subió una nueva
+                        if (!empty($_FILES['fotoEvento']['name']) && $fotoAntigua && $evento->getFotoEvento() !== $fotoAntigua) {
+                            unlink("web/fotosEventos/$fotoAntigua");
+                        }
+
+                        // Borrar cualquier foto temporal remanente
+                        if (!empty($fotoTemporal) && file_exists("web/fotosEventos/$fotoTemporal")) {
+                            unlink("web/fotosEventos/$fotoTemporal");
+                        }
+
+                        header('location: index.php?accion=verTodosLosEventos');
+                        die();
+                    } else {
+                        $error = "No se ha podido actualizar el evento";
+                    }
+                }
+            }
         }
+        require 'app/vistas/editarEventoAdmin.php';
     }
 
-    header('location: index.php?accion=misEventosOrganizacion');
-    die();
+
+    public function borrarEvento()
+    {
+        // Verificar si el idOrganizacion está en la sesión
+        if (!isset($_SESSION['idOrganizacion'])) {
+            echo "ID de organización no encontrado en la sesión.";
+            return;
+        }
+
+        // Obtener el idOrganizacion de la sesión
+        $idOrganizacion = $_SESSION['idOrganizacion'];
+        $idEvento = $_GET['idEvento'];
+
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        // Eliminar el evento
+        $eventosDAO = new EventosDAO($conn);
+        $fotoEvento = $eventosDAO->delete($idEvento);
+
+        if ($fotoEvento) {
+            // Si se eliminó el evento, borrar la foto del servidor
+            $filePath = "web/fotosEventos/$fotoEvento";
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
+        header('location: index.php?accion=misEventosOrganizacion');
+        die();
     }
 
-    public function verVoluntarios() {
+    public function borrarEventoAdmin()
+    {
+        $idEvento = $_GET['idEvento'];
+
+        // Conectar a la base de datos
+        $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        // Eliminar el evento
+        $eventosDAO = new EventosDAO($conn);
+        $fotoEvento = $eventosDAO->delete($idEvento);
+
+        if ($fotoEvento) {
+            // Si se eliminó el evento, borrar la foto del servidor
+            $filePath = "web/fotosEventos/$fotoEvento";
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
+        header('location: index.php?accion=verTodosLosEventos');
+        die();
+    }
+
+
+    public function verVoluntarios()
+    {
         // Verificar si la organización está autenticada y obtener su idOrganizacion
         if (!isset($_SESSION['idOrganizacion'])) {
             header('location: index.php?accion=loginOrganizacion');
             die();
         }
-        
+
         $idOrganizacion = $_SESSION['idOrganizacion'];
-        
+
         // Conectar a la base de datos
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-        
+
         // Obtener la lista de voluntarios de la organización con detalles del proyecto y del usuario
         $voluntariosDAO = new VoluntariosDAO($conn);
         $voluntarios = $voluntariosDAO->getVoluntariosByOrganizacionWithUserDetails($idOrganizacion);
-        
+
         // Incluir la vista y pasar los voluntarios
         require 'app/vistas/voluntariosOrganizacion.php';
     }
-    
 
-    public function borrarVoluntario() {
+
+    public function borrarVoluntario()
+    {
         if (!isset($_SESSION['idOrganizacion'])) {
             echo "ID de organización no encontrado en la sesión.";
             return;
         }
-    
+
         // Obtener el idVoluntario de la solicitud GET
         $idVoluntario = htmlspecialchars($_GET['idVoluntario']);
-        
+
         // Conectar a la base de datos
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-        
+
         // Borrar el voluntario
         $voluntariosDAO = new VoluntariosDAO($conn);
         $borrado = $voluntariosDAO->borrarVoluntario($idVoluntario);
-        
+
         if ($borrado) {
             header('location: index.php?accion=voluntariosOrganizacion');
         } else {
@@ -941,5 +1128,4 @@ class ControladorOrganizaciones
         }
         die();
     }
-    
 }
