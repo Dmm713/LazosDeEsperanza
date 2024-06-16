@@ -231,7 +231,7 @@ $mapa = array(
     'sobreMi' => array(
                     'controlador' => 'ControladorGlobal',
                     'metodo' => 'sobreMi',
-                    'privada' => true
+                    'privada' => false
                     ),
                                 
                         

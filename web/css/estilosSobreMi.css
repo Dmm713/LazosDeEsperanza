@@ -52,12 +52,16 @@ body {
     max-width: 1200px;
 }
 
+.about-image img{
+    text-align: center;
+}
 .about-container .about-image img {
     border-radius: 50%;
     height: 150px;
     width: 150px;
     object-fit: cover;
-    margin-right: 20px;
+    margin-right: 50px;
+    justify-content: center;
 }
 
 .about-container .about-content {

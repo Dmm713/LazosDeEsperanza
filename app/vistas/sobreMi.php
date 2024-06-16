@@ -22,6 +22,7 @@
                 <h1>Sobre Mí</h1>
             </div>
             <div class="new-user-container">
+                <a class="btn btn-primary" href="web/cv.pdf" download>Descargar CV</a>
                 <a href="index.php?accion=paginaPrincipal" class="btn btn-primary"><i class="fa-solid fa-left-long"></i></a>
             </div>
         </div>
