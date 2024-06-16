@@ -9,9 +9,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
     </style>
-    <style>
-        /* Estilos adicionales */
-    </style>
 </head>
 <body>
     <div class="profile-card">
@@ -62,53 +59,45 @@
     </div>
 
     <script>
-        // Obtener el modal
         var modal = document.getElementById("editPhotoModal");
-
-        // Obtener el enlace que abre el modal
         var btn = document.getElementById("editPhotoButton");
-
-        // Obtener el <span> que cierra el modal
         var span = document.getElementsByClassName("close")[0];
 
-        // Cuando el usuario hace clic en el enlace, se abre el modal
         btn.onclick = function(event) {
             event.preventDefault();
             modal.style.display = "block";
         }
 
-        // Cuando el usuario hace clic en <span> (x), se cierra el modal
         span.onclick = function() {
             modal.style.display = "none";
         }
 
-        // Cuando el usuario hace clic en cualquier lugar fuera del modal, se cierra
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        // Manejar la actualización de la foto a través de AJAX
         document.getElementById('editPhotoForm').addEventListener('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', this.action, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        document.getElementById('profileImage').src = 'web/fotosUsuarios/' + response.foto;
-                        modal.style.display = "none";
-                    } else {
-                        alert(response.error);
-                    }
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('profileImage').src = 'web/fotosUsuarios/' + data.foto;
+                    modal.style.display = "none";
                 } else {
-                    alert('Error al actualizar la foto.');
+                    alert(data.error);
                 }
-            };
-            xhr.send(formData);
+            })
+            .catch(error => {
+                alert('Error al actualizar la foto.');
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>

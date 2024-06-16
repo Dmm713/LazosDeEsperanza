@@ -17,12 +17,44 @@
             color: #333;
             margin: 0;
         }
+
+        /* Estilos del modal de registro */
+        .custom-modal .modal-content {
+            background-color: #e0f7fa;
+            color: #014949;
+        }
+
+        .custom-modal .modal-header,
+        .custom-modal .modal-footer {
+            border: none;
+            background-color: #014949;
+            color: #7FF9B9;
+        }
+
+        .custom-modal .modal-title {
+            color: #7FF9B9;
+        }
+
+        .custom-modal .btn-close {
+            filter: invert(1);
+        }
+
+        .custom-modal .btn-secondary {
+            background-color: #014949;
+            color: #7FF9B9;
+            border: 1px solid #7FF9B9;
+        }
+
+        .custom-modal .btn-secondary:hover {
+            background-color: #013838;
+            color: #7FF9B9;
+            border: 1px solid #7FF9B9;
+        }
     </style>
 </head>
 
 <body>
-<?php
-   
+    <?php
     $rol = isset($_GET['rol']) ? $_GET['rol'] : '';
 
     // Inicializar $proyectosVoluntarios como un array vacío
@@ -253,15 +285,39 @@
         </div>
     </div>
 
+    <!-- Modal para no registrados -->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content custom-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registroModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Si no estás registrado no puedes donar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const donacionModal = document.getElementById('donacionModal');
             donacionModal.addEventListener('show.bs.modal', function(event) {
-                const button = event.relatedTarget;
-                const idProyecto = button.getAttribute('data-idproyecto');
-                const idProyectoInput = donacionModal.querySelector('#idProyecto');
-                idProyectoInput.value = idProyecto;
+                <?php if (!isset($_SESSION['idUsuario'])): ?>
+                    const registroModal = new bootstrap.Modal(document.getElementById('registroModal'));
+                    registroModal.show();
+                    event.preventDefault();
+                <?php else: ?>
+                    const button = event.relatedTarget;
+                    const idProyecto = button.getAttribute('data-idproyecto');
+                    const idProyectoInput = donacionModal.querySelector('#idProyecto');
+                    idProyectoInput.value = idProyecto;
+                <?php endif; ?>
             });
 
             <?php if (isset($_SESSION['message'])): ?>
@@ -286,7 +342,7 @@
                 const idProyectoInput = voluntariadoModal.querySelector('#idProyecto');
 
                 fechaInicioInput.value = fechaInicio;
-                fechaFinInput.value = fechaFin;
+                fechaFinInput.value = fechafin;
                 idProyectoInput.value = idProyecto;
             });
         });

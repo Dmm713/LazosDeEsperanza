@@ -240,7 +240,6 @@ Class ControladorUsuarios {
     
                 if ($error == '') {
                     if ($usuariosDAO->update($usuario)) {
-                        // Eliminar la foto anterior si existe
                         if (!empty($_FILES['foto']['name']) && $fotoAntigua && $usuario->getFoto() !== $fotoAntigua) {
                             unlink("web/fotosUsuarios/$fotoAntigua");
                         }
@@ -263,34 +262,33 @@ Class ControladorUsuarios {
         $response = ['success' => false, 'error' => '', 'foto' => ''];
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $idUsuario = htmlspecialchars($_GET['idUsuario']);
+            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+            $usuariosDAO = new UsuariosDAO($conn);
+    
             if (isset($_FILES['nuevaFoto'])) {
                 if ($_FILES['nuevaFoto']['type'] != 'image/jpeg' &&
                     $_FILES['nuevaFoto']['type'] != 'image/webp' &&
                     $_FILES['nuevaFoto']['type'] != 'image/png') {
                     $response['error'] = "La foto no tiene el formato admitido, debe ser jpg, webp o png";
                 } else {
-                    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
-                    $conn = $connexionDB->getConnexion();
-                    $usuariosDAO = new UsuariosDAO($conn);
-    
-                    // Obtener el usuario actual por idUsuario de la sesión
-                    $idUsuario = $_SESSION['idUsuario'];
-                    $usuario = $usuariosDAO->getUsuarioById($idUsuario);
-                    $fotoAnterior = $usuario->getFoto();
-    
-                    $foto = "temp_" . generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                    $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
                     while (file_exists("web/fotosUsuarios/$foto")) {
-                        $foto = "temp_" . generarNombreArchivo($_FILES['nuevaFoto']['name']);
+                        $foto = generarNombreArchivo($_FILES['nuevaFoto']['name']);
                     }
                     if (!move_uploaded_file($_FILES['nuevaFoto']['tmp_name'], "web/fotosUsuarios/$foto")) {
                         $response['error'] = "Error al copiar la foto a la carpeta fotosUsuarios";
                     } else {
-                        // Actualizar la foto del usuario en la base de datos
+                        // Actualizar la base de datos
+                        $usuario = $usuariosDAO->getById($idUsuario);
+                        $fotoAntigua = $usuario->getFoto();
                         $usuario->setFoto($foto);
+    
                         if ($usuariosDAO->update($usuario)) {
-                            // Eliminar la foto anterior del sistema de archivos si existe
-                            if ($fotoAnterior && file_exists("web/fotosUsuarios/$fotoAnterior")) {
-                                unlink("web/fotosUsuarios/$fotoAnterior");
+                            // Eliminar la foto anterior si existe
+                            if ($fotoAntigua && file_exists("web/fotosUsuarios/$fotoAntigua")) {
+                                unlink("web/fotosUsuarios/$fotoAntigua");
                             }
                             $response['foto'] = $foto;
                             $response['success'] = true;
@@ -306,6 +304,9 @@ Class ControladorUsuarios {
         echo json_encode($response);
         die();
     }
+    
+    
+    
     
     
 

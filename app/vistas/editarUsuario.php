@@ -7,7 +7,7 @@
     <title>Editar Usuario</title>
     <link rel="stylesheet" href="web/css/estilosEditarUsuario.css">
 </head>
-
+ 
 <body>
     <div class="bg"></div>
     <div class="bg bg2"></div>
