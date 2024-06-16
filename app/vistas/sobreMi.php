@@ -29,15 +29,13 @@
     </header>
     <main>
         <div class="about-container">
-            <div class="about-image">
-                <img src="web/miFoto.jpg" alt="Mi Foto">
-            </div>
+            
             <div class="about-content">
                 <h2>Sobre mí</h2>
                 <p>Hola, soy David Mañas Moreno, un apasionado desarrollador de aplicaciones web con una sólida trayectoria en el ámbito tecnológico.</p>
                 <p>Cuento con 1 año de experiencia en el desarrollo de software y he participado en diversos proyectos importantes, colaborando con empresas reconocidas y equipos multidisciplinarios.</p>
                 <p>En mi tiempo libre, disfruto de la fotografía y el deporte, lo que me permite mantener un equilibrio saludable entre mi vida personal y profesional. Me apasiona programar y siempre estoy buscando nuevas maneras de innovar y mejorar mis habilidades.</p>
-                <p>Estoy comprometido con [menciona alguna causa, proyecto o meta personal], lo que refleja mi dedicación tanto en el ámbito profesional como en el personal.</p>
+                <p>Estoy comprometido con el trabajo en equipo, lo que refleja mi dedicación tanto en el ámbito profesional como en el personal.</p>
                 <p>Gracias por tomarte el tiempo de conocerme. ¡Espero que disfrutes aprendiendo más sobre mí y mi trabajo!</p>
             </div>
 

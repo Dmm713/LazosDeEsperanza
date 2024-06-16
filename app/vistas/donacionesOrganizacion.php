@@ -26,7 +26,7 @@
             </div>
         </div>
     </header>
-    <main>
+    <main> 
         <div class="total-recaudado">
             <h2>Total Recaudado: <?php echo htmlspecialchars($totalRecaudado); ?>€</h2>
         </div>

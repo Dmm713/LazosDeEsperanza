@@ -118,23 +118,29 @@
                 </div>
             </section>
         </div>
+
+        <!-- Sección de Eventos -->
         <div class="events">
             <h2>Eventos</h2>
             <div class="event-container">
                 <?php
                 $eventos = (new EventosDAO($conn))->getEventosByOrganizacion($organizacion->getIdOrganizacion());
-                foreach ($eventos as $evento) {
-                    echo "<div class='event'>
-                            <img src='web/fotosEventos/" . htmlspecialchars($evento->getFotoEvento()) . "' alt='Foto del evento' class='event-image'>
-                            <div class='event-content'>
-                                <h3>" . htmlspecialchars($evento->getTitulo()) . "</h3>
-                                <p>" . htmlspecialchars($evento->getDescripcion()) . "</p>
-                                <div class='event-footer'>
-                                    <strong>Fecha:</strong>
-                                    <span>" . htmlspecialchars($evento->getFechaEvento()) . "</span>
+                if (empty($eventos)) {
+                    echo "<p>Esta organización no tiene ningún evento.</p>";
+                } else {
+                    foreach ($eventos as $evento) {
+                        echo "<div class='event'>
+                                <img src='web/fotosEventos/" . htmlspecialchars($evento->getFotoEvento()) . "' alt='Foto del evento' class='event-image'>
+                                <div class='event-content'>
+                                    <h3>" . htmlspecialchars($evento->getTitulo()) . "</h3>
+                                    <p>" . htmlspecialchars($evento->getDescripcion()) . "</p>
+                                    <div class='event-footer'>
+                                        <strong>Fecha:</strong>
+                                        <span>" . htmlspecialchars($evento->getFechaEvento()) . "</span>
+                                    </div>
                                 </div>
-                            </div>
-                          </div>";
+                              </div>";
+                    }
                 }
                 ?>
             </div>
@@ -146,63 +152,72 @@
             <div class="proyecto-container">
                 <?php
                 $proyectos = (new ProyectosDAO($conn))->getProyectosByOrganizacion($organizacion->getIdOrganizacion());
-                foreach ($proyectos as $proyecto) {
-                    echo "<div class='proyecto' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>
-                        <img src='web/fotosProyectos/" . htmlspecialchars($proyecto->getFotoProyecto()) . "' alt='Foto del proyecto' class='proyecto-image'>
-                        <div class='proyecto-content'>
-                            <h3>" . htmlspecialchars($proyecto->getTitulo()) . "</h3>
-                            <p>" . htmlspecialchars($proyecto->getDescripcion()) . "</p>
-                            <div class='proyecto-footer'>
-                                <strong>Fecha Inicio:</strong>
-                                <span>" . htmlspecialchars($proyecto->getFechaInicio()) . "</span>
-                            </div>
-                            <div class='proyecto-footer'>
-                                <strong>Fecha Fin:</strong>
-                                <span>" . htmlspecialchars($proyecto->getFechaFin()) . "</span>
-                            </div>
-                            <div class='proyecto-footer'>
-                                <strong>Objetivo Financiero:</strong>
-                                <span>" . htmlspecialchars($proyecto->getObjetivoFinanciero()) . "</span>
-                            </div>
-                            <div class='proyecto-footer'>
-                                <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#donacionModal' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>Donar</button>
-                            </div>";
-                    if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'Usuario') {
-                        if (in_array($proyecto->getIdProyecto(), $proyectosVoluntarios)) {
-                            echo "<div class='proyecto-footer boton-voluntariado'>
-                                <button class='btn btn-secondary' disabled>Ya está apuntado como voluntario</button>
-                            </div>";
-                        } else {
-                            echo "<div class='proyecto-footer boton-voluntariado'>
-                                <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#voluntariadoModal' data-fechainicio='" . htmlspecialchars($proyecto->getFechaInicio()) . "' data-fechafin='" . htmlspecialchars($proyecto->getFechaFin()) . "'>Hacer Voluntariado</button>
-                            </div>";
+                if (empty($proyectos)) {
+                    echo "<p>Esta organización no tiene ningún proyecto.</p>";
+                } else {
+                    foreach ($proyectos as $proyecto) {
+                        echo "<div class='proyecto' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>
+                            <img src='web/fotosProyectos/" . htmlspecialchars($proyecto->getFotoProyecto()) . "' alt='Foto del proyecto' class='proyecto-image'>
+                            <div class='proyecto-content'>
+                                <h3>" . htmlspecialchars($proyecto->getTitulo()) . "</h3>
+                                <p>" . htmlspecialchars($proyecto->getDescripcion()) . "</p>
+                                <div class='proyecto-footer'>
+                                    <strong>Fecha Inicio:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getFechaInicio()) . "</span>
+                                </div>
+                                <div class='proyecto-footer'>
+                                    <strong>Fecha Fin:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getFechaFin()) . "</span>
+                                </div>
+                                <div class='proyecto-footer'>
+                                    <strong>Objetivo Financiero:</strong>
+                                    <span>" . htmlspecialchars($proyecto->getObjetivoFinanciero()) . "</span>
+                                </div>
+                                <div class='proyecto-footer'>
+                                    <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#donacionModal' data-idproyecto='" . htmlspecialchars($proyecto->getIdProyecto()) . "'>Donar</button>
+                                </div>";
+                        if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'Usuario') {
+                            if (in_array($proyecto->getIdProyecto(), $proyectosVoluntarios)) {
+                                echo "<div class='proyecto-footer boton-voluntariado'>
+                                    <button class='btn btn-secondary' disabled>Ya está apuntado como voluntario</button>
+                                </div>";
+                            } else {
+                                echo "<div class='proyecto-footer boton-voluntariado'>
+                                    <button class='btn btn-primary' style='background-color: #014949; color: #7FF9B9; border-color: #014949;' data-bs-toggle='modal' data-bs-target='#voluntariadoModal' data-fechainicio='" . htmlspecialchars($proyecto->getFechaInicio()) . "' data-fechafin='" . htmlspecialchars($proyecto->getFechaFin()) . "'>Hacer Voluntariado</button>
+                                </div>";
+                            }
                         }
+                        echo "</div></div>";
                     }
-                    echo "</div></div>";
                 }
                 ?>
             </div>
         </div>
 
-
-
+        <!-- Sección de Testimonios -->
         <div class="cards-container">
             <h2>Testimonios</h2>
             <div class="owl-carousel owl-carousel1 owl-theme">
-                <?php foreach ($testimonios as $index => $testimonio) : ?>
-                    <div>
-                        <div class="card text-center">
-                            <div class="image-container">
-                                <img src="web/fotosTestimonios/<?php echo htmlspecialchars($testimonio->getFoto()); ?>" alt="Foto de <?php echo htmlspecialchars($testimonio->getNombre()); ?>">
+                <?php
+                if (empty($testimonios)) {
+                    echo "<p>Esta organización no tiene ningún testimonio.</p>";
+                } else {
+                    foreach ($testimonios as $index => $testimonio) {
+                        echo "<div>
+                            <div class='card text-center'>
+                                <div class='image-container'>
+                                    <img src='web/fotosTestimonios/" . htmlspecialchars($testimonio->getFoto()) . "' alt='Foto de " . htmlspecialchars($testimonio->getNombre()) . "'>
+                                </div>
+                                <div class='card-body'>
+                                    <h5>" . htmlspecialchars($testimonio->getNombre() . ' ' . $testimonio->getApellidos()) . "<br /></h5>
+                                    <p class='card-text'><strong>Problema:</strong> " . htmlspecialchars($testimonio->getProblema()) . "</p>
+                                    <p class='card-text'><strong>Solución:</strong> " . htmlspecialchars($testimonio->getSolucion()) . "</p>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5><?php echo htmlspecialchars($testimonio->getNombre() . ' ' . $testimonio->getApellidos()); ?><br /></h5>
-                                <p class="card-text"><strong>Problema:</strong> <?php echo htmlspecialchars($testimonio->getProblema()); ?></p>
-                                <p class="card-text"><strong>Solución:</strong> <?php echo htmlspecialchars($testimonio->getSolucion()); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                        </div>";
+                    }
+                }
+                ?>
             </div>
         </div>
 
@@ -342,7 +357,7 @@
                 const idProyectoInput = voluntariadoModal.querySelector('#idProyecto');
 
                 fechaInicioInput.value = fechaInicio;
-                fechaFinInput.value = fechafin;
+                fechaFinInput.value = fechaFin;
                 idProyectoInput.value = idProyecto;
             });
         });

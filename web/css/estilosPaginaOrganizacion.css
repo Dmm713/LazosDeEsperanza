@@ -532,7 +532,7 @@ h2 {
     padding: 20px;
     margin: 0 15px;
     width: 200px;
-    height: 300px;
+    height: auto; /* Ajusta la altura automáticamente */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -577,8 +577,7 @@ h2 {
     color: #004d40;
     line-height: 1.5;
     margin-top: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* Elimina overflow: hidden; y text-overflow: ellipsis; */
 }
 
 @media (max-width: 768px) {
@@ -591,6 +590,7 @@ h2 {
         margin: 10px auto;
     }
 }
+
 
 /*-----------------------------------FOOTER-----------------------------------------*/
 
@@ -668,3 +668,4 @@ h2 {
     color: #014949;
     border: 1px solid #014949;
 }
+ 
