@@ -157,10 +157,10 @@
                                 <a class="nav-link navbarLink" href="index.php?accion=verTodosLosEventosAdmin" style="text-align: center;">Eventos</a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Proyectos</a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verTodosLosProyectosAdmin" style="text-align: center;">Proyectos</a>
                             </li>
                             <li class="nav-item flex-grow-1">
-                                <a class="nav-link navbarLink" href="#" style="text-align: center;">Testimonios</a>
+                                <a class="nav-link navbarLink" href="index.php?accion=verTodosLosTestimoniosAdmin" style="text-align: center;">Testimonios</a>
                             </li>
                         </ul>
                     </div>
@@ -168,7 +168,7 @@
             </nav>
         <?php endif; ?>
     </div>
-
+ 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
