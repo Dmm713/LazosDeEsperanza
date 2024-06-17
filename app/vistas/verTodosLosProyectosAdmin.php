@@ -50,7 +50,7 @@
         <?php endif; ?>
     </main>
     <footer>
-        <p>&copy; 2024 Mi Organización</p>
+        <p>&copy; 2024 Lazos De Esperanza</p>
     </footer>
 
     <!-- Modal -->
