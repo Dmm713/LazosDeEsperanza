@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -26,12 +30,15 @@
                 </div>
                 <!-- Botón para insertar un nuevo usuario -->
                 <div class="new-user-container">
-                    <a href="index.php?accion=verTodosLosEventos" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
+                    <a href="index.php?accion=verTodosLosEventosAdmin" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
                 </div>
             </div>
         </div>
     </header>
     <div class="form-container">
+        <?php if (!empty($error)): ?>
+            <div class="error-message"><?= $error ?></div>
+        <?php endif; ?>
         <?php if (!empty($evento->getFotoEvento())) : ?>
             <img id="outputImage" src="web/fotosEventos/<?php echo htmlspecialchars($evento->getFotoEvento()); ?>" alt="Foto del evento">
         <?php else : ?>
@@ -42,7 +49,7 @@
             <input type="hidden" name="fotoActual" value="<?php echo htmlspecialchars($evento->getFotoEvento()); ?>">
 
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($evento->getTitulo()); ?>" required>
+            <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($evento->getTitulo()); ?>" >
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($evento->getDescripcion()); ?></textarea>
@@ -77,6 +84,25 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             var today = new Date().toISOString().split('T')[0];
             document.getElementById('fechaEvento').setAttribute('min', today);
+        });
+
+        document.getElementById('editarEventoForm').addEventListener('submit', function(event) {
+            const form = event.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let allFieldsFilled = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (!allFieldsFilled) {
+                event.preventDefault();
+                const errorMessage = document.querySelector('.error-message');
+                errorMessage.textContent = 'Todos los campos son obligatorios.';
+                errorMessage.style.display = 'block';
+            }
         });
     </script>
 </body>

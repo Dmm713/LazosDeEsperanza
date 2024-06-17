@@ -25,7 +25,7 @@
                     </div>
 
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" value="<?= $usuario->getNombre() ?>" required>
+                    <input type="text" name="nombre" value="<?= $usuario->getNombre() ?>" >
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" name="apellidos" value="<?= $usuario->getApellidos() ?>" required>
                     <label for="direccion">Direccion:</label>
@@ -49,24 +49,45 @@
     </div>
 
     <script>
-        document.getElementById('foto').addEventListener('change', function() {
-            var formData = new FormData();
-            formData.append('foto', this.files[0]);
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('editarUsuarioForm');
+            const errorMessage = document.querySelector('.error-message');
 
-            fetch('index.php?accion=subirFotoAjax', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error === '') {
-                        document.getElementById('preview').src = 'web/fotosUsuarios/' + data.foto;
-                        document.getElementById('fotoTemporal').value = data.foto;
-                    } else {
-                        alert(data.error);
+            form.addEventListener('submit', function(event) {
+                const inputs = form.querySelectorAll('input[required], select[required]');
+                let allFieldsFilled = true;
+
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        allFieldsFilled = false;
                     }
-                })
-                .catch(error => console.error('Error:', error));
+                });
+
+                if (!allFieldsFilled) {
+                    event.preventDefault();
+                    errorMessage.textContent = 'Todos los campos son obligatorios.';
+                }
+            });
+
+            document.getElementById('foto').addEventListener('change', function() {
+                var formData = new FormData();
+                formData.append('foto', this.files[0]);
+
+                fetch('index.php?accion=subirFotoAjax', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error === '') {
+                            document.getElementById('preview').src = 'web/fotosUsuarios/' + data.foto;
+                            document.getElementById('fotoTemporal').value = data.foto;
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     </script>
 </body>

@@ -32,6 +32,9 @@
         </div>
     </header>
     <div class="form-container">
+        <?php if (!empty($error)): ?>
+            <div class="error-message"><?= $error ?></div>
+        <?php endif; ?>
         <?php if (!empty($evento->getFotoEvento())) : ?>
             <img id="outputImage" src="web/fotosEventos/<?php echo htmlspecialchars($evento->getFotoEvento()); ?>" alt="Foto del evento">
         <?php else : ?>
@@ -42,7 +45,7 @@
             <input type="hidden" name="fotoActual" value="<?php echo htmlspecialchars($evento->getFotoEvento()); ?>">
 
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($evento->getTitulo()); ?>" required>
+            <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($evento->getTitulo()); ?>" >
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($evento->getDescripcion()); ?></textarea>
@@ -54,7 +57,7 @@
             <input type="text" id="ubicacion" name="ubicacion" value="<?php echo htmlspecialchars($evento->getUbicacion()); ?>" required>
 
             <label for="fotoEvento">Foto del Evento:</label>
-            <input type="file" id="fotoEvento" name="fotoEvento" accept="image/*" onchange="previewImage(event)">
+            <input type="file" id="fotoEvento" name="fotoEvento" accept="image/jpeg, image/webp, image/png" onchange="previewImage(event)">
 
             <div class="btn-container">
                 <button type="submit" form="editarEventoForm" class="btn">Guardar Cambios</button>
@@ -77,6 +80,25 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             var today = new Date().toISOString().split('T')[0];
             document.getElementById('fechaEvento').setAttribute('min', today);
+        });
+
+        document.getElementById('editarEventoForm').addEventListener('submit', function(event) {
+            const form = event.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let allFieldsFilled = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (!allFieldsFilled) {
+                event.preventDefault();
+                const errorMessage = document.querySelector('.error-message');
+                errorMessage.textContent = 'Todos los campos son obligatorios.';
+                errorMessage.style.display = 'block';
+            }
         });
     </script>
 </body>

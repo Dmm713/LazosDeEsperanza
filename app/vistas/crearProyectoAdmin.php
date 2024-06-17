@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -32,8 +36,11 @@
     </header>
      
     <div class="form-container">
+        <?php if (!empty($error)): ?>
+            <div class="error-message"><?= $error ?></div>
+        <?php endif; ?>
         <div id="preview"></div>
-        <form action="index.php?accion=crearProyectoAdmin" method="post" enctype="multipart/form-data">
+        <form id="crearProyectoForm" action="index.php?accion=crearProyectoAdmin" method="post" enctype="multipart/form-data">
             <label for="idOrganizacion">Organización:</label>
             <select id="idOrganizacion" name="idOrganizacion" required>
                 <option value="">Selecciona una organización</option>
@@ -45,7 +52,7 @@
             </select><br><br>
 
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required><br><br>
+            <input type="text" id="titulo" name="titulo" ><br><br>
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required></textarea><br><br>
@@ -60,7 +67,7 @@
             <input type="number" id="objetivoFinanciero" name="objetivoFinanciero" required><br><br>
 
             <label for="fotoProyecto">Foto del Proyecto:</label>
-            <input type="file" id="fotoProyecto" name="fotoProyecto" accept="image/*"><br><br>
+            <input type="file" id="fotoProyecto" name="fotoProyecto" accept="image/jpeg, image/webp, image/png"><br><br>
 
             <div class="btn-container">
                 <button type="submit">Crear Proyecto</button>
@@ -91,6 +98,25 @@
             var today = new Date().toISOString().split('T')[0];
             document.getElementById('fechaInicio').setAttribute('min', today);
             document.getElementById('fechaFin').setAttribute('min', today);
+        });
+
+        document.getElementById('crearProyectoForm').addEventListener('submit', function(event) {
+            const form = event.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            let allFieldsFilled = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (!allFieldsFilled) {
+                event.preventDefault();
+                const errorMessage = document.querySelector('.error-message');
+                errorMessage.textContent = 'Todos los campos son obligatorios.';
+                errorMessage.style.display = 'block';
+            }
         });
     </script>
 </body>

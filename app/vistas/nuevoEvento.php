@@ -33,9 +33,9 @@
      
     <div class="form-container">
         <div id="preview"></div>
-        <form action="index.php?accion=crearEvento" method="post" enctype="multipart/form-data">
+        <form id="crearEventoForm" action="index.php?accion=crearEvento" method="post" enctype="multipart/form-data">
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required><br><br>
+            <input type="text" id="titulo" name="titulo" ><br><br>
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" required></textarea><br><br>
@@ -47,7 +47,7 @@
             <input type="text" id="ubicacion" name="ubicacion" required><br><br>
 
             <label for="fotoEvento">Foto del Evento:</label>
-            <input type="file" id="fotoEvento" name="fotoEvento" accept="image/*"><br><br>
+            <input type="file" id="fotoEvento" name="fotoEvento" accept="image/jpeg, image/webp, image/png"><br><br>
 
             <button type="submit">Crear Evento</button>
         </form>
@@ -70,10 +70,27 @@
             }
         });
     
-         // Establecer la fecha mínima en el campo de fecha
-         document.addEventListener('DOMContentLoaded', (event) => {
+        // Establecer la fecha mínima en el campo de fecha
+        document.addEventListener('DOMContentLoaded', (event) => {
             var today = new Date().toISOString().split('T')[0];
             document.getElementById('fechaEvento').setAttribute('min', today);
+        });
+
+        document.getElementById('crearEventoForm').addEventListener('submit', function(event) {
+            const form = event.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let allFieldsFilled = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (!allFieldsFilled) {
+                event.preventDefault();
+                alert('Todos los campos son obligatorios.');
+            }
         });
     </script>
 </body>

@@ -20,7 +20,7 @@
                 <form action="index.php?accion=registrar" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" placeholder="Escriba su nombre" required>
+                    <input type="text" name="nombre" placeholder="Escriba su nombre">
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" name="apellidos" placeholder="Escriba sus apellidos" required>
                     <label for="direccion">Direccion:</label>
@@ -48,7 +48,7 @@
                 <form action="index.php?accion=registrarOrganizacion" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accessibility" value="<?php echo $_SESSION['accessibility'] ?>">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" placeholder="Escriba su nombre" required>
+                    <input type="text" name="nombre" placeholder="Escriba su nombre" >
                     <label for="descripcion">Descripción:</label>
                     <input type="text" name="descripcion" placeholder="Escriba su descripción" required>
                     <label for="sitioWeb">Sitio Web: (https://www.ejemplo.com)</label>

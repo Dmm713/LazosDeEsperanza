@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +25,6 @@
                 <div class="title-container">
                     <h1>Crear Nuevo Testimonio</h1>
                 </div>
-               
                 <div class="new-user-container">
                     <a href="index.php?accion=verTodosLosTestimoniosAdmin" class="btn btn-primary" style="margin-right: 80px;"><i class="fa-solid fa-left-long"></i></a>
                 </div>
@@ -30,8 +33,11 @@
     </header>
      
     <div class="form-container">
+        <?php if (!empty($error)): ?>
+            <div class="error-message"><?= $error ?></div>
+        <?php endif; ?>
         <div id="preview"></div>
-        <form action="index.php?accion=crearTestimonioAdmin" method="post" enctype="multipart/form-data">
+        <form id="crearTestimonioForm" action="index.php?accion=crearTestimonioAdmin" method="post" enctype="multipart/form-data">
             <label for="idOrganizacion">Organización:</label>
             <select id="idOrganizacion" name="idOrganizacion" required>
                 <option value="">Selecciona una organización</option>
@@ -43,16 +49,16 @@
             </select><br><br>
 
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required><br><br>
+            <input type="text" id="nombre" name="nombre" ><br><br>
 
             <label for="apellidos">Apellidos:</label>
             <input type="text" id="apellidos" name="apellidos" required><br><br>
 
             <label for="problema">Problema:</label>
-            <textarea id="problema" name="problema" required></textarea><br><br>
+            <textarea id="problema" name="problema" maxlength="500" required></textarea><br><br>
 
             <label for="solucion">Solución:</label>
-            <textarea id="solucion" name="solucion" required></textarea><br><br>
+            <textarea id="solucion" name="solucion" maxlength="500" required></textarea><br><br>
 
             <label for="foto">Foto del Testimonio:</label>
             <input type="file" id="foto" name="foto" accept="image/*"><br><br>
@@ -80,6 +86,25 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        document.getElementById('crearTestimonioForm').addEventListener('submit', function(event) {
+            const form = event.target;
+            const problema = document.getElementById('problema').value;
+            const solucion = document.getElementById('solucion').value;
+            let errorMessage = '';
+
+            if (problema.length > 500 || solucion.length > 500) {
+                errorMessage = 'El campo "problema" y "solución" no deben exceder los 500 caracteres.';
+            }
+
+            if (errorMessage) {
+                event.preventDefault();
+                const errorDiv = document.querySelector('.error-message');
+                errorDiv.textContent = errorMessage;
+                errorDiv.style.display = 'block';
+            }
+        });
     </script>
 </body>
+
 </html>

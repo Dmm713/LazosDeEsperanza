@@ -1,10 +1,19 @@
 <?php 
-
+ 
 Class ControladorUsuarios {
     public function registrar() {
         $error = '';
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $requiredFields = ['email', 'password', 'nombre', 'apellidos', 'direccion', 'ciego', 'rol'];
+            foreach ($requiredFields as $field) {
+                if (empty($_POST[$field])) {
+                    $error = 'Todos los campos son obligatorios.';
+                    require 'app/vistas/registrar.php';
+                    return;
+                }
+            }
+    
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
             $foto = '';
@@ -13,10 +22,10 @@ Class ControladorUsuarios {
             $direccion = htmlentities($_POST['direccion']);
             $ciego = htmlentities($_POST['ciego']);
             $rol = htmlentities($_POST['rol']);
-
+    
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
-
+    
             $usuariosDAO = new UsuariosDAO($conn);
             if ($usuariosDAO->getByEmail($email) != null) {
                 $error = "Ya hay un usuario con ese email";
@@ -46,7 +55,7 @@ Class ControladorUsuarios {
                     $usuario->setRol($rol);
                     $usuario->setFoto($foto);
                     $usuario->setSid(sha1(rand() + time()), true);
-
+    
                     if ($usuariosDAO->insert($usuario)) {
                         header('location: index.php?accion=paginaPrincipal&accessibility=' . $_SESSION['accessibility']);
                         die();

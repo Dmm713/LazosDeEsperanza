@@ -119,38 +119,38 @@ class UsuariosDAO {
     }
 
     public function getUsuarioById($idUsuario): ?Usuario {
-        // Preparar la consulta SQL
+        
         $sql = "SELECT * FROM usuarios WHERE idUsuario = ?";
         
         try {
-            // Preparar la declaración
+       
             if (!$stmt = $this->conn->prepare($sql)) {
                 throw new Exception("Error en la SQL: " . $this->conn->error);
             }
     
-            // Asociar las variables a los parámetros
+        
             $stmt->bind_param('i', $idUsuario);
     
-            // Ejecutar la consulta
+
             $stmt->execute();
     
-            // Obtener el resultado
+      
             $result = $stmt->get_result();
     
-            // Verificar si hay algún resultado
+         
             if ($result->num_rows >= 1) {
-                // Devolver un objeto de la clase Usuario
+             
                 return $result->fetch_object(Usuario::class);
             } else {
-                // Si no se encuentran resultados, devolver null
+             
                 return null;
             }
         } catch (Exception $e) {
-            // Manejar excepciones y mostrar un mensaje de error
+          
             echo "Se ha producido un error: " . $e->getMessage();
             return null;
         } finally {
-            // Cerrar la declaración
+            
             if (isset($stmt)) {
                 $stmt->close();
             }

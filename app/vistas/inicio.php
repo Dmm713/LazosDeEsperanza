@@ -72,7 +72,7 @@
 
       var elementos = document.querySelectorAll(".parrafo");
 
-      // Función para agregar eventos de mouse y teclado
+      
       function agregarEventos(elemento) {
         elemento.addEventListener("mouseover", function (event) {
           hablarTexto(event.target.innerText);
@@ -82,7 +82,7 @@
           detenerTexto();
         });
 
-        // Agregando eventos de foco para la navegación por teclado
+   
         elemento.addEventListener("focus", function (event) {
           hablarTexto(event.target.innerText);
         });
@@ -92,7 +92,7 @@
         });
       }
 
-      // Recorriendo cada elemento para agregar los eventos
+    
       elementos.forEach(agregarEventos);
 
       function hablarTexto(texto) {

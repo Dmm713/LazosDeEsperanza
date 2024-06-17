@@ -24,7 +24,7 @@
                     </div>
                     <input type="hidden" name="fotoTemporal" id="fotoTemporal" value="">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" value="<?= $organizacion->getNombre() ?>" required>
+                    <input type="text" name="nombre" value="<?= $organizacion->getNombre() ?>" >
                     <label for="descripcion">Descripción:</label>
                     <input type="text" name="descripcion" value="<?= $organizacion->getDescripcion() ?>" required>
                     <label for="sitioWeb">Sitio Web:</label>
