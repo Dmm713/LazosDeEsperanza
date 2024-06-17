@@ -784,12 +784,7 @@ class ControladorOrganizaciones
     public function crearEventoAdmin()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Verificar si el idOrganizacion está en la sesión
-            if (!isset($_SESSION['idOrganizacion'])) {
-                echo "ID de organización no encontrado en la sesión.";
-                return;
-            }
-    
+            
             // Conectar a la base de datos
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();

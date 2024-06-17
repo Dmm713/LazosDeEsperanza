@@ -67,7 +67,7 @@
                     <label for="rol">Rol:</label>
                     <input type="text" name="rol" value="Organización" readonly>
 
-                    <input type="submit" value="Registrar" tabindex="0">
+                    <input type="submit" value="Crear Organización" tabindex="0">
                 </form>
             </div>
         </div>

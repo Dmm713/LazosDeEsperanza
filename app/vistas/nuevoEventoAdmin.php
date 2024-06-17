@@ -30,7 +30,7 @@
             </div>
         </div>
     </header>
-     
+      
     <div class="form-container">
         <div id="preview"></div>
         <form action="index.php?accion=crearEventoAdmin" method="post" enctype="multipart/form-data">
