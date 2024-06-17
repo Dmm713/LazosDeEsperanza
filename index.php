@@ -234,8 +234,6 @@ $mapa = array(
                     'privada' => false
                     ),
                                 
-                        
-                                
                                           
 );
 

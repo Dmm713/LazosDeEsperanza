@@ -65,15 +65,15 @@ class ControladorDonaciones {
         
         $idUsuario = $_SESSION['idUsuario'];
         
-        // Conectar a la base de datos
+
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         
-        // Obtener la lista de donaciones del usuario con detalles del proyecto
+
         $donacionesDAO = new DonacionesDAO($conn);
         $donaciones = $donacionesDAO->getDonacionesByUsuarioWithProjectDetails($idUsuario);
         
-        // Incluir la vista y pasar las donaciones
+        
         require 'app/vistas/misDonaciones.php';
     }
 
@@ -85,21 +85,19 @@ class ControladorDonaciones {
 
         $idOrganizacion = $_SESSION['idOrganizacion'];
 
-        // Conectar a la base de datos
+        
         $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
-        // Obtener la lista de donaciones de la organización con detalles del proyecto
+       
         $donacionesDAO = new DonacionesDAO($conn);
         $donaciones = $donacionesDAO->getDonacionesByOrganizacionWithProjectDetails($idOrganizacion);
 
-        // Calcular el total de dinero recaudado
         $totalRecaudado = 0;
         foreach ($donaciones as $donacion) {
             $totalRecaudado += $donacion['cantidad'];
         }
 
-        // Incluir la vista y pasar las donaciones y el total recaudado
         require 'app/vistas/donacionesOrganizacion.php';
     }
 
@@ -113,11 +111,11 @@ class ControladorDonaciones {
         if (isset($_GET['idDonacion'])) {
             $idDonacion = $_GET['idDonacion'];
 
-            // Conectar a la base de datos
+       
             $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
-            // Eliminar la donación
+
             $donacionesDAO = new DonacionesDAO($conn);
             if ($donacionesDAO->delete($idDonacion)) {
                 $_SESSION['message'] = "Donación eliminada correctamente.";

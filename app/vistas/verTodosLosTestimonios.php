@@ -69,6 +69,56 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const accessibility = "<?php echo $_SESSION['accessibility'] ?>"
+                console.log(accessibility)
+                if (accessibility === 'yes') {
+                    var elementos = document.querySelectorAll('h1, h5, h3, h2, p, a, button , label, input, strong, ul, li, textarea');
+
+                    function agregarEventos(elemento) {
+                        elemento.addEventListener("mouseover", function(event) {
+                            hablarTexto(event.target.innerText);
+                        });
+
+                        elemento.addEventListener("mouseout", function() {
+                            detenerTexto();
+                        });
+
+                        elemento.addEventListener("focus", function(event) {
+                            hablarTexto(event.target.innerText);
+                        });
+
+                        elemento.addEventListener("blur", function() {
+                            detenerTexto();
+                        });
+                    }
+
+                    elementos.forEach(agregarEventos);
+
+                    function hablarTexto(texto) {
+                        var voz = new SpeechSynthesisUtterance();
+                        voz.text = texto;
+                        window.speechSynthesis.speak(voz);
+                    }
+
+                    function detenerTexto() {
+                        window.speechSynthesis.cancel();
+                    }
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const accessibility = urlParams.get('accessibility');
+                const registerLink = document.getElementById('linkRegistrar');
+
+                if (accessibility) {
+                    registerLink.href += '&accessibility=' + accessibility;
+                }
+            });
+        </script>
 </body>
 
 </html>
